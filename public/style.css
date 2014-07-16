@@ -1,0 +1,80 @@
+.proposal {
+  background: rgb(236, 236, 236);
+  width: 31%;
+  min-width: 272px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px 13px 5px 0;
+  box-shadow: 5px 5px 5px -2px #ddd;
+}
+
+.proposal:hover {
+  background: rgb(223, 223, 223);
+}
+
+.proposal .title {
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#article .proposal a:visited, #article .proposal a {
+  color: rgb(94, 94, 94);
+  text-decoration: none;
+  width: 100%;
+  display: inline-block;
+}
+
+#article .proposal .title {
+  padding: 0px 5px;
+}
+
+#article .proposal .title a {
+  padding: 8px 0px;
+}
+
+.proposal .content {
+  padding: 5px;
+  color: rgb(83, 83, 83);
+}
+
+.proposal .abstract {
+  padding-top: 8px;
+}
+
+.proposal .info {
+  float: left;
+}
+
+.proposal .info .comments {
+  background: url('/plugins/proposals_discussion/images/comments.gif') no-repeat left/15px;
+  padding-left: 18px;
+  display: inline;
+  font-size: 10px;
+  color: rgb(82, 82, 82);
+  opacity: 0.6;
+}
+
+.proposal .actions {
+  float: right;
+}
+
+.proposal .actions .vote-actions {
+  position: static;
+}
+
+.proposal .actions .vote-actions .vote-action a {
+  opacity: 0.6;
+}
+
+form .proposals-discussion-plugin textarea {
+  width: 98%;
+}
+
+form .proposals-discussion-plugin .abstract textarea {
+  height: 60px;
+}
+
+form .proposals-discussion-plugin .body textarea {
+  height: 400px;
+}

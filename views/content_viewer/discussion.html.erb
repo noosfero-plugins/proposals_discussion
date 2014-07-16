@@ -1,0 +1,12 @@
+<div class="description">
+  <%= @page.body %>
+</div>
+
+<%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
+  <strong><%= _("New Proposal") %></strong>
+<% end %>
+
+<div class="proposals">
+  <%= render :partial => 'content_viewer/proposal_card', :collection => discussion.children %>
+  <div class="clear"></div>
+</div>

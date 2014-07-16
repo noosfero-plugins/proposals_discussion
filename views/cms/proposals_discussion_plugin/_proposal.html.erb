@@ -1,0 +1,28 @@
+<%= required_fields_message %>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<% title_limit = 70 %>
+<% abstract_limit = 140 %>
+
+<div class="proposals-discussion-plugin">
+  <div class="title">
+    <%= required labelled_form_field _('Title'), limited_text_area(:article, :name, title_limit, 'title_textarea', :rows => 1) %>
+  </div>
+
+  <div class="abstract">
+    <%= required labelled_form_field _('Abstract'), limited_text_area(:article, :abstract, abstract_limit, 'abstract_textarea') %>
+  </div>
+
+  <div class="body">
+    <% editor_type = 'mceEditor' %>
+    <%= labelled_form_field(_('Text'), text_area(:article, :body, :class => editor_type)) %>
+  </div>
+</div>
+
+<script>
+jQuery( document ).ready(function( $ ) {
+  limited_text_area('title_textarea', <%= title_limit %>);
+  limited_text_area('abstract_textarea', <%= abstract_limit %>);
+});
+</script>

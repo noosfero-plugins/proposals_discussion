@@ -1,0 +1,16 @@
+<div class="proposal">
+  <div class="title">
+    <%= link_to proposal_card.name, proposal_card.view_url %>
+  </div>
+  <div class="content">
+    <div class="info">
+      <div class="comments"><%= proposal_card.comments_count %></div>
+    </div>
+    <div class="actions">
+      <%= @plugins.dispatch(:article_header_extra_contents, proposal_card).collect { |content| instance_exec(&content) }.join("") %>
+    </div>
+    <div class="abstract">
+      <%= link_to strip_tags(proposal_card.lead), proposal_card.view_url %>
+    </div>
+  </div>
+</div>

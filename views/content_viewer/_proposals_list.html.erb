@@ -1,4 +1,17 @@
+<script src="/javascripts/plugins/proposals_discussion/jquery.jscroll.min.js" type="text/javascript"></script>
+<script>
+  jQuery(document).ready(function($) {
+    $('.proposals').jscroll({
+      loadingHtml: '<img src="/images/loading.gif" alt="Loading" /> <%= _("Loading...") %>',
+      nextSelector: 'div.more a'
+    });
+    $('.proposals').trigger('scroll.jscroll');
+  });
+</script>
+
 <div class="proposals">
-  <%= render :partial => 'content_viewer/proposal_card', :collection => holder.proposals.includes(:parent, :profile) %>
-  <div class="clear"></div>
+  <div class="more">
+    <img src="/images/loading.gif" alt="Loading" /><%= _("Loading...") %>
+    <%= link_to '', url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier }) %>
+  </div>
 </div>

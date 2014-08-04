@@ -25,8 +25,3 @@
 </div>
 
 <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => @page} %>
-
-<div class="proposals">
-  <%= render :partial => 'content_viewer/proposal_card', :collection => @page.proposals.includes(:parent, :profile) %>
-  <div class="clear"></div>
-</div>

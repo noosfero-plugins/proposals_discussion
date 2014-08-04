@@ -18,19 +18,26 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
       parent_id = context.params[:parent_id]
       parent = parent_id ? context.profile.articles.find(parent_id) : nil
       types << ProposalsDiscussionPlugin::Discussion unless parent
-      types << ProposalsDiscussionPlugin::Proposal if parent.kind_of?(ProposalsDiscussionPlugin::Discussion)
+      types << ProposalsDiscussionPlugin::Topic if parent.kind_of?(ProposalsDiscussionPlugin::Discussion)
+      types << ProposalsDiscussionPlugin::Proposal if parent.kind_of?(ProposalsDiscussionPlugin::Topic)
       types
     else
-      [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Proposal]
+      [ProposalsDiscussionPlugin::Discussion,
+        ProposalsDiscussionPlugin::Topic,
+        ProposalsDiscussionPlugin::Proposal]
     end
   end
 
   def content_remove_new(page)
-    page.kind_of?(ProposalsDiscussionPlugin::Discussion) || page.kind_of?(ProposalsDiscussionPlugin::Proposal)
+    page.kind_of?(ProposalsDiscussionPlugin::Discussion) ||
+      page.kind_of?(ProposalsDiscussionPlugin::Topic) ||
+      page.kind_of?(ProposalsDiscussionPlugin::Proposal)
   end
 
   def content_remove_upload(page)
-    page.kind_of?(ProposalsDiscussionPlugin::Discussion) || page.kind_of?(ProposalsDiscussionPlugin::Proposal)
+    page.kind_of?(ProposalsDiscussionPlugin::Discussion) ||
+      page.kind_of?(ProposalsDiscussionPlugin::Topic) ||
+      page.kind_of?(ProposalsDiscussionPlugin::Proposal)
   end
 
 end

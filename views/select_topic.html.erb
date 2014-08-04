@@ -1,0 +1,37 @@
+<script>
+  jQuery(document).ready(function($){
+    $("#topics").accordion();
+    $('#topics input[type=radio],label').on('click',function(e){e.stopPropagation();});
+    $('#topics h4').click(function(e){
+      e.stopPropagation();
+      $(this).find('input:radio').prop('checked', true);
+    });
+  });
+</script>
+
+<div class="proposals-discussion-plugin select-topic">
+  <h1><%= @discussion.title %></h1>
+  <%= form_for :discussion, :url => {:controller => 'proposals_discussion_plugin_myprofile', :action => 'new_proposal'} do %>
+
+    <h3><%= _('Select topic') %></h3>
+    <div id="topics">
+
+      <% @discussion.children.each do |topic| %>
+        <h4>
+          <%= radio_button_tag('discussion[topic]', topic.id) %>
+          <%= topic.title %>
+        </h4>
+        <div class="content">
+          <%= topic.body %>
+        </div>
+      <% end %>
+
+      <div class="clear"></div>
+    </div>
+
+    <div class="actions">
+      <%= submit_button(:next, _('Next')) %>
+      <%= button :cancel, _('Cancel'), @discussion.view_url %>
+    </div>
+  <% end %>
+</div>

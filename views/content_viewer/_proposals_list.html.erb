@@ -1,0 +1,4 @@
+<div class="proposals">
+  <%= render :partial => 'content_viewer/proposal_card', :collection => holder.proposals.includes(:parent, :profile) %>
+  <div class="clear"></div>
+</div>

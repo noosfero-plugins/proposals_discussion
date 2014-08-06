@@ -9,7 +9,16 @@
   });
 </script>
 
+<% private_proposals = @page.proposals.private(user)%>
+<% unless private_proposals.empty? %>
+<div class="private-proposals">
+  <h5><%= _('My private proposals') %></h5>
+  <%= render :partial => 'content_viewer/proposal_card', :collection => private_proposals %>
+</div>
+<% end %>
+
 <div class="proposals">
+  <h5><%= _('Proposals') %></h5>
   <div class="more">
     <img src="/images/loading.gif" alt="Loading" /><%= _("Loading...") %>
     <%= link_to '', url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier }) %>

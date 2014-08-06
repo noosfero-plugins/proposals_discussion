@@ -1,8 +1,8 @@
 class ProposalsDiscussionPlugin::Topic < Folder
 
   alias :discussion :parent
-  alias :proposals :children
 
+  has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :foreign_key => 'parent_id'
   has_many :proposals_comments, :class_name => 'Comment', :through => :children, :source => :comments
   has_many :proposals_authors, :class_name => 'Person', :through => :children, :source => :created_by
 

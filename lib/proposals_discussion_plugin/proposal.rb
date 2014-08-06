@@ -1,5 +1,7 @@
 class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
+  scope :private, lambda {|user| {:conditions => {:last_changed_by_id => user.id, :published => false}}}
+
   alias :topic :parent
 
   def self.short_description
@@ -17,6 +19,10 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
     proc do
       render :file => 'content_viewer/proposal'
     end
+  end
+
+  def allow_edit?(user)
+    super || created_by == user
   end
 
 end

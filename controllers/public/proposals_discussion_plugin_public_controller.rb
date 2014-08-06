@@ -9,7 +9,7 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
     page = (params[:page] || 1).to_i
 
     set_seed
-    proposals = holder.proposals.includes(:parent, :profile).reorder('random()')
+    proposals = holder.proposals.public.reorder('random()')
     proposals = proposals.page(page).per_page(5)
 
     unless proposals.empty?

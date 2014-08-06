@@ -1,7 +1,6 @@
 class ProposalsDiscussionPlugin::Discussion < Folder
 
-  alias :topics :children
-
+  has_many :topics, :class_name => 'ProposalsDiscussionPlugin::Topic', :foreign_key => 'parent_id'
   has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
 
   def self.short_description

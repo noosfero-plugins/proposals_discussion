@@ -1,5 +1,8 @@
 .private-proposals .proposal {
-  background: rgb(249, 252, 193);
+  background: url(/images/hachure.png);
+  opacity: 0.5;
+  filter: alpha(opacity=25);
+  zoom: 1;
 }
 
 .proposal {
@@ -10,7 +13,6 @@
   vertical-align: top;
   margin: 12px 13px 12px 0;
   box-shadow: 5px 5px 5px -2px #ddd;
-  padding: 5px;
 }
 
 .article-body-proposals-discussion-plugin_discussion .actions,
@@ -22,11 +24,12 @@
   display: table-cell;
   border-right: 1px solid;
   border-color: rgb(201, 201, 201);
+  padding: 5px;
 }
 .proposal .topic {
   border-right: 0;
   text-align: center;
-  width: 30%;
+  width: 24%;
 }
 .proposal .score {
   width: 8%;
@@ -50,16 +53,16 @@
 }
 
 #article .proposal .title a {
-  padding: 8px 0px;
+  padding: 4px 0px;
 }
 
 .proposal .content {
-  width: 60%;
+  width: 68%;
   color: rgb(83, 83, 83);
 }
 
 .proposal .abstract {
-  padding-top: 8px;
+  padding-top: 4px;
 }
 
 form .proposals-discussion-plugin textarea {

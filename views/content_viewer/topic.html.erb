@@ -24,4 +24,10 @@
   </span>
 </div>
 
+<div class="actions">
+  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
+    <strong><%= _("Send my proposal") %></strong>
+  <% end %>
+</div>
+
 <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => @page} %>

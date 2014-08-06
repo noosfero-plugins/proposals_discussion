@@ -24,4 +24,8 @@ class ProposalsDiscussionPlugin::Topic < Folder
     end
   end
 
+  def allow_create?(user)
+    true
+  end
+
 end

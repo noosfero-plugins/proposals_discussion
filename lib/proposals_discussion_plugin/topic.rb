@@ -6,6 +6,10 @@ class ProposalsDiscussionPlugin::Topic < Folder
   has_many :proposals_comments, :class_name => 'Comment', :through => :children, :source => :comments
   has_many :proposals_authors, :class_name => 'Person', :through => :children, :source => :created_by
 
+  settings_items :color, :type => :string
+
+  attr_accessible :color
+
   def self.short_description
     _("Discussion topic")
   end

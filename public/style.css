@@ -9,10 +9,10 @@
   background: rgb(236, 236, 236);
   width: 100%;
   min-width: 272px;
-  display: table;
   vertical-align: top;
   margin: 12px 13px 12px 0;
   box-shadow: 5px 5px 5px -2px #ddd;
+  height: 100px;
 }
 
 .article-body-proposals-discussion-plugin_discussion .actions,
@@ -25,6 +25,8 @@
   border-right: 1px solid;
   border-color: rgb(201, 201, 201);
   padding: 5px;
+  vertical-align: middle;
+  height: 100%;
 }
 .proposal .topic {
   border-right: 0;
@@ -46,7 +48,7 @@
 }
 
 #article .proposal a:visited, #article .proposal a {
-  color: rgb(94, 94, 94);
+  color: rgb(70, 70, 70);
   text-decoration: none;
   width: 100%;
   display: inline-block;
@@ -59,6 +61,8 @@
 .proposal .content {
   width: 68%;
   color: rgb(83, 83, 83);
+  vertical-align: top;
+  height: 90px;
 }
 
 .proposal .abstract {
@@ -75,4 +79,33 @@ form .proposals-discussion-plugin .abstract textarea {
 
 form .proposals-discussion-plugin .body textarea {
   height: 400px;
+}
+
+.topic-color {
+  width: 9px;
+  float: left;
+  height: 100%;
+}
+
+.topics .topic {
+  background-color: rgb(233, 233, 233);
+  margin: 5px 0;
+  height: 25px;
+}
+
+#article .proposal .topic a {
+  font-weight: bold;
+  color: #888a85;
+  width: 100%;
+  height: 100%;
+}
+
+#article .topics .topic a {
+  text-decoration: none;
+  display: inline-block;
+  width: 95%;
+  height: 100%;
+  padding-left: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }

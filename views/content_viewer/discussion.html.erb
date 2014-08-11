@@ -13,9 +13,11 @@
 <div class="topics">
   <h3><%= _('Discussion Topics') %></h3>
   <% @page.topics.includes(:profile).each do |topic| %>
-    <div class="topic"><%= link_to topic.title, topic.view_url %></div>
+    <div class="topic">
+      <div class="topic-color" style="background-color: <%= topic.color %>;"></div>
+      <%= link_to topic.title, topic.view_url %>
+    </div>
   <% end %>
-  <div class="clear"></div>
 </div>
 
 <div class="actions">

@@ -11,4 +11,21 @@ jQuery(document).ready(function($) {
     }).on('mouseleave', '.proposal', function() {
       $(this).find('.social').hide("fast");
   });
+
+  function proposalsScroll() {
+    $('.proposals').data('jscroll', null);
+    $('.proposals').jscroll({
+      loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
+      nextSelector: 'div.more a'
+    });
+    $('.proposals').trigger('scroll.jscroll');
+  }
+  proposalsScroll();
+
+  $('.proposals_list .filters a.order').on('ajax:success', function(event, data, status, xhr) {
+    $('.proposals_list .filters a.order').removeClass('selected');
+    $(this).addClass('selected');
+    $(this).parents('div.proposals_list').find('.proposals').html(data);
+    proposalsScroll();
+  });
 });

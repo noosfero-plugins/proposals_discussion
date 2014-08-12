@@ -17,7 +17,7 @@ class ProposalsDiscussionPluginMyprofileController < MyProfileController
     else
       session[:notice] = _('Failed to publish your proposal.')
     end
-    redirect_to @proposal.view_url
+    redirect_to @proposal.topic.view_url
   end
 
   protected

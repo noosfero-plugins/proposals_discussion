@@ -18,8 +18,9 @@
       proposalsScroll();
     });
   });
-
 </script>
+
+<% extend ProposalsDiscussionPlugin::ProposalsListHelper %>
 
 <% private_proposals = user ? @page.proposals.private(user) : [] %>
 <% unless private_proposals.empty? %>
@@ -33,8 +34,8 @@
 <div class="proposals_list">
   <h5><%= _('Proposals') %></h5>
   <div class="filters">
-    <% [[_('Random'), :random], [_('Aplhabetical'), :alphabetical]].each do |order| %>
-      <%= link_to order.first, url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order.second}), :remote => true, :class => 'order' %>
+    <% [[_('Random'), :random], [_('Aplhabetical'), :alphabetical]].each_with_index do |order, i| %>
+      <%= link_to order.first, url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order.second}), :remote => true, :class => "order #{order.second} #{i==0 ? 'selected':''}" %>
     <% end %>
   </div>
   <div class="clear"></div>
@@ -42,7 +43,7 @@
   <div class="proposals">
     <div class="more">
       <img src="/images/loading.gif" alt="Loading" /><%= _("Loading...") %>
-      <%= link_to '', url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order }) %>
+      <%= more_proposals('', holder, order) %>
     </div>
   </div>
 </div>

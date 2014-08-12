@@ -109,3 +109,15 @@ form .proposals-discussion-plugin .body textarea {
   font-weight: bold;
   font-size: 14px;
 }
+
+.proposals_list .filters {
+  float: right;
+}
+#article .proposals_list .filters a {
+  text-decoration: none;
+  border-left: 1px solid rgb(185, 185, 185);
+  padding: 0 5px;
+}
+.proposals_list .filters a.selected {
+  font-weight: bold;
+}

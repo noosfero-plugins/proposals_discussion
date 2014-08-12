@@ -1,5 +1,5 @@
 <%= render :partial => 'content_viewer/proposal_card', :collection => proposals %>
 
 <div class="more">
-  <%= link_to _('More'), url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :page => page }) %>
+  <%= link_to _('More'), url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :page => page, :order => order }) %>
 </div>

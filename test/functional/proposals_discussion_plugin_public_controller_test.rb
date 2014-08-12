@@ -27,4 +27,12 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
     assert_equal '', response.body
   end
 
+  should 'load proposals with alphabetical order' do
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abc proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abd proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    get :load_proposals, :profile => profile.identifier, :holder_id => discussion.id, :order => 'alphabetical'
+    assert_equal [proposal2, proposal3, proposal1], assigns(:proposals)
+  end
+
 end

@@ -1,12 +1,24 @@
 <script src="/javascripts/plugins/proposals_discussion/jquery.jscroll.min.js" type="text/javascript"></script>
 <script>
   jQuery(document).ready(function($) {
-    $('.proposals').jscroll({
-      loadingHtml: '<img src="/images/loading.gif" alt="Loading" /> <%= _("Loading...") %>',
-      nextSelector: 'div.more a'
+    function proposalsScroll() {
+      $('.proposals').data('jscroll', null);
+      $('.proposals').jscroll({
+        loadingHtml: '<img src="/images/loading.gif" alt="Loading" /> <%= _("Loading...") %>',
+        nextSelector: 'div.more a'
+      });
+      $('.proposals').trigger('scroll.jscroll');
+    }
+    proposalsScroll();
+
+    $('.proposals_list .filters a.order').on('ajax:success', function(event, data, status, xhr) {
+      $('.proposals_list .filters a.order').removeClass('selected');
+      $(this).addClass('selected');
+      $(this).parents('div.proposals_list').find('.proposals').html(data);
+      proposalsScroll();
     });
-    $('.proposals').trigger('scroll.jscroll');
   });
+
 </script>
 
 <% private_proposals = user ? @page.proposals.private(user) : [] %>
@@ -17,10 +29,20 @@
 </div>
 <% end %>
 
-<h5><%= _('Proposals') %></h5>
-<div class="proposals">
-  <div class="more">
-    <img src="/images/loading.gif" alt="Loading" /><%= _("Loading...") %>
-    <%= link_to '', url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier }) %>
+<% order ||= 'random' %>
+<div class="proposals_list">
+  <h5><%= _('Proposals') %></h5>
+  <div class="filters">
+    <% [[_('Random'), :random], [_('Aplhabetical'), :alphabetical]].each do |order| %>
+      <%= link_to order.first, url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order.second}), :remote => true, :class => 'order' %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+
+  <div class="proposals">
+    <div class="more">
+      <img src="/images/loading.gif" alt="Loading" /><%= _("Loading...") %>
+      <%= link_to '', url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order }) %>
+    </div>
   </div>
 </div>

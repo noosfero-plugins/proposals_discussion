@@ -24,7 +24,7 @@ class ProposalsDiscussionPlugin::Topic < Folder
 
   def to_html(options = {})
     proc do
-      render :file => 'content_viewer/topic'
+      render :file => 'content_viewer/topic', :locals => {:topic => @page}
     end
   end
 

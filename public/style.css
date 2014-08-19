@@ -6,13 +6,10 @@
 }
 
 .proposal {
-  background: rgb(236, 236, 236);
   width: 100%;
   min-width: 272px;
   vertical-align: top;
   margin: 12px 13px 12px 0;
-  box-shadow: 5px 5px 5px -2px #ddd;
-  height: 100px;
 }
 
 .article-body-proposals-discussion-plugin_discussion .actions,
@@ -21,8 +18,7 @@
 }
 
 .proposal .content, .proposal .score, .proposal .topic {
-  display: table-cell;
-  border-right: 1px solid;
+  display: inline-block;
   border-color: rgb(201, 201, 201);
   padding: 5px;
   vertical-align: middle;
@@ -34,17 +30,17 @@
   width: 24%;
 }
 .proposal .score {
-  width: 8%;
+  width: 5%;
   text-align: center;
 }
 
 .proposal .content:hover, .proposal .topic:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgb(230, 230, 230);
 }
 
 .proposal .title {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 #article .proposal a:visited, #article .proposal a {
@@ -54,19 +50,11 @@
   display: inline-block;
 }
 
-#article .proposal .title a {
-  padding: 4px 0px;
-}
-
 .proposal .content {
-  width: 68%;
+  width: 84%;
   color: rgb(83, 83, 83);
   vertical-align: top;
-  height: 90px;
-}
-
-.proposal .abstract {
-  padding-top: 4px;
+  position: relative;
 }
 
 form .proposals-discussion-plugin textarea {
@@ -82,9 +70,8 @@ form .proposals-discussion-plugin .body textarea {
 }
 
 .topic-color {
-  width: 9px;
-  float: left;
-  height: 100%;
+  width: 100%;
+  height: 5px;
 }
 
 .topics .topic {
@@ -100,18 +87,9 @@ form .proposals-discussion-plugin .body textarea {
   height: 100%;
 }
 
-#article .topics .topic a {
-  text-decoration: none;
-  display: inline-block;
-  width: 95%;
-  height: 100%;
-  padding-left: 5px;
-  font-weight: bold;
-  font-size: 14px;
-}
-
 .proposals_list .filters {
   float: right;
+  margin-top: 4px;
 }
 #article .proposals_list .filters a {
   text-decoration: none;
@@ -121,4 +99,45 @@ form .proposals-discussion-plugin .body textarea {
 }
 .proposals_list .filters a.selected {
   font-weight: bold;
+}
+#content .proposals_list h5 {
+  float: left;
+  margin: 0;
+}
+.topics .topic-item {
+  width: 48%;
+  float: left;
+  margin: 6px;
+  height: 450px;
+  font-size: 10px;
+  box-shadow: 5px 5px 5px -2px #ddd;
+}
+
+#content .topic-item h2, #article .article-body-proposals-discussion-plugin_topic h2 {
+  background-color: #C4C4C4;
+  margin: 0;
+}
+
+#content .topic-item h2 a, #article .article-body-proposals-discussion-plugin_topic h2 a {
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
+  width: 94%;
+  color: white;
+}
+.topic-item .topic-content, #article .article-body-proposals-discussion-plugin_topic .topic-content {
+  padding: 5px 7px 5px 2px;
+  position: relative;
+  height: 86%;
+  overflow: hidden;
+}
+.topic-content .description {
+  font-size: 11px;
+}
+#article-header > h1 {
+  display: none;
+}
+.proposal .content .social {
+  position: absolute;
+  top: -18px;
 }

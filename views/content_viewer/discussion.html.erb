@@ -1,3 +1,9 @@
+<%= stylesheet_link_tag 'plugins/proposals_discussion/perfect-scrollbar.min.css' %>
+<%= javascript_include_tag 'plugins/proposals_discussion/perfect-scrollbar.min.js' %>
+<%= javascript_include_tag 'plugins/proposals_discussion/perfect-scrollbar.with-mousewheel.min.js' %>
+<%= javascript_include_tag 'plugins/proposals_discussion/jquery.jscroll.min.js' %>
+<%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
+
 <div class="description">
   <%= @page.body %>
 </div>
@@ -10,20 +16,17 @@
 </div>
 <% end %>
 
+<div class="actions">
+  <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
+    <strong><%= _("Send your proposal") %></strong>
+  <% end %>
+</div>
+
 <div class="topics">
-  <h3><%= _('Discussion Topics') %></h3>
   <% @page.topics.includes(:profile).each do |topic| %>
-    <div class="topic">
-      <div class="topic-color" style="background-color: <%= topic.color %>;"></div>
-      <%= link_to topic.title, topic.view_url %>
+    <div class="topic-item" id="topic-<%= topic.id %>">
+      <%= render :file => 'content_viewer/topic', :locals => {:topic => topic, :list_view => true} %>
     </div>
   <% end %>
 </div>
 
-<div class="actions">
-  <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
-    <strong><%= _("Send my proposal") %></strong>
-  <% end %>
-</div>
-
-<%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => @page} %>

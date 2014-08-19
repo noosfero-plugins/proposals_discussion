@@ -1,9 +1,6 @@
-<script src="/javascripts/plugins/proposals_discussion/jquery.jscroll.min.js" type="text/javascript"></script>
-<%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
-
 <% extend ProposalsDiscussionPlugin::ProposalsListHelper %>
 
-<% private_proposals = user ? @page.proposals.private(user) : [] %>
+<% private_proposals = user ? holder.proposals.private(user) : [] %>
 <% unless private_proposals.empty? %>
 <div class="private-proposals">
   <h5><%= _('My private proposals') %></h5>
@@ -13,7 +10,6 @@
 
 <% order ||= 'random' %>
 <div class="proposals_list">
-  <h5><%= _('Proposals') %></h5>
   <div class="filters">
     <% [[_('Random'), :random], [_('Aplhabetical'), :alphabetical]].each_with_index do |order, i| %>
       <%= link_to order.first, url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order.second}), :remote => true, :class => "order #{order.second} #{i==0 ? 'selected':''}" %>

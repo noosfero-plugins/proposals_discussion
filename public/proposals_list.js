@@ -13,19 +13,25 @@ jQuery(document).ready(function($) {
   });
 
   function proposalsScroll() {
+    $('.topic-content').data('jscroll', null);
+    $('.topic-content').jscroll({
+      loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
+      nextSelector: 'div.more a'
+    });
     $('.proposals').data('jscroll', null);
     $('.proposals').jscroll({
       loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
       nextSelector: 'div.more a'
     });
-    $('.proposals').trigger('scroll.jscroll');
   }
-  proposalsScroll();
+  $('.filters .random').click();
 
   $('.proposals_list .filters a.order').on('ajax:success', function(event, data, status, xhr) {
-    $('.proposals_list .filters a.order').removeClass('selected');
+    $(this).parents('div.proposals_list').find('.filters a.order').removeClass('selected');
     $(this).addClass('selected');
     $(this).parents('div.proposals_list').find('.proposals').html(data);
     proposalsScroll();
   });
+
+  $('.topic-content').perfectScrollbar({suppressScrollX: true});
 });

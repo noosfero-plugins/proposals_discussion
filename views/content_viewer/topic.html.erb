@@ -1,33 +1,51 @@
-<div class="description">
-  <%= @page.body %>
-</div>
-<h4><%= @page.discussion.title %></h4>
+<% list_view ||= false %>
 
+<% unless list_view %>
+  <%= javascript_include_tag 'plugins/proposals_discussion/jquery.jscroll.min.js' %>
+  <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
+<% end %>
+
+<div class="topic-color" style="background-color: <%= topic.color %>;"></div>
+<h2><%= link_to topic.title, topic.view_url %></h2>
+
+<div class="topic-content">
+
+<div class="description">
+  <%= topic.body %>
+</div>
+
+<% unless list_view %>
+<h4><%= topic.discussion.title %></h4>
 <div class="proposals-count">
   <span class="label"><%= _('Number of Proposals: ') %></span>
-  <span class="content"><%= @page.proposals.count %></span>
+  <span class="content"><%= topic.proposals.count %></span>
 </div>
 <div class="participants-count">
   <span class="label"><%= _('Number of Participants: ') %></span>
-  <span class="content"><%= @page.proposals_authors.count %></span>
+  <span class="content"><%= topic.proposals_authors.count %></span>
 </div>
 <div class="comments-count">
   <span class="label"><%= _('Number of Comments: ') %></span>
-  <span class="content"><%= @page.proposals_comments.count %></span>
+  <span class="content"><%= topic.proposals_comments.count %></span>
 </div>
 <div class="active-participants">
   <span class="label"><%= _('Most active: ') %></span>
   <span class="content">
-    <% @page.most_active_participants.each do |author| %>
+    <% topic.most_active_participants.each do |author| %>
       <%= link_to profile_image(author, :icon), author.url, :title => author.name %>
     <% end %>
   </span>
 </div>
+<% end %>
 
+<% unless list_view %>
 <div class="actions">
-  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
-    <strong><%= _("Send my proposal") %></strong>
+  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id}), :class => 'button with-text icon-add' do %>
+    <strong><%= _("Send your proposal") %></strong>
   <% end %>
 </div>
+<% end %>
 
-<%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => @page} %>
+<%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => topic} %>
+
+</div>

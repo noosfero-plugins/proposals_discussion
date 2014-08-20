@@ -40,4 +40,8 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
       page.kind_of?(ProposalsDiscussionPlugin::Proposal)
   end
 
+  def js_files
+    ['jquery.jscroll.min.js', 'perfect-scrollbar.min.js', 'perfect-scrollbar.with-mousewheel.min.js']
+  end
+
 end

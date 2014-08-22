@@ -36,4 +36,11 @@ class ProposalsDiscussionPlugin::Topic < Folder
     @max ||= [1, proposals.maximum(:comments_count)].max
   end
 
+  def proposal_tags
+    proposals.tag_counts.inject({}) do |memo,tag|
+      memo[tag.name] = tag.count
+      memo
+    end
+  end
+
 end

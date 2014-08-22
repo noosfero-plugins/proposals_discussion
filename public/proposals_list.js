@@ -13,13 +13,8 @@ jQuery(document).ready(function($) {
   });
 
   function proposalsScroll() {
-    $('.topic-content').data('jscroll', null);
-    $('.topic-content').jscroll({
-      loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
-      nextSelector: 'div.more a'
-    });
-    $('.proposals').data('jscroll', null);
-    $('.proposals').jscroll({
+    $('.article-body-proposals-discussion-plugin_topic .topic-content').data('jscroll', null);
+    $('.article-body-proposals-discussion-plugin_topic .topic-content').jscroll({
       loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
       nextSelector: 'div.more a'
     });

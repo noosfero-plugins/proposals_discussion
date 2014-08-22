@@ -115,6 +115,12 @@ form .proposals-discussion-plugin .body textarea {
   box-shadow: 5px 5px 5px -2px #ddd;
 }
 
+.topics .proposals .more {
+  display: none;
+}
+#content .topics .actions.topic-item {
+  background-color: #EEE;
+}
 #content .topics .actions.topic-item a {
   width: 93%;
   display: inline-block;

@@ -143,12 +143,14 @@ form .proposals-discussion-plugin .body textarea {
   background-color: #7293CF;
 }
 
-#content .topic-item h2, #article .article-body-proposals-discussion-plugin_topic h2 {
+#content .topic-item h2, #article .article-body-proposals-discussion-plugin_topic h2,
+#content .topic h2 {
   background-color: #C4C4C4;
   margin: 0;
 }
 
-#content .topic-item h2 a, #article .article-body-proposals-discussion-plugin_topic h2 a {
+#content .topic-item h2 a, #article .article-body-proposals-discussion-plugin_topic h2 a,
+#content .topic h2 a {
   text-decoration: none;
   padding: 10px;
   display: inline-block;

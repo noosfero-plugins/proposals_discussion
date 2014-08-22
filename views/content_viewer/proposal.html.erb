@@ -1,6 +1,10 @@
+<div class="discussion">
+  <h5><%= @page.topic.discussion.title %> </h5>
+</div>
+
 <div class="topic">
-  <h5><%= _('Discussion Topic') %></h5>
-  <div class="content"><%= @page.topic.title %></div>
+  <div class="topic-color" style="background-color: <%= @page.topic.color %>;"></div>
+  <h2><%= link_to @page.topic.title, @page.topic.view_url %></h2>
 </div>
 
 <div class="title">

@@ -1,6 +1,10 @@
 <div class="proposal">
   <div class="score">
-    <%= proposal_card.normalized_score(@holder) if proposal_card.published? %>
+    <% if proposal_card.published? %>
+      <% normalized_score = proposal_card.normalized_score(@holder) %>
+      <% size = 25 - [5, normalized_score*25].max %>
+      <span title="<%= normalized_score %>" style="left:-<%= size %>px;background-position-x: <%= size %>px">&nbsp;</span>
+    <% end %>
   </div>
   <div class="content">
     <div class="title">

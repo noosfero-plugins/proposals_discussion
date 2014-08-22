@@ -33,6 +33,13 @@
   width: 5%;
   text-align: center;
 }
+.proposal .score span {
+  background: url(/plugins/proposals_discussion/images/score.png) no-repeat;
+  display: inline-block;
+  width: 25px;
+  height: 19px;
+  position: relative;
+}
 
 .proposal .content:hover, .proposal .topic:hover {
   background: rgb(230, 230, 230);

@@ -30,7 +30,7 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
   end
 
   def normalized_score(holder)
-    ((score - holder.min_score)/(holder.max_score - holder.min_score).to_f).round(2)
+    (score/holder.max_score.to_f).round(2)
   end
 
 end

@@ -36,8 +36,4 @@ class ProposalsDiscussionPlugin::Topic < Folder
     @max ||= [1, proposals.maximum(:comments_count)].max
   end
 
-  def min_score
-    @nin ||= proposals.minimum(:comments_count)
-  end
-
 end

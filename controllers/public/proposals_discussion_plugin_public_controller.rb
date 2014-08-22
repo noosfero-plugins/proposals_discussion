@@ -9,7 +9,7 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
     order = params[:order]
 
     @proposals = order_proposals(holder.proposals.public, order)
-    @proposals = @proposals.page(page).per_page(5)
+    @proposals = @proposals.page(page).per_page(4)
 
     unless @proposals.empty?
       render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => holder, :page => page+1, :order => order}

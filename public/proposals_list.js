@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
     $(this).addClass('selected');
     $(this).parents('div.proposals_list').find('.proposals').html(data);
     proposalsScroll();
+    $('.topics').masonry();
   });
-
-  $('.topic-content').perfectScrollbar({suppressScrollX: true});
+  $('.topics').masonry();
 });

@@ -3,7 +3,6 @@
 <% private_proposals = user ? holder.proposals.private(user) : [] %>
 <% unless private_proposals.empty? %>
 <div class="private-proposals">
-  <h5><%= _('My private proposals') %></h5>
   <%= render :partial => 'content_viewer/proposal_card', :collection => private_proposals %>
 </div>
 <% end %>

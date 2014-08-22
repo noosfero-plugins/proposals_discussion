@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag 'plugins/proposals_discussion/perfect-scrollbar.min.css' %>
 <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
 
 <div class="description">
@@ -13,13 +12,13 @@
 </div>
 <% end %>
 
-<div class="actions">
-  <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
-    <strong><%= _("Send your proposal") %></strong>
-  <% end %>
-</div>
-
-<div class="topics">
+<div class="topics js-masonry" data-masonry-options='{ "itemSelector": ".topic-item", "columnWidth": 200 }'>
+  <div class="actions topic-item">
+    <div class="topic-color"></div>
+    <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => @page.id}), :class => 'button with-text icon-add' do %>
+      <strong><%= _("Send your proposal!") %></strong>
+    <% end %>
+  </div>
   <% @page.topics.includes(:profile).each do |topic| %>
     <div class="topic-item" id="topic-<%= topic.id %>">
       <%= render :file => 'content_viewer/topic', :locals => {:topic => topic, :list_view => true} %>

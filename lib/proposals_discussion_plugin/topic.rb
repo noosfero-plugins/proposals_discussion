@@ -32,4 +32,12 @@ class ProposalsDiscussionPlugin::Topic < Folder
     true
   end
 
+  def max_score
+    @max ||= [1, proposals.maximum(:comments_count)].max
+  end
+
+  def min_score
+    @nin ||= proposals.minimum(:comments_count)
+  end
+
 end

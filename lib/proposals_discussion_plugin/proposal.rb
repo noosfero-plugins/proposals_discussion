@@ -25,4 +25,12 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
     super || created_by == user
   end
 
+  def score
+    comments_count
+  end
+
+  def normalized_score(holder)
+    ((score - holder.min_score)/(holder.max_score - holder.min_score).to_f).round(2)
+  end
+
 end

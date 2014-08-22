@@ -1,6 +1,6 @@
 <div class="proposal">
   <div class="score">
-    <%= proposal_card.comments_count %>
+    <%= proposal_card.normalized_score(@holder) if proposal_card.published? %>
   </div>
   <div class="content">
     <div class="title">

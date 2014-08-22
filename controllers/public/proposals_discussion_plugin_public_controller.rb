@@ -3,16 +3,16 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
   needs_profile
 
   def load_proposals
-    holder = profile.articles.find(params[:holder_id])
+    @holder = profile.articles.find(params[:holder_id])
     page = (params[:page] || 1).to_i
     set_rand_cookie if page == 1
     order = params[:order]
 
-    @proposals = order_proposals(holder.proposals.public, order)
+    @proposals = order_proposals(@holder.proposals.public, order)
     @proposals = @proposals.page(page).per_page(4)
 
     unless @proposals.empty?
-      render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => holder, :page => page+1, :order => order}
+      render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => @holder, :page => page+1, :order => order}
     else
       render :text => ''
     end

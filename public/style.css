@@ -169,6 +169,7 @@ form .proposals-discussion-plugin .body textarea {
 .proposal .content .social {
   position: absolute;
   top: -18px;
+  display: none;
 }
 
 #content .tag_cloud a {
@@ -184,4 +185,9 @@ form .proposals-discussion-plugin .body textarea {
   box-shadow: 5px 5px 5px -2px #ddd;
   background-color: rgb(248, 248, 248);
   min-height: 50px;
+}
+
+.graph #proposals-time {
+  height: 150px;
+  width: 300px;
 }

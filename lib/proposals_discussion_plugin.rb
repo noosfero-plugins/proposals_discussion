@@ -41,7 +41,7 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['jquery.jscroll.min.js', 'jquery.masonry.min.js']
+    ['jquery.jscroll.min.js', 'jquery.masonry.min.js', 'flotr2.min.js']
   end
 
 end

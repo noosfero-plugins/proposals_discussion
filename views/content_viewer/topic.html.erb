@@ -40,6 +40,15 @@
 <div class="tag_cloud">
   <%= tag_cloud(topic.proposal_tags, :tag, {:action => :tag, :controller => 'search'}, :max_size => 18, :min_size => 10) %>
 </div>
+
+<% cache_timeout(topic.cache_key, 1.hours) do %>
+  <div class="graph">
+    <div id="proposals-time"></div>
+  </div>
+  <%= javascript_include_tag 'plugins/proposals_discussion/proposals_graph.js' %>
+  <script>load_proposals_graph('<%= topic.proposals_per_day.to_json %>', '<%= topic.comments_per_day.to_json %>', '<%= _('Proposals') %>', '<%= _('Comments') %>')</script>
+<% end %>
+
 <% end %>
 
 <% unless list_view %>

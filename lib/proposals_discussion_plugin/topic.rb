@@ -43,4 +43,12 @@ class ProposalsDiscussionPlugin::Topic < Folder
     end
   end
 
+  def proposals_per_day
+    proposals.group("date(created_at)").count
+  end
+
+  def comments_per_day
+    proposals.joins(:comments).group('date(comments.created_at)').count('comments.id')
+  end
+
 end

@@ -1,5 +1,7 @@
 <% extend ProposalsDiscussionPlugin::ProposalsListHelper %>
 
+<div id="fb-root"></div>
+
 <% private_proposals = user ? holder.proposals.private(user) : [] %>
 <% unless private_proposals.empty? %>
 <div class="private-proposals">

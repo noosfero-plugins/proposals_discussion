@@ -14,49 +14,49 @@
 </div>
 
 <% unless list_view %>
-<h4><%= topic.discussion.title %></h4>
-<div class="statistics">
-  <div class="proposals-count">
-    <span class="label"><%= _('Number of Proposals: ') %></span>
-    <span class="content"><%= topic.proposals.count %></span>
-  </div>
-  <div class="participants-count">
-    <span class="label"><%= _('Number of Participants: ') %></span>
-    <span class="content"><%= topic.proposals_authors.count %></span>
-  </div>
-  <div class="comments-count">
-    <span class="label"><%= _('Number of Comments: ') %></span>
-    <span class="content"><%= topic.proposals_comments.count %></span>
-  </div>
-  <div class="active-participants">
-    <span class="label"><%= _('Most active: ') %></span>
-    <span class="content">
-      <% topic.most_active_participants.each do |author| %>
-        <%= link_to profile_image(author, :icon), author.url, :title => author.name %>
-      <% end %>
-    </span>
-  </div>
-</div>
-<div class="tag_cloud">
-  <%= tag_cloud(topic.proposal_tags, :tag, {:action => :tag, :controller => 'search'}, :max_size => 18, :min_size => 10) %>
-</div>
+  <h4><%= topic.discussion.title %></h4>
 
-<% cache_timeout(topic.cache_key, 1.hours) do %>
-  <div class="graph">
-    <div id="proposals-time"></div>
+  <div class="statistics">
+    <h5><%= _('Statistics') %></h5>
+
+    <div class="graph">
+      <div id="proposals-time"></div>
+    </div>
+    <%= javascript_include_tag 'plugins/proposals_discussion/proposals_graph.js' %>
+    <script>load_proposals_graph('<%= topic.proposals_per_day.to_json %>', '<%= topic.comments_per_day.to_json %>', '<%= _('Proposals') %>', '<%= _('Comments') %>')</script>
+
+    <div class="summary">
+      <div class="proposals-count">
+        <span class="label"><%= _('Number of Proposals: ') %></span>
+        <span class="content"><%= topic.proposals.count %></span>
+      </div>
+      <div class="participants-count">
+        <span class="label"><%= _('Number of Participants: ') %></span>
+        <span class="content"><%= topic.proposals_authors.count %></span>
+      </div>
+      <div class="comments-count">
+        <span class="label"><%= _('Number of Comments: ') %></span>
+        <span class="content"><%= topic.proposals_comments.count %></span>
+      </div>
+      <div class="active-participants">
+        <span class="label"><%= _('Most active: ') %></span>
+        <span class="content">
+          <% topic.most_active_participants.each do |author| %>
+            <%= link_to profile_image(author, :icon), author.url, :title => author.name %>
+          <% end %>
+        </span>
+      </div>
+    </div>
   </div>
-  <%= javascript_include_tag 'plugins/proposals_discussion/proposals_graph.js' %>
-  <script>load_proposals_graph('<%= topic.proposals_per_day.to_json %>', '<%= topic.comments_per_day.to_json %>', '<%= _('Proposals') %>', '<%= _('Comments') %>')</script>
-<% end %>
+  <div class="tag_cloud">
+    <%= tag_cloud(topic.proposal_tags, :tag, {:action => :tag, :controller => 'search'}, :max_size => 18, :min_size => 10) %>
+  </div>
 
-<% end %>
-
-<% unless list_view %>
-<div class="actions">
-  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id}), :class => 'button with-text icon-add' do %>
-    <strong><%= _("Send your proposal") %></strong>
-  <% end %>
-</div>
+  <div class="topic actions">
+    <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id}), :class => 'button with-text icon-add' do %>
+      <strong><%= _("Send your proposal") %></strong>
+    <% end %>
+  </div>
 <% end %>
 
 <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => topic} %>

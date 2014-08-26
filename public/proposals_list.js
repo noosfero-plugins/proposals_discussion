@@ -1,15 +1,12 @@
-function initTwitterButton() {
-  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-}
-
 jQuery(document).ready(function($) {
   initTwitterButton();
-  $('.proposals').on('mouseenter', '.proposal', function() {
-      twttr.widgets.load();
-      $('.proposal .social').hide();
-      $(this).find('.social').show("fast");
+  initFacebookButton();
+  $('#content').on('mouseenter', '.proposal', function() {
+      loadSocialButtons();
+      $('.proposal .actions').hide();
+      $(this).find('.actions').show("fast");
     }).on('mouseleave', '.proposal', function() {
-      $(this).find('.social').hide("fast");
+      $(this).find('.actions').hide("fast");
   });
 
   function proposalsScroll() {
@@ -31,11 +28,19 @@ jQuery(document).ready(function($) {
   $('.topics').masonry();
 });
 
-
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+function loadSocialButtons() {
+  twttr.widgets.load();
+  try{FB.XFBML.parse();}catch(ex){}
+}
+function initFacebookButton() {
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+}
+function initTwitterButton() {
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+}

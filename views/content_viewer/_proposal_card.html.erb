@@ -10,9 +10,17 @@
     <div class="title">
       <%= link_to proposal_card.name, proposal_card.view_url %>
     </div>
-    <div class="social">
-      <%= render :partial => 'content_viewer/social', :locals => {:proposal => proposal_card} %>
-    </div>
+    <% if proposal_card.published? %>
+      <div class="public actions">
+        <%= render :partial => 'content_viewer/social', :locals => {:proposal => proposal_card} %>
+      </div>
+    <% else %>
+      <div class="private actions">
+        <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'publish_proposal', :proposal_id => proposal_card.id}), :class => 'button with-text icon-suggest' do %>
+          <strong><%= _("Publish") %></strong>
+        <% end %>
+      </div>
+    <% end %>
     <div class="abstract">
       <%= link_to strip_tags(proposal_card.abstract), proposal_card.view_url %>
     </div>

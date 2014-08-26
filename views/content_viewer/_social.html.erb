@@ -1,5 +1,3 @@
-<% if proposal.published? %>
-  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= url_for proposal.view_url %>" data-text="<%= proposal.title %>" data-count="none"></a>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= url_for proposal.view_url %>" data-text="<%= proposal.title %>" data-count="none"></a>
 
-  <div class="fb-share-button" data-href="<%= url_for proposal.view_url %>" data-layout="box-count"></div>
-<% end %>
+<div class="fb-share-button" data-href="<%= url_for proposal.view_url %>" data-layout="box-count"></div>

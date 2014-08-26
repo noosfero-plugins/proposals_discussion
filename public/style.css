@@ -56,6 +56,9 @@
   width: 100%;
   display: inline-block;
 }
+#article .proposal .private.actions a:visited, #article .proposal .private.actions a {
+  display: inline;
+}
 
 .proposal .content {
   width: 84%;
@@ -166,18 +169,34 @@ form .proposals-discussion-plugin .body textarea {
 #article-header > h1 {
   display: none;
 }
-.proposal .content .social {
+.proposal .content .actions {
   position: absolute;
   top: -18px;
   display: none;
+  margin: 1px 0 0 0;
 }
 
 #content .tag_cloud a {
   text-decoration: none;
 }
 
-#content .statistics {
-  display: inline-block;
+#content .summary {
+  float: left;
+  margin-left: 12px;
+}
+#content .summary .label {
+  font-weight: bold;
+  color: rgb(95, 95, 95);
+  font-size: 13px;
+  line-height: 27px;
+}
+#content .summary .content {
+  color: rgb(175, 175, 175);
+  font-size: 14px;
+  font-weight: bold;
+}
+#content .statistics h5 {
+  color: rgb(95, 95, 95);
 }
 #content .tag_cloud {
   float: right;
@@ -187,7 +206,15 @@ form .proposals-discussion-plugin .body textarea {
   min-height: 50px;
 }
 
-.graph #proposals-time {
+.article-body-proposals-discussion-plugin_topic .graph {
+  float: left;
+}
+.article-body-proposals-discussion-plugin_topic .graph #proposals-time {
   height: 150px;
   width: 300px;
+}
+
+.article-body-proposals-discussion-plugin_topic .topic.actions {
+  clear: both;
+  padding-top: 10px;
 }

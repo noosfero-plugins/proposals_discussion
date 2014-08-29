@@ -22,7 +22,7 @@
   <div class="content"><%= @page.body %></div>
 </div>
 
-<% if @page.allow_edit?(user) && !@page.published %>
+<% if @page.created_by == user && !@page.published %>
 <div class="actions">
   <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'publish_proposal', :proposal_id => @page.id}), :class => 'button with-text icon-suggest' do %>
     <strong><%= _("Publish") %></strong>

@@ -22,9 +22,9 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
     assert_match /href=.*page=2/, response.body
   end
 
-  should 'render blank text if it is the last page' do
+  should 'not render more link if it was the last page' do
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
-    assert_equal '', response.body
+    assert_select 'div.more a', 0
   end
 
   should 'load proposals with alphabetical order' do

@@ -10,11 +10,16 @@ jQuery(document).ready(function($) {
   });
 
   function proposalsScroll() {
-    $('.article-body-proposals-discussion-plugin_topic .topic-content').data('jscroll', null);
-    $('.article-body-proposals-discussion-plugin_topic .topic-content').jscroll({
-      loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
-      nextSelector: 'div.more a'
-    });
+    var scroll = $('.article-body-proposals-discussion-plugin_topic .topic-content .proposals_list');
+    var nextSelector = 'div.more a';
+    if(scroll.data('jscroll')) scroll.jscroll.destroy();
+
+    if(scroll.find(nextSelector).length > 0) {
+      scroll.jscroll({
+        loadingHtml: '<img src="/images/loading.gif" alt="Loading" />Loading...',
+        nextSelector: nextSelector
+      });
+    }
   }
   $('.filters .random').click();
 

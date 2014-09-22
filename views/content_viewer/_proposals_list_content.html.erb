@@ -3,5 +3,5 @@
 <% extend ProposalsDiscussionPlugin::ProposalsListHelper %>
 
 <div class="more">
-  <%= more_proposals(_('More'), holder, order, page) %>
+  <%= more_proposals(_('More'), holder, order, page) unless proposals.empty? %>
 </div>

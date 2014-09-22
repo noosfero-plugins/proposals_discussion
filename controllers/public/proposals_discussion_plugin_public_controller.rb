@@ -11,11 +11,7 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
     @proposals = order_proposals(@holder.proposals.public, order)
     @proposals = @proposals.page(page).per_page(4)
 
-    unless @proposals.empty?
-      render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => @holder, :page => page+1, :order => order}
-    else
-      render :text => ''
-    end
+    render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => @holder, :page => page+1, :order => order}
   end
 
   private

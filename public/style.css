@@ -166,9 +166,7 @@ form .proposals-discussion-plugin .body textarea {
 .topic-content .description {
   font-size: 11px;
 }
-#article .article-body-proposals-discussion-plugin_discussion #article-header > h1,
-#article .article-body-proposals-discussion-plugin_topic #article-header > h1,
-#article .article-body-proposals-discussion-plugin_proposal #article-header > h1 {
+#article .article-body-proposals-discussion-plugin_topic #article-header > h1 {
   display: none;
 }
 .proposal .content .actions {

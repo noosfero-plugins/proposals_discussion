@@ -177,7 +177,7 @@ form .proposals-discussion-plugin .body textarea {
   margin: 1px 0 0 0;
 }
 
-#content .tag_cloud a {
+#content .article-body-proposals-discussion-plugin_topic .tag_cloud a {
   text-decoration: none;
 }
 
@@ -199,7 +199,7 @@ form .proposals-discussion-plugin .body textarea {
 #content .statistics h5 {
   color: rgb(95, 95, 95);
 }
-#content .tag_cloud {
+#content .article-body-proposals-discussion-plugin_topic .tag_cloud {
   float: right;
   width: 300px;
   box-shadow: 5px 5px 5px -2px #ddd;

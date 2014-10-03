@@ -12,7 +12,7 @@
 <% order ||= 'random' %>
 <div class="proposals_list">
   <div class="filters">
-    <% [[_('Random'), :random], [_('Aplhabetical'), :alphabetical]].each_with_index do |order, i| %>
+    <% sort_criteria.each_with_index do |order, i| %>
       <%= link_to order.first, url_for({:controller => 'proposals_discussion_plugin_public', :action => 'load_proposals', :holder_id => holder.id, :profile => profile.identifier, :order => order.second}), :remote => true, :class => "order #{order.second} #{i==0 ? 'selected':''}" %>
     <% end %>
   </div>

@@ -20,6 +20,12 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
     case order
     when 'alphabetical'
       proposals.reorder('name')
+    when 'recent'
+      proposals.reorder('created_at DESC')
+    when 'most_commented'
+      proposals.reorder('comments_count DESC')
+    when 'most_recently_commented'
+      proposals.joins("LEFT OUTER JOIN comments ON comments.source_id=articles.id AND comments.created_at >= '#{5.days.ago}'").group('articles.id').reorder('count(comments.id) DESC')
     else
       set_seed
       proposals.reorder('random()')

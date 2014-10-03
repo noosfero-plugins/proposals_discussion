@@ -35,4 +35,48 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
     assert_equal [proposal2, proposal3, proposal1], assigns(:proposals)
   end
 
+  should 'load proposals with most commented order' do
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+
+    author = fast_create(Person)
+    Comment.create!(:source => proposal2, :body => 'text', :author => author)
+    Comment.create!(:source => proposal2, :body => 'text', :author => author)
+    Comment.create!(:source => proposal3, :body => 'text', :author => author)
+
+    get :load_proposals, :profile => profile.identifier, :holder_id => topic.id, :order => 'most_commented'
+    assert_equal [proposal2, proposal3, proposal1], assigns(:proposals)
+  end
+
+  should 'load proposals with most recent order' do
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'b', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'k', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+
+    author = fast_create(Person)
+    Comment.create!(:source => proposal2, :body => 'text', :author => author)
+    Comment.create!(:source => proposal2, :body => 'text', :author => author)
+    Comment.create!(:source => proposal3, :body => 'text', :author => author)
+
+    get :load_proposals, :profile => profile.identifier, :holder_id => topic.id, :order => 'recent'
+    assert_equal [proposal3, proposal2, proposal1], assigns(:proposals)
+  end
+
+  should 'load proposals with most recently commented order' do
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+
+    author = fast_create(Person)
+    Comment.create!({:source => proposal2, :body => 'text', :author => author, :created_at => 10.days.ago}, :without_protection => true)
+    Comment.create!({:source => proposal2, :body => 'text', :author => author, :created_at => 10.days.ago}, :without_protection => true)
+    Comment.create!(:source => proposal3, :body => 'text', :author => author)
+    Comment.create!(:source => proposal3, :body => 'text', :author => author)
+    Comment.create!(:source => proposal1, :body => 'text', :author => author)
+
+    get :load_proposals, :profile => profile.identifier, :holder_id => topic.id, :order => 'most_recently_commented'
+    assert_equal [proposal3, proposal1, proposal2], assigns(:proposals)
+  end
+
 end

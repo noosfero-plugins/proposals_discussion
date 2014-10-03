@@ -4,8 +4,8 @@
   <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
 <% end %>
 
-<div class="topic-color" style="background-color: <%= topic.color %>;"></div>
-<h2><%= link_to topic.title, topic.view_url %></h2>
+<% extend ProposalsDiscussionPlugin::TopicHelper %>
+<%= topic_title topic %>
 
 <div class="topic-content">
 

@@ -5,7 +5,14 @@
 <% title_limit = 70 %>
 <% abstract_limit = 140 %>
 
+<% extend ProposalsDiscussionPlugin::TopicHelper %>
+
 <div class="proposals-discussion-plugin">
+
+  <div class="topic">
+    <%= topic_title @article.topic %>
+  </div>
+
   <div class="title">
     <%= required labelled_form_field _('Title'), limited_text_area(:article, :name, title_limit, 'title_textarea', :rows => 1) %>
   </div>

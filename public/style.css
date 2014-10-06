@@ -156,10 +156,13 @@ form .proposals-discussion-plugin .body textarea {
 #content .topic-item h2 a, #article .article-body-proposals-discussion-plugin_topic h2 a,
 #content .topic h2 a {
   text-decoration: none;
-  padding: 10px;
   display: inline-block;
   width: 94%;
   color: white;
+}
+#content .topic-title h2 span {
+  padding: 10px;
+  display: inline-block;
 }
 .topic-item .topic-content, #article .article-body-proposals-discussion-plugin_topic .topic-content {
   padding: 5px 7px 5px 2px;
@@ -222,4 +225,10 @@ form .proposals-discussion-plugin .body textarea {
 
 .proposal .actions .fb-share-button {
   top: -3px;
+}
+
+.topic-title h2 img {
+  max-height: 36px;
+  vertical-align: middle;
+  padding: 4px 0 4px 4px;
 }

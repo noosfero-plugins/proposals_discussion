@@ -16,7 +16,7 @@
     <h3><%= _('Select topic') %></h3>
     <div id="topics">
 
-      <% @discussion.children.each do |topic| %>
+      <% @discussion.topics.each do |topic| %>
         <h4>
           <%= radio_button_tag('discussion[topic]', topic.id) %>
           <%= topic.title %>

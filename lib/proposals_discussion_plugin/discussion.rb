@@ -1,5 +1,7 @@
 class ProposalsDiscussionPlugin::Discussion < Folder
 
+  acts_as_having_posts
+
   has_many :topics, :class_name => 'ProposalsDiscussionPlugin::Topic', :foreign_key => 'parent_id'
   has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
 
@@ -25,5 +27,10 @@ class ProposalsDiscussionPlugin::Discussion < Folder
     cache_key_without_person + (user ? "-#{user.identifier}" : '')
   end
   alias_method_chain :cache_key, :person
+
+  def posts
+    #override posts method to list proposals in feed
+    ProposalsDiscussionPlugin::Proposal.from_discussion(self)
+  end
 
 end

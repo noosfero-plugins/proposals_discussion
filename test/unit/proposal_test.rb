@@ -29,4 +29,26 @@ class ProposalTest < ActiveSupport::TestCase
     assert !proposal.allow_edit?(fast_create(Person))
   end
 
+  should 'return body when to_html was called with feed=true' do
+    assert_equal proposal.body, proposal.to_html(:feed => true)
+  end
+
+  should 'return a proc when to_html was called with feed=false' do
+    assert proposal.to_html(:feed => false).kind_of?(Proc)
+  end
+
+  should 'return a proc when to_html was called with no feed parameter' do
+    assert proposal.to_html.kind_of?(Proc)
+  end
+
+  should 'return proposals by discussion' do
+    discussion = fast_create(ProposalsDiscussionPlugin::Discussion)
+    topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
+
+    assert_equivalent [proposal1, proposal3], ProposalsDiscussionPlugin::Proposal.from_discussion(discussion)
+  end
+
 end

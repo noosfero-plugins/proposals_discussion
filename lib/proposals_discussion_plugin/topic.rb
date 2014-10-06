@@ -44,11 +44,21 @@ class ProposalsDiscussionPlugin::Topic < Folder
   end
 
   def proposals_per_day
-    proposals.group("date(created_at)").count
+    result = proposals.group("date(created_at)").count
+    fill_empty_days(result)
   end
 
   def comments_per_day
-    proposals.joins(:comments).group('date(comments.created_at)').count('comments.id')
+    result = proposals.joins(:comments).group('date(comments.created_at)').count('comments.id')
+    fill_empty_days(result)
+  end
+
+  def fill_empty_days(result)
+    from = created_at.to_date
+    (from..Date.today).inject({}) do |h, date|
+      h[date.to_s] = result[date.to_s] || 0
+      h
+    end
   end
 
   def cache_key_with_person(params = {}, user = nil, language = 'en')

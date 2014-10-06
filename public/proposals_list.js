@@ -34,6 +34,9 @@ jQuery(document).ready(function($) {
   $(window).resize(function() {
     $('.topics').masonry();
   });
+  $(window).bind('toggleFullwidth', function() {
+    $('.topics').masonry();
+  });
 });
 
 function loadSocialButtons() {

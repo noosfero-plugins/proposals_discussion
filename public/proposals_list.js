@@ -31,6 +31,9 @@ jQuery(document).ready(function($) {
     $('.topics').masonry();
   });
   $('.topics').masonry();
+  $(window).resize(function() {
+    $('.topics').masonry();
+  });
 });
 
 function loadSocialButtons() {

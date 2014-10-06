@@ -38,4 +38,8 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
   end
   alias_method_chain :cache_key, :person
 
+  def can_display_versions?
+    false
+  end
+
 end

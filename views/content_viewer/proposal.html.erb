@@ -2,9 +2,10 @@
   <h5><%= @page.topic.discussion.title %> </h5>
 </div>
 
+<% extend ProposalsDiscussionPlugin::TopicHelper %>
+
 <div class="topic">
-  <div class="topic-color" style="background-color: <%= @page.topic.color %>;"></div>
-  <h2><%= link_to @page.topic.title, @page.topic.view_url %></h2>
+  <%= topic_title @page.topic %>
 </div>
 
 <div class="title">

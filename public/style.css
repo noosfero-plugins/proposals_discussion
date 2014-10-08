@@ -147,8 +147,8 @@ form .proposals-discussion-plugin .body textarea {
   background-color: #7293CF;
 }
 
-#content .topic-item h2, #article .article-body-proposals-discussion-plugin_topic h2,
-#content .topic h2 {
+#content #article .topic-item h2, #content #article .article-body-proposals-discussion-plugin_topic h2,
+#content #article .topic h2 {
   background-color: #C4C4C4;
   margin: 0;
 }

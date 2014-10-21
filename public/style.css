@@ -148,7 +148,8 @@ form .proposals-discussion-plugin .body textarea {
 }
 
 #content #article .topic-item h2, #content #article .article-body-proposals-discussion-plugin_topic h2,
-#content #article .topic h2 {
+#content #article .topic h2,
+#content .topic .topic-title h2 {
   background-color: #C4C4C4;
   margin: 0;
 }

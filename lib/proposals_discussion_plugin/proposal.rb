@@ -17,9 +17,10 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
 
   def to_html(options = {})
+    proposal = self
     unless options[:feed]
       proc do
-        render :file => 'content_viewer/proposal'
+        render :file => 'content_viewer/proposal', :locals => {:proposal => proposal}
       end
     else
       body

@@ -50,17 +50,14 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'load proposals with most recent order' do
-    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'b', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'k', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 2.day)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'b', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 1.day)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'k', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today)
 
     author = fast_create(Person)
-    Comment.create!(:source => proposal2, :body => 'text', :author => author)
-    Comment.create!(:source => proposal2, :body => 'text', :author => author)
-    Comment.create!(:source => proposal3, :body => 'text', :author => author)
 
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id, :order => 'recent'
-    assert_equal [proposal3, proposal2, proposal1], assigns(:proposals)
+    assert_equal [proposal3, proposal2, proposal1].map(&:name), assigns(:proposals).map(&:name)
   end
 
   should 'load proposals with most recently commented order' do

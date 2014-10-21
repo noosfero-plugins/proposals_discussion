@@ -1,31 +1,31 @@
 <div class="discussion">
-  <h5><%= @page.topic.discussion.title %> </h5>
+  <h5><%= proposal.topic.discussion.title %> </h5>
 </div>
 
 <% extend ProposalsDiscussionPlugin::TopicHelper %>
 
 <div class="topic">
-  <%= topic_title @page.topic %>
+  <%= topic_title proposal.topic %>
 </div>
 
 <div class="title">
   <h5><%= _('Title') %></h4>
-  <div class="content"><%= @page.title %></div>
+  <div class="content"><%= proposal.title %></div>
 </div>
 
 <div class="abstract">
   <h5><%= _('Abstract') %></h4>
-  <div class="content"><%= @page.abstract %></div>
+  <div class="content"><%= proposal.abstract %></div>
 </div>
 
 <div class="body">
-  <h5><%= @page.topic.discussion.custom_body_label %></h4>
-  <div class="content"><%= @page.body %></div>
+  <h5><%= proposal.topic.discussion.custom_body_label %></h4>
+  <div class="content"><%= proposal.body %></div>
 </div>
 
-<% if @page.created_by == user && !@page.published %>
+<% if proposal.created_by == user && !proposal.published %>
 <div class="actions">
-  <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'publish_proposal', :proposal_id => @page.id}), :class => 'button with-text icon-suggest' do %>
+  <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'publish_proposal', :proposal_id => proposal.id}), :class => 'button with-text icon-suggest' do %>
     <strong><%= _("Publish") %></strong>
   <% end %>
 </div>

@@ -24,7 +24,7 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
   end
 
   should 'new_proposal redirect to cms controller' do
-    get :new_proposal, :profile => profile.identifier, :discussion => {:topic => topic.id}
+    get :new_proposal, :profile => profile.identifier, :discussion => {:topic => topic.id}, :parent_id => discussion.id
     assert_redirected_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id
   end
 
@@ -39,6 +39,11 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
     get :publish_proposal, :proposal_id => proposal.id, :profile => profile.identifier
     assert_response 403
     assert !proposal.reload.published
+  end
+
+  should 'new_proposal without a topic redirect to back' do
+    get :new_proposal, :profile => profile.identifier, :parent_id => discussion.id
+    assert_template 'select_topic'
   end
 
 end

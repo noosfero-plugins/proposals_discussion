@@ -29,6 +29,8 @@
       <div class="clear"></div>
     </div>
 
+    <%= hidden_field_tag :parent_id, @discussion.id %>
+
     <div class="actions">
       <%= submit_button(:next, _('Next')) %>
       <%= button :cancel, _('Cancel'), @discussion.view_url %>

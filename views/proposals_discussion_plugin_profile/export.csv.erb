@@ -12,7 +12,7 @@
 <% header << _('Likes') if environment.plugin_enabled?('VotePlugin') %>
 <% header << _('Dislikes') if environment.plugin_enabled?('VotePlugin') %>
 
-<%= CSV.generate_line(header, :row_sep => ?\t, :quote_char => ?\ ) %>
+<%= CSV.generate_line(header, :row_sep => ?\t) %>
 
 <% @comments.each do |comment| %>
   <% line = [
@@ -26,5 +26,5 @@
   ] %>
   <% line << comment.votes_for if environment.plugin_enabled?('VotePlugin') %>
   <% line << comment.votes_against if environment.plugin_enabled?('VotePlugin') %>
-  <%= CSV.generate_line(line, :row_sep => ?\t, :quote_char => ?\ ) %>
+  <%= CSV.generate_line(line, :row_sep => ?\t) %>
 <% end %>

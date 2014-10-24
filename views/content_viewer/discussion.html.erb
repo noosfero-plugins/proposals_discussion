@@ -8,8 +8,11 @@
 
 <% if discussion.allow_create?(user) %>
 <div class="actions">
-  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Topic", :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
+  <%= link_to({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Topic", :parent_id => discussion.id}, :class => 'button with-text icon-add') do %>
     <strong><%= _("New Topic") %></strong>
+  <% end %>
+  <%= link_to({:controller => :proposals_discussion_plugin_profile, :action => :export, :format => :csv, :article_id => discussion.id}, :class => 'button with-text icon-spread') do %>
+    <strong><%= _('Export') %></strong>
   <% end %>
 </div>
 <% end %>

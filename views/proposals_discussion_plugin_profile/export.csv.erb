@@ -1,0 +1,30 @@
+<% require 'csv' %>
+
+<% header = [
+  _('Topic'),
+  _('Proposal'),
+  _('Author'),
+  _('Author Email'),
+  _('Title'),
+  _('Body'),
+  _('Date')
+] %>
+<% header << _('Likes') if environment.plugin_enabled?('VotePlugin') %>
+<% header << _('Dislikes') if environment.plugin_enabled?('VotePlugin') %>
+
+<%= CSV.generate_line(header, :row_sep => ?\t, :quote_char => ?\ ) %>
+
+<% @comments.each do |comment| %>
+  <% line = [
+      comment.source.parent ? comment.source.parent.name : '',
+      comment.source.name,
+      comment.author_name,
+      comment.author_email,
+      comment.title,
+      comment.body,
+      comment.created_at,
+  ] %>
+  <% line << comment.votes_for if environment.plugin_enabled?('VotePlugin') %>
+  <% line << comment.votes_against if environment.plugin_enabled?('VotePlugin') %>
+  <%= CSV.generate_line(line, :row_sep => ?\t, :quote_char => ?\ ) %>
+<% end %>

@@ -4,6 +4,7 @@ class ProposalsDiscussionPlugin::Discussion < Folder
 
   has_many :topics, :class_name => 'ProposalsDiscussionPlugin::Topic', :foreign_key => 'parent_id'
   has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
+  has_many :proposals_comments, :class_name => 'Comment', :through => :proposals, :source => :comments
 
   settings_items :custom_body_label, :type => :string, :default => _('Body')
 

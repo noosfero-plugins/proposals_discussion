@@ -1,3 +1,9 @@
+<span class="created-at">
+  <span class="date"><%= show_date(proposal.published_at) %></span>
+  <span class="author"><%= _(", by %s") % (proposal.author ? link_to(proposal.author_name, proposal.author_url) : proposal.author_name) %></span>
+  <span class="comments"><%= _(" - %s") % link_to_comments(proposal) %></span>
+</span>
+
 <div class="discussion">
   <h5><%= proposal.topic.discussion.title %> </h5>
 </div>
@@ -8,18 +14,11 @@
   <%= topic_title proposal.topic %>
 </div>
 
-<div class="title">
-  <h5><%= _('Title') %></h4>
-  <div class="content"><%= proposal.title %></div>
-</div>
-
 <div class="abstract">
-  <h5><%= _('Abstract') %></h4>
   <div class="content"><%= proposal.abstract %></div>
 </div>
 
 <div class="body">
-  <h5><%= proposal.topic.discussion.custom_body_label %></h4>
   <div class="content"><%= proposal.body %></div>
 </div>
 

@@ -150,7 +150,7 @@ form .proposals-discussion-plugin .body textarea {
 #content #article .topic-item h2, #content #article .article-body-proposals-discussion-plugin_topic h2,
 #content #article .topic h2,
 #content .topic .topic-title h2 {
-  background-color: #C4C4C4;
+  background-color: #BDBDBD;
   margin: 0;
 }
 
@@ -232,4 +232,20 @@ form .proposals-discussion-plugin .body textarea {
   max-height: 36px;
   vertical-align: middle;
   padding: 4px 0 4px 4px;
+}
+
+#content .article-body.article-body-proposals-discussion-plugin_proposal .body {
+  clear: both;
+  padding-top: 10px;
+}
+#content .article-body.article-body-proposals-discussion-plugin_proposal .abstract {
+  width: 50%;
+  float: right;
+}
+#content .article-body.article-body-proposals-discussion-plugin_proposal .abstract .content {
+  font-style: italic;
+  color: rgb(70, 70, 70);
+}
+#content .article-body.article-body-proposals-discussion-plugin_proposal .discussion {
+  color: gray;
 }

@@ -241,6 +241,7 @@ form .proposals-discussion-plugin .body textarea {
 #content .article-body.article-body-proposals-discussion-plugin_proposal .abstract {
   width: 50%;
   float: right;
+  text-align: right;
 }
 #content .article-body.article-body-proposals-discussion-plugin_proposal .abstract .content {
   font-style: italic;

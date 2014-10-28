@@ -76,4 +76,23 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
     assert_equal [proposal3, proposal1, proposal2], assigns(:proposals)
   end
 
+  should 'load proposals when profile is private and the user is a member' do
+    person = create_user.person
+    login_as(person.identifier)
+    profile.add_member(person)
+    profile.update_attribute(:public_profile, false)
+
+    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)}
+    get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
+    assert_equivalent proposals, assigns(:proposals)
+  end
+
+  should 'not load proposals when profile is private and user is not logged' do
+    logout
+    profile.update_attribute(:public_profile, false)
+    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)}
+    get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
+    assert_equal nil, assigns(:proposals)
+  end
+
 end

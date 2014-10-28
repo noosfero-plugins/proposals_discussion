@@ -2,19 +2,25 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
 
   needs_profile
 
+  before_filter :check_permission
+
   def load_proposals
-    @holder = profile.articles.find(params[:holder_id])
     page = (params[:page] || 1).to_i
     set_rand_cookie if page == 1
     order = params[:order]
 
-    @proposals = order_proposals(@holder.proposals.public, order)
+    @proposals = order_proposals(@holder.proposals.published, order)
     @proposals = @proposals.page(page).per_page(4)
 
     render :partial => 'content_viewer/proposals_list_content', :locals => {:proposals => @proposals, :holder => @holder, :page => page+1, :order => order}
   end
 
   private
+
+  def check_permission
+    @holder = profile.articles.find(params[:holder_id])
+    render_access_denied unless @holder.display_to?(user)
+  end
 
   def order_proposals(proposals, order)
     case order

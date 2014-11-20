@@ -20,12 +20,6 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Discussion
   end
 
-  should 'do not return Discussion as a content type if it has a parent' do
-    parent = fast_create(Folder, :profile_id => @profile.id)
-    @params[:parent_id] = parent.id
-    assert_not_includes plugin.content_types, ProposalsDiscussionPlugin::Discussion
-  end
-
   should 'return Topic as a content type if parent is a Discussion' do
     parent = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
     @params[:parent_id] = parent.id

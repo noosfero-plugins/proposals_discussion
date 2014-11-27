@@ -35,4 +35,8 @@ class ProposalsDiscussionPlugin::Discussion < Folder
     ProposalsDiscussionPlugin::Proposal.from_discussion(self)
   end
 
+  def accept_comments?
+    accept_comments
+  end
+
 end

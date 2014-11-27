@@ -67,4 +67,8 @@ class ProposalsDiscussionPlugin::Topic < Folder
   end
   alias_method_chain :cache_key, :person
 
+  def accept_comments?
+    accept_comments
+  end
+
 end

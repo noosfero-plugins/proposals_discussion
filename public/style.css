@@ -234,13 +234,12 @@ form .proposals-discussion-plugin .body textarea {
 }
 
 #content .article-body.article-body-proposals-discussion-plugin_proposal .body {
-  clear: both;
   padding-top: 10px;
 }
 #content .article-body.article-body-proposals-discussion-plugin_proposal .abstract {
-  width: 50%;
-  float: right;
   text-align: right;
+  width: 50%;
+  padding-left: 50%;
 }
 #content .article-body.article-body-proposals-discussion-plugin_proposal .abstract .content {
   font-style: italic;

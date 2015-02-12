@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0-561-gb092f43\n"
+"POT-Creation-Date: 2015-02-12 09:49-0300\n"
+"PO-Revision-Date: 2015-02-12 09:49-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/proposals_discussion/controllers/profile/proposals_discussion_plugin_profile_controller.rb:13
+msgid "You are not allowed to export data from this article"
+msgstr "Você não tem permissão para exportar dados deste artigo"
+
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_myprofile_controller.rb:11
+msgid "Please select a topic"
+msgstr "Favor selecionar um tópico"
+
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_myprofile_controller.rb:20
+msgid "Proposal published!"
+msgstr "Proposta publicada!"
+
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_myprofile_controller.rb:22
+msgid "Failed to publish your proposal."
+msgstr "Falha na publicação da proposta."
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin.rb:8
+msgid "Provide a structured way to promove a discussion over ideas proposed by users."
+msgstr "Proporcinar uma forma estruturada de promover discussões sobre ideias propostas por usuários."
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:14
+msgid "Discussion topic"
+msgstr "Tópico de discussão"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:18
+msgid "Container for proposals."
+msgstr "Container para propostas"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:9
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:13
+msgid "Proposal"
+msgstr "Proposta"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:9
+msgid "Body"
+msgstr "Corpo"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:14
+msgid "Discussion"
+msgstr "Discussão"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:18
+msgid "Container for topics."
+msgstr "Container para tópicos."
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
+msgid "Random"
+msgstr "Aleatória"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
+msgid "Alphabetical"
+msgstr "Alfabética"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
+msgid "Recent"
+msgstr "Recentes"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
+msgid "Most Commented"
+msgstr "Mais comentadas"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
+msgid "Most Recently Commented"
+msgstr "Mais comentadas recentemente"
+
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_myprofile/select_topic.html.erb:16
+msgid "Select topic"
+msgstr "Selecione um tópico"
+
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_myprofile/select_topic.html.erb:35
+msgid "Next"
+msgstr "Próximo"
+
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_myprofile/select_topic.html.erb:36
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_proposal.html.erb:17
+msgid "Title"
+msgstr "Título"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_proposal.html.erb:21
+msgid "Abstract"
+msgstr "Resumo"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:10
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_discussion.html.erb:7
+msgid "Description:"
+msgstr "Descrição:"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:12
+msgid "Color:"
+msgstr "Cor:"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:16
+msgid "Image:"
+msgstr "Imagem:"
+
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:17
+msgid "Max size: %s (.jpg, .gif, .png)"
+msgstr "Tamanho máximo: %s (.jpg, .gif, .png)"
+
+#: plugins/proposals_discussion/views/content_viewer/_proposals_list_content.html.erb:6
+msgid "More"
+msgstr "Mais"
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:20
+msgid "Statistics"
+msgstr "Estatísticas"
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:26
+msgid "Proposals"
+msgstr "Propostas"
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:26
+msgid "Comments"
+msgstr "Comentários"
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:30
+msgid "Number of Proposals: "
+msgstr "Quantidade de Propostas: "
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:34
+msgid "Number of Participants: "
+msgstr "Quantidade de Participantes: "
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:38
+msgid "Number of Comments: "
+msgstr "Quantidade de Comentários: "
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:42
+msgid "Most active: "
+msgstr "Mais ativos: "
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:57
+msgid "Send your proposal"
+msgstr "Envie sua proposta"
+
+#: plugins/proposals_discussion/views/content_viewer/discussion.html.erb:12
+msgid "New Topic"
+msgstr "Novo Tópico"
+
+#: plugins/proposals_discussion/views/content_viewer/discussion.html.erb:15
+msgid "Export"
+msgstr "Exportar"
+
+#: plugins/proposals_discussion/views/content_viewer/discussion.html.erb:24
+msgid "Send your proposal!"
+msgstr "Envie sua proposta!"
+
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:3
+msgid ", by %s"
+msgstr ", por %s"
+
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:4
+msgid " - %s"
+msgstr ""
+
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:28
+#: plugins/proposals_discussion/views/content_viewer/_proposal_card.html.erb:20
+msgid "Publish"
+msgstr "Publicar"
+
+#: plugins/proposals_discussion/views/content_viewer/_proposals_list.html.erb:23
+msgid "Loading..."
+msgstr "Carregando..."

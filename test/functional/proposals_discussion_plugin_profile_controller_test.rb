@@ -4,7 +4,7 @@ class ProposalsDiscussionPluginProfileControllerTest < ActionController::TestCas
 
   def setup
     @profile = fast_create(Community)
-    @discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
+    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => 'discussion',:allow_topics => true)
     @topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => @discussion.id, :profile_id => @profile.id)
     @person = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser

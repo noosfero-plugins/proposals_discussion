@@ -32,6 +32,12 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
   end
 
+  should 'return Proposal as a content type if parent is a Discussion and allow_topic is false' do
+    parent = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => 'discussion', :allow_topics => false)
+    @params[:parent_id] = parent.id
+    assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
+  end
+
   should 'do not return Proposal as a content type if parent is nil' do
     @params[:parent_id] = nil
     assert_not_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal

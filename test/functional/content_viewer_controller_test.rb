@@ -18,4 +18,18 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:class => 'content'}, :content => 'Proposal Body'
   end
 
+  should 'display discussion with topics' do
+    discussion.allow_topics = true
+    discussion.save!
+    get :view_page, discussion.url
+    assert_template 'content_viewer/discussion_topics'
+  end
+
+  should 'display discussion without topics' do
+    discussion.allow_topics = false
+    discussion.save!
+    get :view_page, discussion.url
+    assert_template 'content_viewer/discussion'
+  end
+
 end

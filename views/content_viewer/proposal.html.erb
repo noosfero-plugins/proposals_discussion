@@ -5,14 +5,12 @@
 </span>
 
 <div class="discussion">
-  <h5><%= proposal.topic.discussion.title %> </h5>
+  <h5><%= proposal.discussion.title %> </h5>
 </div>
 
 <% extend ProposalsDiscussionPlugin::TopicHelper %>
 
-<div class="topic">
-  <%= topic_title proposal.topic %>
-</div>
+<%= topic_title proposal.topic %>
 
 <div class="abstract">
   <div class="content"><%= proposal.abstract %></div>

@@ -51,4 +51,14 @@ class ProposalTest < ActiveSupport::TestCase
     assert_equivalent [proposal1, proposal3], ProposalsDiscussionPlugin::Proposal.from_discussion(discussion)
   end
 
+  should 'return normalized score' do
+    discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => person, :name => 'discussion')
+    proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal2", :abstract => 'abstract')
+    10.times { Comment.create!(:source => proposal1, :body => "comment", :author => person) }
+    5.times { Comment.create!(:source => proposal2, :body => "comment", :author => person) }
+    assert_equal 1, proposal1.reload.normalized_score
+    assert_equal 0.5, proposal2.reload.normalized_score
+  end
+
 end

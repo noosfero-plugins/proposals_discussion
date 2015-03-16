@@ -1,0 +1,32 @@
+<div class="statistics">
+  <h5><%= _('Statistics') %></h5>
+
+  <div class="graph">
+    <div id="proposals-time"></div>
+  </div>
+  <%= javascript_include_tag 'plugins/proposals_discussion/proposals_graph.js' %>
+  <script>load_proposals_graph('<%= holder.proposals_per_day.to_json %>', '<%= holder.comments_per_day.to_json %>', '<%= _('Proposals') %>', '<%= _('Comments') %>')</script>
+
+  <div class="summary">
+    <div class="proposals-count">
+      <span class="label"><%= _('Number of Proposals: ') %></span>
+      <span class="content"><%= holder.proposals.count %></span>
+    </div>
+    <div class="participants-count">
+      <span class="label"><%= _('Number of Participants: ') %></span>
+      <span class="content"><%= holder.proposals_authors.count %></span>
+    </div>
+    <div class="comments-count">
+      <span class="label"><%= _('Number of Comments: ') %></span>
+      <span class="content"><%= holder.proposals_comments.count %></span>
+    </div>
+    <div class="active-participants">
+      <span class="label"><%= _('Most active: ') %></span>
+      <span class="content">
+        <% holder.most_active_participants.each do |author| %>
+          <%= link_to profile_image(author, :icon), author.url, :title => author.name %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+</div>

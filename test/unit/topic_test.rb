@@ -47,4 +47,13 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [author2, author1], topic.most_active_participants
   end
 
+  should 'return max score' do
+    person = fast_create(Person)
+    proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal2", :abstract => 'abstract')
+    10.times { Comment.create!(:source => proposal1, :body => "comment", :author => person) }
+    5.times { Comment.create!(:source => proposal2, :body => "comment", :author => person) }
+    assert_equal 10, topic.max_score
+  end
+
 end

@@ -4,7 +4,7 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
+    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :allow_topics => true, :name => 'discussion')
     @topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => @discussion.id, :profile_id => @profile.id)
   end
 

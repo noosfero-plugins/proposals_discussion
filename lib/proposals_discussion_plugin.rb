@@ -19,7 +19,7 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
       parent = parent_id ? context.profile.articles.find(parent_id) : nil
       types << ProposalsDiscussionPlugin::Discussion
       types << ProposalsDiscussionPlugin::Topic if parent.kind_of?(ProposalsDiscussionPlugin::Discussion)
-      types << ProposalsDiscussionPlugin::Proposal if parent.kind_of?(ProposalsDiscussionPlugin::Topic)
+      types << ProposalsDiscussionPlugin::Proposal if parent.kind_of?(ProposalsDiscussionPlugin::Topic) || ( parent.kind_of?(ProposalsDiscussionPlugin::Discussion) && !parent.allow_topics)
       types
     else
       [ProposalsDiscussionPlugin::Discussion,

@@ -1,6 +1,7 @@
 module ProposalsDiscussionPlugin::TopicHelper
 
   def topic_title(topic)
+    return if topic.blank?
     image_icon = topic.image ?  image_tag(topic.image.public_filename(:thumb), :class => 'disable-zoom') : ''
 
     content_tag(:div, (

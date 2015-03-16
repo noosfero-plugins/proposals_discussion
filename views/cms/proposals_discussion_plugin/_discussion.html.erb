@@ -1,4 +1,3 @@
-sdadasda
 <%= required_fields_message %>
 
 <%= required f.text_field('name', :size => '64', :maxlength => 150) %>
@@ -7,3 +6,4 @@ sdadasda
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
 
 <%= f.text_field(:custom_body_label) %>
+<%= labelled_form_field check_box(:article, :allow_topics) + _('Allow topics'), '' %>

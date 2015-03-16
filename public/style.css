@@ -149,13 +149,13 @@ form .proposals-discussion-plugin .body textarea {
 
 #content #article .topic-item h2, #content #article .article-body-proposals-discussion-plugin_topic h2,
 #content #article .topic h2,
-#content .topic .topic-title h2 {
+#content .topic-title h2 {
   background-color: #BDBDBD;
   margin: 0;
 }
 
 #content .topic-item h2 a, #article .article-body-proposals-discussion-plugin_topic h2 a,
-#content .topic h2 a {
+#content .topic-title h2 a {
   text-decoration: none;
   display: inline-block;
   color: white;
@@ -213,7 +213,8 @@ form .proposals-discussion-plugin .body textarea {
 .article-body-proposals-discussion-plugin_topic .graph {
   float: left;
 }
-.article-body-proposals-discussion-plugin_topic .graph #proposals-time {
+.article-body-proposals-discussion-plugin_topic .graph #proposals-time,
+.article-body-proposals-discussion-plugin_discussion .graph #proposals-time {
   height: 150px;
   width: 300px;
 }

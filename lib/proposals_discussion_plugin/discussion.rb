@@ -1,14 +1,26 @@
-class ProposalsDiscussionPlugin::Discussion < Folder
+class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::ProposalsHolder
 
   acts_as_having_posts
 
   has_many :topics, :class_name => 'ProposalsDiscussionPlugin::Topic', :foreign_key => 'parent_id'
-  has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
-  has_many :proposals_comments, :class_name => 'Comment', :through => :proposals, :source => :comments
+  has_many :topics_proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
+  has_many :topics_proposals_comments, :class_name => 'Comment', :through => :topics_proposals, :source => :comments
+  has_many :discussion_proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :foreign_key => 'parent_id'
+  has_many :discussion_proposals_comments, :class_name => 'Comment', :through => :discussion_proposals, :source => :comments
+  has_many :proposals_authors, :class_name => 'Person', :through => :children, :source => :created_by
+
+  def proposals
+    allow_topics ? topics_proposals : discussion_proposals
+  end
+
+  def proposals_comments
+    allow_topics ? topics_proposals_comments : discussion_proposals_comments
+  end
 
   settings_items :custom_body_label, :type => :string, :default => _('Body')
+  settings_items :allow_topics, :type => :boolean, :default => false
 
-  attr_accessible :custom_body_label
+  attr_accessible :custom_body_label, :allow_topics
 
   def self.short_description
     _("Discussion")
@@ -21,22 +33,17 @@ class ProposalsDiscussionPlugin::Discussion < Folder
   def to_html(options = {})
     discussion = self
     proc do
-      render :file => 'content_viewer/discussion', :locals => {:discussion => discussion}
+      if discussion.allow_topics
+        render :file => 'content_viewer/discussion_topics', :locals => {:discussion => discussion}
+      else
+        render :file => 'content_viewer/discussion', :locals => {:discussion => discussion}
+      end
     end
   end
-
-  def cache_key_with_person(params = {}, user = nil, language = 'en')
-    cache_key_without_person + (user ? "-#{user.identifier}" : '')
-  end
-  alias_method_chain :cache_key, :person
 
   def posts
     #override posts method to list proposals in feed
     ProposalsDiscussionPlugin::Proposal.from_discussion(self)
-  end
-
-  def accept_comments?
-    accept_comments
   end
 
 end

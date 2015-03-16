@@ -9,9 +9,7 @@
 
 <div class="proposals-discussion-plugin">
 
-  <div class="topic">
-    <%= topic_title @article.topic %>
-  </div>
+  <%= topic_title @article.topic %>
 
   <div class="title">
     <%= required labelled_form_field _('Title'), limited_text_area(:article, :name, title_limit, 'title_textarea', :rows => 1) %>
@@ -23,7 +21,7 @@
 
   <div class="body">
     <% editor_type = 'mceEditor' %>
-    <%= labelled_form_field(strip_tags(@article.topic.discussion.custom_body_label), text_area(:article, :body, :class => editor_type)) %>
+    <%= labelled_form_field(strip_tags(@article.discussion.custom_body_label), text_area(:article, :body, :class => editor_type)) %>
   </div>
 </div>
 

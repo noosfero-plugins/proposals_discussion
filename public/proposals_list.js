@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
   });
 
   function proposalsScroll() {
-    var scroll = $('.article-body-proposals-discussion-plugin_topic .topic-content .proposals_list .proposals');
+    var scroll = $('.article-body-proposals-discussion-plugin_topic .topic-content .proposals_list .proposals, .article-body-proposals-discussion-plugin_discussion .proposals_list .proposals');
     var nextSelector = 'div.more a';
     if(scroll.data('jscroll')) scroll.data('jscroll', null);
 

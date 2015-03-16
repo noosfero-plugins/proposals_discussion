@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
+
+<%= add_rss_feed_to_head(discussion.name, discussion.feed.url) if discussion.feed %>
+
+<div class="description">
+  <%= discussion.body %>
+</div>
+
+<% if discussion.allow_create?(user) %>
+<div class="actions">
+  <%= link_to({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Topic", :parent_id => discussion.id}, :class => 'button with-text icon-add') do %>
+    <strong><%= _("New Topic") %></strong>
+  <% end %>
+  <%= link_to({:controller => :proposals_discussion_plugin_profile, :action => :export, :format => :csv, :article_id => discussion.id}, :class => 'button with-text icon-spread') do %>
+    <strong><%= _('Export') %></strong>
+  <% end %>
+</div>
+<% end %>
+
+<div class="topics js-masonry" data-masonry-options='{ "itemSelector": ".topic-item", "columnWidth": 200 }'>
+  <div class="actions topic-item">
+    <div class="topic-color"></div>
+    <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
+      <strong><%= _("Send your proposal!") %></strong>
+    <% end %>
+  </div>
+  <% discussion.topics.includes(:profile).each do |topic| %>
+    <div class="topic-item" id="topic-<%= topic.id %>">
+      <%= render :file => 'content_viewer/topic', :locals => {:topic => topic, :list_view => true} %>
+    </div>
+  <% end %>
+</div>
+

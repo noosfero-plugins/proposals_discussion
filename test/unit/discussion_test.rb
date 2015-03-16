@@ -21,7 +21,17 @@ class DiscussionTest < ActiveSupport::TestCase
     topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
     proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
     proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
-    assert_equivalent [proposal1, proposal2], discussion.proposals
+    assert_equivalent [proposal1, proposal2], discussion.topics_proposals
+  end
+
+  should 'return max score' do
+    person = fast_create(Person)
+    discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => person, :name => 'discussion')
+    proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal2", :abstract => 'abstract')
+    10.times { Comment.create!(:source => proposal1, :body => "comment", :author => person) }
+    5.times { Comment.create!(:source => proposal2, :body => "comment", :author => person) }
+    assert_equal 10, discussion.max_score
   end
 
 end

@@ -14,14 +14,16 @@
 </div>
 <% end %>
 
-<%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
-  <strong><%= _("Send your proposal!") %></strong>
-<% end %>
-
 <%= render :partial => 'content_viewer/statistics', :locals => {:holder => discussion} %>
 
-<div class="tag_cloud">
+<div id="article-tags" class="tag_cloud">
   <%= tag_cloud(discussion.proposal_tags, :tag, {:action => :tag, :controller => 'search'}, :max_size => 18, :min_size => 10) %>
+</div>
+
+<div class="new-proposal">
+  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
+    <strong><%= _("Send your proposal!") %></strong>
+  <% end %>
 </div>
 
 <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => discussion} %>

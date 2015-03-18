@@ -3,21 +3,22 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
 
   def setup
+    @person = fast_create(Person)
     @profile = fast_create(Community)
     @discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :allow_topics => true, :name => 'discussion')
     @topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => @discussion.id, :profile_id => @profile.id)
   end
 
-  attr_reader :profile, :discussion, :topic
+  attr_reader :profile, :discussion, :topic, :person
 
   should 'load proposals' do
-    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)}
+    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)}
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
     assert_equivalent proposals, assigns(:proposals)
   end
 
   should 'add link to next page' do
-    proposal = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
     assert_match /href=.*page=2/, response.body
   end
@@ -28,17 +29,17 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'load proposals with alphabetical order' do
-    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abc proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abd proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abc proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'abd proposal', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id, :order => 'alphabetical'
     assert_equal [proposal2, proposal3, proposal1], assigns(:proposals)
   end
 
   should 'load proposals with most commented order' do
-    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
 
     author = fast_create(Person)
     Comment.create!(:source => proposal2, :body => 'text', :author => author)
@@ -50,9 +51,9 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'load proposals with most recent order' do
-    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 2.day)
-    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'b', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 1.day)
-    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'k', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'z', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 2.day, :author_id => person.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'b', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today - 1.day, :author_id => person.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'k', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :created_at => Date.today, :author_id => person.id)
 
     author = fast_create(Person)
 
@@ -61,9 +62,9 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'load proposals with most recently commented order' do
-    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
-    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)
+    proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal1', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal2', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
+    proposal3 = fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal3', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)
 
     author = fast_create(Person)
     Comment.create!({:source => proposal2, :body => 'text', :author => author, :created_at => 10.days.ago}, :without_protection => true)
@@ -82,7 +83,7 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
     profile.add_member(person)
     profile.update_attribute(:public_profile, false)
 
-    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)}
+    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)}
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
     assert_equivalent proposals, assigns(:proposals)
   end
@@ -90,7 +91,7 @@ class ProposalsDiscussionPluginPublicControllerTest < ActionController::TestCase
   should 'not load proposals when profile is private and user is not logged' do
     logout
     profile.update_attribute(:public_profile, false)
-    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id)}
+    proposals = 3.times.map { fast_create(ProposalsDiscussionPlugin::Proposal, :name => 'proposal title', :abstract => 'proposal abstract', :profile_id => profile.id, :parent_id => topic.id, :author_id => person.id)}
     get :load_proposals, :profile => profile.identifier, :holder_id => topic.id
     assert_equal nil, assigns(:proposals)
   end

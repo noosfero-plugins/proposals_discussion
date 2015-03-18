@@ -1,10 +1,6 @@
 <div class="proposal">
-  <div class="score">
-    <% if proposal_card.published? %>
-      <% normalized_score = proposal_card.normalized_score %>
-      <% pos = 26 * (normalized_score*4 - 1).round %>
-      <span title="<%= normalized_score %>" style="background-position-y: -<%= pos %>px">&nbsp;</span>
-    <% end %>
+  <div class="author">
+    <%= link_to_profile profile_image(proposal_card.author, :minor, :class => 'disable-zoom') + '<br/>' + proposal_card.author.short_name, proposal_card.author.identifier, :class => 'profile-link' %>
   </div>
   <div class="content">
     <div class="title">
@@ -22,7 +18,22 @@
       </div>
     <% end %>
     <div class="abstract">
-      <%= link_to strip_tags(proposal_card.abstract), proposal_card.view_url %>
+      <%= proposal_card.abstract %>
+    </div>
+    <div class="score">
+      <% if proposal_card.published? %>
+        <% normalized_score = proposal_card.normalized_score %>
+        <% pos = 26 * (normalized_score*4 - 1).round %>
+        <span title="<%= normalized_score %>" style="background-position-y: -<%= pos %>px">&nbsp;</span>
+      <% end %>
+    </div>
+    <% if !proposal_card.tags.empty? %>
+      <div class="tags" id="article-tags">
+        <%= proposal_card.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
+      </div>
+    <% end %>
+    <div class="comments-count">
+      <%= n_("%s comment", "%s comments", proposal_card.comments_count) % proposal_card.comments_count %>
     </div>
   </div>
 </div>

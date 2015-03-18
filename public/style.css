@@ -1,3 +1,27 @@
+.proposals_list .proposal .abstract {
+  color: rgb(160, 160, 160);
+  margin-bottom: 15px;
+  float: left;
+}
+.proposals_list .proposal .comments-count {
+  clear: both;
+  float: right;
+  color: rgb(162, 162, 162);
+  font-size: 10px;
+}
+.proposals_list .proposal .tags {
+  float: left;
+  clear: both;
+}
+.proposal .author {
+  display: table-cell;
+  font-size: 10px;
+  margin-right: 10px;
+}
+#content #article .proposal .author .profile-link img {
+  max-width: 70%;
+}
+
 .private-proposals .proposal {
   background: url(/images/hachure.png);
   opacity: 0.5;
@@ -6,18 +30,23 @@
 }
 
 .proposal {
-  width: 100%;
-  min-width: 272px;
   vertical-align: top;
-  margin: 12px 13px 12px 0;
+  margin: 15px 0;
+  background-color: rgb(236, 236, 236);
+  border-radius: 5px;
+  padding: 10px;
 }
 
+.article-body-proposals-discussion-plugin_discussion .new-proposal {
+  clear: both;
+  margin: 20px 0;
+}
 .article-body-proposals-discussion-plugin_discussion .actions,
 .article-body-proposals-discussion-plugin_topic .actions {
   margin: 10px 0 25px 0;
 }
 
-.proposal .content, .proposal .score, .proposal .topic {
+.proposal .content, .proposal .topic {
   display: inline-block;
   border-color: rgb(201, 201, 201);
   padding: 5px;
@@ -32,6 +61,7 @@
 .proposal .score {
   width: 5%;
   text-align: center;
+  float: right;
 }
 .proposal .score span {
   background: url(/plugins/proposals_discussion/images/score.png) no-repeat;
@@ -41,19 +71,20 @@
   position: relative;
 }
 
-.proposal .content:hover, .proposal .topic:hover {
-  background: rgb(230, 230, 230);
-}
-
 .proposal .title {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
+  background-color: rgb(136, 136, 136);
+  padding: 9px;
+  border-radius: 5px;
 }
 
 #article .proposal a:visited, #article .proposal a {
-  color: rgb(70, 70, 70);
   text-decoration: none;
+}
+#article .proposal .title a:visited, #article .proposal .title a {
   width: 100%;
+  color: rgb(240, 240, 240);
   display: inline-block;
 }
 #article .proposal .private.actions a:visited, #article .proposal .private.actions a {
@@ -61,7 +92,8 @@
 }
 
 .proposal .content {
-  width: 84%;
+  width: 100%;
+  display: table-cell;
   color: rgb(83, 83, 83);
   vertical-align: top;
   position: relative;
@@ -98,6 +130,7 @@ form .proposals-discussion-plugin .body textarea {
 }
 
 .proposals_list .filters {
+  clear: both;
   float: right;
   margin-top: 4px;
 }
@@ -210,7 +243,8 @@ form .proposals-discussion-plugin .body textarea {
   min-height: 50px;
 }
 
-.article-body-proposals-discussion-plugin_topic .graph {
+.article-body-proposals-discussion-plugin_topic .statistics .graph,
+.article-body-proposals-discussion-plugin_discussion .statistics .graph {
   float: left;
 }
 .article-body-proposals-discussion-plugin_topic .graph #proposals-time,

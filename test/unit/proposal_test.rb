@@ -5,11 +5,12 @@ class ProposalTest < ActiveSupport::TestCase
   def setup
     @profile = fast_create(Community)
     @person = fast_create(Person)
-    @proposal = ProposalsDiscussionPlugin::Proposal.new(:name => 'test', :profile => @profile)
+    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:name => 'discussion', :profile => person, :name => 'discussion')
+    @proposal = ProposalsDiscussionPlugin::Proposal.new(:name => 'test', :abstract => 'abstract', :profile => @profile, :parent => @discussion)
     @proposal.created_by = @person
   end
 
-  attr_reader :profile, :proposal, :person
+  attr_reader :profile, :proposal, :person, :discussion
 
   should 'save a proposal' do
     proposal.abstract = 'abstract'
@@ -17,6 +18,7 @@ class ProposalTest < ActiveSupport::TestCase
   end
 
   should 'do not save a proposal without abstract' do
+    proposal.abstract = nil
     proposal.save
     assert proposal.errors['abstract'].present?
   end
@@ -42,7 +44,6 @@ class ProposalTest < ActiveSupport::TestCase
   end
 
   should 'return proposals by discussion' do
-    discussion = fast_create(ProposalsDiscussionPlugin::Discussion)
     topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
     proposal1 = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
     proposal2 = fast_create(ProposalsDiscussionPlugin::Proposal)
@@ -51,14 +52,69 @@ class ProposalTest < ActiveSupport::TestCase
     assert_equivalent [proposal1, proposal3], ProposalsDiscussionPlugin::Proposal.from_discussion(discussion)
   end
 
+  should 'return discussion associated with a proposal' do
+    assert_equal discussion, proposal.discussion
+  end
+
+  should 'return discussion associated with a proposal topic' do
+    topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    proposal = fast_create(ProposalsDiscussionPlugin::Proposal, :parent_id => topic.id)
+    assert_equal discussion, proposal.discussion
+  end
+
   should 'return normalized score' do
-    discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => person, :name => 'discussion')
     proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
     proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal2", :abstract => 'abstract')
     10.times { Comment.create!(:source => proposal1, :body => "comment", :author => person) }
     5.times { Comment.create!(:source => proposal2, :body => "comment", :author => person) }
     assert_equal 1, proposal1.reload.normalized_score
     assert_equal 0.5, proposal2.reload.normalized_score
+  end
+
+  should 'create a new proposal if the current phase is proposals' do
+    discussion.update_attribute(:phase, :proposals)
+    assert proposal.save
+  end
+
+  should 'do not create a new proposal if the current phase is vote' do
+    discussion.update_attribute(:phase, :vote)
+    assert !proposal.save
+  end
+
+  should 'do not create a new proposal if the current phase is finish' do
+    discussion.update_attribute(:phase, :finish)
+    assert !proposal.save
+  end
+
+  should 'do not create a new proposal if the current phase is invalid' do
+    discussion.update_attribute(:phase, '')
+    assert !proposal.save
+  end
+
+  should 'do not update a proposal if a discussion is not in proposals phase' do
+    discussion.update_attribute(:phase, :vote)
+    proposal.body = "changed"
+    assert !proposal.save
+  end
+
+  should 'allow update of proposals if a discussion is in proposals phase' do
+    proposal.body = "changed"
+    assert proposal.save
+  end
+
+  should 'allow vote if discussion phase is vote' do
+    discussion.update_attribute(:phase, :vote)
+    assert proposal.allow_vote?
+  end
+
+  should 'allow vote if discussion phase is proposals' do
+    discussion.update_attribute(:phase, :proposals)
+    assert proposal.allow_vote?
+  end
+
+  should 'not allow vote if discussion phase is finish' do
+    discussion.update_attribute(:phase, :finish)
+    assert !proposal.allow_vote?
   end
 
 end

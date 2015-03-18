@@ -1,3 +1,4 @@
+<% extend ProposalsDiscussionPlugin::DiscussionHelper %>
 <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
 
 <%= add_rss_feed_to_head(discussion.name, discussion.feed.url) if discussion.feed %>
@@ -20,9 +21,7 @@
 <div class="topics js-masonry" data-masonry-options='{ "itemSelector": ".topic-item", "columnWidth": 200 }'>
   <div class="actions topic-item">
     <div class="topic-color"></div>
-    <%= link_to url_for({:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic', :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
-      <strong><%= _("Send your proposal!") %></strong>
-    <% end %>
+    <%= link_to_new_proposal(discussion) %>
   </div>
   <% discussion.topics.includes(:profile).each do |topic| %>
     <div class="topic-item" id="topic-<%= topic.id %>">

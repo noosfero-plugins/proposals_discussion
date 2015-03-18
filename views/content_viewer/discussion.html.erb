@@ -1,9 +1,14 @@
+<% extend ProposalsDiscussionPlugin::DiscussionHelper %>
 <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
 
 <%= add_rss_feed_to_head(discussion.name, discussion.feed.url) if discussion.feed %>
 
 <div class="description">
   <%= discussion.body %>
+</div>
+
+<div class="phases">
+  <%= discussion_phases(discussion) %>
 </div>
 
 <% if discussion.allow_create?(user) %>
@@ -21,9 +26,7 @@
 </div>
 
 <div class="new-proposal">
-  <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => discussion.id}), :class => 'button with-text icon-add' do %>
-    <strong><%= _("Send your proposal!") %></strong>
-  <% end %>
+  <%= link_to_new_proposal(discussion) %>
 </div>
 
 <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => discussion} %>

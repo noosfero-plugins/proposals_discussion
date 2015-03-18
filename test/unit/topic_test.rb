@@ -3,8 +3,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TopicTest < ActiveSupport::TestCase
 
   def setup
+    @discussion = fast_create(ProposalsDiscussionPlugin::Discussion)
     @profile = fast_create(Community)
-    @topic = ProposalsDiscussionPlugin::Topic.new(:name => 'test', :profile => @profile)
+    @topic = ProposalsDiscussionPlugin::Topic.new(:name => 'test', :profile => @profile, :parent => @discussion)
   end
 
   attr_reader :profile, :topic

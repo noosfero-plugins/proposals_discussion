@@ -1,3 +1,30 @@
+.article-body-proposals-discussion-plugin_discussion .phases {
+  margin: 20px;
+  color: white;
+}
+.article-body-proposals-discussion-plugin_discussion .phases .phase {
+  padding: 8px;
+  background-color: gray;
+  min-width: 70px;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.3;
+}
+.article-body-proposals-discussion-plugin_discussion .phases .proposals {
+  background-color: rgb(55, 186, 211);
+}
+.article-body-proposals-discussion-plugin_discussion .phases .vote {
+  background-color: rgb(236, 141, 52);
+}
+.article-body-proposals-discussion-plugin_discussion .phases .finish {
+  background-color: rgb(57, 175, 142);
+}
+.article-body-proposals-discussion-plugin_discussion .phases .active {
+  opacity: 1;
+}
+
 .proposals_list .proposal .abstract {
   color: rgb(160, 160, 160);
   margin-bottom: 15px;

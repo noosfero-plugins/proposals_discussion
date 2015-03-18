@@ -19,8 +19,11 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
 
   settings_items :custom_body_label, :type => :string, :default => _('Body')
   settings_items :allow_topics, :type => :boolean, :default => false
+  settings_items :phase, :type => :string, :default => :proposals
 
-  attr_accessible :custom_body_label, :allow_topics
+  attr_accessible :custom_body_label, :allow_topics, :phase
+
+  AVAILABLE_PHASES = {:proposals => _('Proposals'), :vote => 'Vote', :finish => 'Announcement'}
 
   def self.short_description
     _("Discussion")
@@ -28,6 +31,14 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
 
   def self.description
     _('Container for topics.')
+  end
+
+  def available_phases
+    AVAILABLE_PHASES
+  end
+
+  def allow_new_proposals?
+    phase.to_sym == :proposals
   end
 
   def to_html(options = {})

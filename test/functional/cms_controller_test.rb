@@ -30,4 +30,9 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'label', :attributes => {:class => 'formlabel'}, :content => 'My Custom Label'
   end
 
+  should 'display available phases when edit a proposal' do
+    get :edit, :id => discussion.id, :profile => profile.identifier
+    assert_tag :tag => 'select', :attributes => {:id => 'article_phase'}
+  end
+
 end

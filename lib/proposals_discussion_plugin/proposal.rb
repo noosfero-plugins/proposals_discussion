@@ -15,8 +15,18 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   validates_presence_of :abstract
 
+  validate :discussion_phase_proposals
+
+  def discussion_phase_proposals
+    errors.add(:base, _("Can't create a proposal at this phase.")) unless discussion.allow_new_proposals?
+  end
+
+  def allow_vote?
+    discussion.phase.to_sym != :finish
+  end
+
   def discussion
-    parent.kind_of?(ProposalsDiscussionPlugin::Discussion) ? parent : parent.discussion
+    @discussion ||= parent.kind_of?(ProposalsDiscussionPlugin::Discussion) ? parent : parent.discussion
   end
 
   def to_html(options = {})

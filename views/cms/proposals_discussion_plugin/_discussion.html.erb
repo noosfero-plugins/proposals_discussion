@@ -6,4 +6,5 @@
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
 
 <%= f.text_field(:custom_body_label) %>
+<%= labelled_form_field _('Current Phase'), f.select(:phase, ProposalsDiscussionPlugin::Discussion::AVAILABLE_PHASES.map{|k,v| [v,k]} ) %>
 <%= labelled_form_field check_box(:article, :allow_topics) + _('Allow topics'), '' %>

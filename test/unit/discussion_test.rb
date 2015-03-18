@@ -34,4 +34,19 @@ class DiscussionTest < ActiveSupport::TestCase
     assert_equal 10, discussion.max_score
   end
 
+  should 'allow new proposals if discussion phase is proposals' do
+    discussion.phase = :proposals
+    assert discussion.allow_new_proposals?
+  end
+
+  should 'not allow new proposals if discussion phase is vote' do
+    discussion.phase = :vote
+    assert !discussion.allow_new_proposals?
+  end
+
+  should 'not allow new proposals if discussion phase is finish' do
+    discussion.phase = :finish
+    assert !discussion.allow_new_proposals?
+  end
+
 end

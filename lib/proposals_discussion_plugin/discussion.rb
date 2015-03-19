@@ -1,7 +1,5 @@
 class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::ProposalsHolder
 
-  acts_as_having_posts
-
   has_many :topics, :class_name => 'ProposalsDiscussionPlugin::Topic', :foreign_key => 'parent_id'
   has_many :topics_proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :through => :children, :source => :children
   has_many :topics_proposals_comments, :class_name => 'Comment', :through => :topics_proposals, :source => :comments

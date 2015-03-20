@@ -5,6 +5,8 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   belongs_to :topic, :foreign_key => :parent_id, :class_name => 'ProposalsDiscussionPlugin::Topic'
 
+  has_many :locations, :class_name => 'Region', :through => :article_categorizations, :source => :category
+
   def self.short_description
     _("Proposal")
   end

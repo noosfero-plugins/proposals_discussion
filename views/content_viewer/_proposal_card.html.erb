@@ -27,6 +27,13 @@
         <span title="<%= normalized_score %>" style="background-position-y: -<%= pos %>px">&nbsp;</span>
       <% end %>
     </div>
+    <% if proposal_card.locations.present? %>
+      <div class="locations">
+        <% proposal_card.locations.each do |location| %>
+          <span class="location"><%= location.name %></span>
+        <% end %>
+      </div>
+    <% end %>
     <% if !proposal_card.tags.empty? %>
       <div class="tags" id="article-tags">
         <%= proposal_card.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>

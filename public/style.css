@@ -40,6 +40,12 @@
   float: left;
   clear: both;
 }
+.proposals_list .proposal .locations {
+  float: right;
+  clear: both;
+  color: rgb(155, 155, 155);
+  font-weight: bold;
+}
 .proposal .author {
   display: table-cell;
   font-size: 10px;

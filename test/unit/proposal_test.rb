@@ -117,4 +117,11 @@ class ProposalTest < ActiveSupport::TestCase
     assert !proposal.allow_vote?
   end
 
+  should 'set a proposal location' do
+    location = fast_create(Region)
+    proposal.save!
+    proposal.add_category(location)
+    assert_equal [location], proposal.locations
+  end
+
 end

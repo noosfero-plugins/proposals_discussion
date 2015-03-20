@@ -5,7 +5,7 @@ class ProposalTest < ActiveSupport::TestCase
   def setup
     @profile = fast_create(Community)
     @person = fast_create(Person)
-    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:name => 'discussion', :profile => person, :name => 'discussion')
+    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:name => 'discussion', :profile => person, :name => 'discussion', :allow_topics => false)
     @proposal = ProposalsDiscussionPlugin::Proposal.new(:name => 'test', :abstract => 'abstract', :profile => @profile, :parent => @discussion)
     @proposal.created_by = @person
   end

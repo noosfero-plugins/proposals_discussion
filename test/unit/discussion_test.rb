@@ -26,7 +26,7 @@ class DiscussionTest < ActiveSupport::TestCase
 
   should 'return max score' do
     person = fast_create(Person)
-    discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => person, :name => 'discussion')
+    discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => person, :name => 'discussion', :allow_topics => false)
     proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
     proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal2", :abstract => 'abstract')
     10.times { Comment.create!(:source => proposal1, :body => "comment", :author => person) }

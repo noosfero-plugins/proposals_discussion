@@ -5,7 +5,7 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
   def setup
     @plugin = ProposalsDiscussionPlugin.new
     @profile = fast_create(Community)
-    @params = {}
+    @params = {:controller => 'cms', :action => 'new'}
     @plugin.stubs(:context).returns(self)
   end
 
@@ -41,6 +41,17 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
   should 'do not return Proposal as a content type if parent is nil' do
     @params[:parent_id] = nil
     assert_not_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
+  end
+
+  should 'return all content types if the context controller is not cms' do
+    params[:controller] = 'content_viewer'
+    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal], plugin.content_types
+  end
+
+  should 'return all content types if the context controller is cms and action is not new' do
+    params[:controller] = 'cms'
+    params[:action] = 'edit'
+    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal], plugin.content_types
   end
 
   should 'remove new button from content page for a discussion' do

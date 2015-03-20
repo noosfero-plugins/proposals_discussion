@@ -13,7 +13,7 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
   end
 
   def content_types
-    if context.respond_to?(:params) && context.params
+    if context.respond_to?(:params) && context.params.kind_of?(Hash) && context.params[:controller] == 'cms' && context.params[:action] == 'new'
       types = []
       parent_id = context.params[:parent_id]
       parent = parent_id ? context.profile.articles.find(parent_id) : nil

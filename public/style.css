@@ -132,8 +132,11 @@
   position: relative;
 }
 
+form .proposals-discussion-plugin .title {
+  width: 50%;
+}
 form .proposals-discussion-plugin textarea {
-  width: 98%;
+  width: 100%;
 }
 
 form .proposals-discussion-plugin .abstract textarea {

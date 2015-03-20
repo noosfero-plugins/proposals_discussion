@@ -1,8 +1,6 @@
 <% extend ProposalsDiscussionPlugin::DiscussionHelper %>
 <%= javascript_include_tag 'plugins/proposals_discussion/proposals_list.js' %>
 
-<%= add_rss_feed_to_head(discussion.name, discussion.feed.url) if discussion.feed %>
-
 <div class="description">
   <%= discussion.body %>
 </div>

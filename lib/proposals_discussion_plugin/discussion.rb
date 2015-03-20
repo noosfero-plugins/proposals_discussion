@@ -16,7 +16,7 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
   end
 
   settings_items :custom_body_label, :type => :string, :default => _('Body')
-  settings_items :allow_topics, :type => :boolean, :default => false
+  settings_items :allow_topics, :type => :boolean, :default => true
   settings_items :phase, :type => :string, :default => :proposals
 
   attr_accessible :custom_body_label, :allow_topics, :phase

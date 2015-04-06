@@ -27,4 +27,6 @@
   <%= link_to_new_proposal(discussion) %>
 </div>
 
-<%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => discussion} %>
+<div class="proposals-discussion-infinite-scroll">
+  <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => discussion} %>
+</div>

@@ -29,6 +29,8 @@
   </div>
 <% end %>
 
-<%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => topic} %>
+  <div class="<%= list_view ? '' : "proposals-discussion-infinite-scroll"  %>">
+    <%= render :partial => 'content_viewer/proposals_list', :locals => {:holder => topic} %>
+  </div>
 
 </div>

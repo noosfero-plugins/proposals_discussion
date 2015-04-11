@@ -44,4 +44,10 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
     ['jquery.jscroll.min.js', 'jquery.masonry.min.js', 'flotr2.min.js']
   end
 
+  def self.extra_blocks
+    {
+      ProposalsDiscussionPlugin::ProposalsBlock => {}
+    }
+  end
+
 end

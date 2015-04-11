@@ -21,14 +21,19 @@ class ProposalsDiscussionPlugin::ProposalsBlock < Block
   end
 
   def content(args={})
+    proposals = self.proposals
     block = self
     proc do
-      render :file => 'blocks/proposals_block', :locals => {:block => block}
+      render :file => 'blocks/proposals_block', :locals => {:proposals => proposals, :block => block}
     end
   end
 
   def footer
     nil
+  end
+
+  def proposals
+    ProposalsDiscussionPlugin::Discussion.find(:all)
   end
 
 end

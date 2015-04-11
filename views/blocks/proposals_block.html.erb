@@ -1,3 +1,26 @@
-<div id="proposals-discussion-content-block">
+<div id="proposals-block">
+
+  <nav>
+    <ul>
+    <% proposals.each do |proposal| %>
+      <li><a href="javascript:selectProposalsCategory(<%=proposal.id%>);"><%= proposal.name %></a></li>
+    <% end %>
+    </ul>
+  </nav>
+
+  <div id="proposals-container" class="proposals-container">
+  </div>
+
   <%= _('This is the proposals discussion content block.') %>
 </div>
+
+<script type="text/javascript">
+
+  function selectProposalsCategory(proposal_id) {
+    return false;
+  }
+
+  $(document).ready(function() {
+  });
+
+</script>

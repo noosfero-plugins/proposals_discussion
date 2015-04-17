@@ -45,13 +45,13 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
 
   should 'return all content types if the context controller is not cms' do
     params[:controller] = 'content_viewer'
-    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal], plugin.content_types
+    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal, ProposalsDiscussionPlugin::Story], plugin.content_types
   end
 
   should 'return all content types if the context controller is cms and action is not new' do
     params[:controller] = 'cms'
     params[:action] = 'edit'
-    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal], plugin.content_types
+    assert_equal [ProposalsDiscussionPlugin::Discussion, ProposalsDiscussionPlugin::Topic, ProposalsDiscussionPlugin::Proposal, ProposalsDiscussionPlugin::Story], plugin.content_types
   end
 
   should 'remove new button from content page for a discussion' do

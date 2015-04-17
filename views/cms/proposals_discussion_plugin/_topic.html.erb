@@ -4,15 +4,13 @@
 
 <%= required_fields_message %>
 
+<%= render :file => 'shared/tiny_mce' %>
+
 <%= required f.text_field('name', :size => '64', :maxlength => 150) %>
 <%= render :partial => 'general_fields' %>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
+<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true} %>
 
 <%= labelled_colorpicker_field(_('Color:'), :article, :color) %>
 <span id="color_preview" class = "color_marker" style="background-color: <%= @article.color %>" ></span>
 
-<%= f.fields_for :image_builder, @article.image do |i| %>
-  <%= file_field_or_thumbnail(_('Image:'), @article.image, i)%>
-  <%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
-<% end %>

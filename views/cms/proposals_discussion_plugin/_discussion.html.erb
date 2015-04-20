@@ -2,10 +2,13 @@
 
 <%= required_fields_message %>
 
+<%= render :file => 'shared/tiny_mce' %>
+
 <%= required f.text_field('name', :size => '64', :maxlength => 150) %>
 <%= render :partial => 'general_fields' %>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
+<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true} %>
+<%#= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
 
 <%= f.text_field(:custom_body_label) %>
 <%= labelled_form_field _('Current Phase'), f.select(:phase, ProposalsDiscussionPlugin::Discussion::AVAILABLE_PHASES.map{|k,v| [v,k]} ) %>

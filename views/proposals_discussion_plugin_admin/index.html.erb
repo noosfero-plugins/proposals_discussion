@@ -1,0 +1,32 @@
+<h1><%= _('Proposals Discussion settings')%></h1>
+
+<script type='text/javascript'>
+  
+function add_host() {
+  var new_host = jQuery('.hosts>li').clone();
+  new_host.show();
+  jQuery('.hosts').append(new_host);
+}
+
+</script>
+
+<%= form_for(:settings) do |f| %>
+
+  <%= display_form_field(_('Proposal Discussion'), f.select(:proposal_discussion_id, environment.discussions.map{|d|[d.name, d.id]})) %>
+
+  <ul class='hosts'>
+    <% for access in environment.settings[:proposals_discussion_plugin][:proposal_app_accesses] do %>
+      <li>
+        <%= labelled_form_field _('Host:'), text_field_tag('settings[proposal_app_accesses][][host]', access[:host]) %>
+        <%= labelled_form_field _('Private key:'), text_field_tag('settings[proposal_app_accesses][][private_key]', access[:private_key]) %>
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to_function(_('New Host'), 'add_host();', :class => 'button icon-add with-text') %>
+  
+  <% button_bar do %>
+    <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>
+

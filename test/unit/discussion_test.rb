@@ -49,4 +49,19 @@ class DiscussionTest < ActiveSupport::TestCase
     assert !discussion.allow_new_proposals?
   end
 
+  should 'not allow proposal creation by normal users if discussion is moderated' do
+    discussion.moderate_proposals = true
+    person = fast_create(Person)
+    proposal = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    assert !discussion.allow_create?(person)
+  end
+
+  should 'allow proposal creation by admin users even when discussion is moderated' do
+    discussion.moderate_proposals = true
+    person = fast_create(Person)
+    give_permission(person, 'post_content', profile)
+    proposal = ProposalsDiscussionPlugin::Proposal.create!(:parent => discussion, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    assert discussion.allow_create?(person)
+  end
+
 end

@@ -6,7 +6,7 @@ class ProposalsDiscussionPluginProfileControllerTest < ActionController::TestCas
     @profile = fast_create(Community)
     @discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => 'discussion',:allow_topics => true)
     @topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => @discussion.id, :profile_id => @profile.id)
-    @person = create_user_with_permission('testinguser', 'post_content')
+    @person = create_user_with_permission('testinguser', 'post_content', @profile)
     login_as :testinguser
   end
 
@@ -30,6 +30,7 @@ class ProposalsDiscussionPluginProfileControllerTest < ActionController::TestCas
   end
 
   should 'deny access to export when user has no permission' do
+    login_as(create_user('testuser').login)
     get :export, :format => :csv, :article_id => discussion.id, :profile => profile.identifier
     assert_template 'access_denied'
   end

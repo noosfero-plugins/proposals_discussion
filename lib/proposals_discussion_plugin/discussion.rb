@@ -18,8 +18,9 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
   settings_items :custom_body_label, :type => :string, :default => _('Body')
   settings_items :allow_topics, :type => :boolean, :default => true
   settings_items :phase, :type => :string, :default => :proposals
+  settings_items :moderate_proposals, :type => :boolean, :default => false
 
-  attr_accessible :custom_body_label, :allow_topics, :phase
+  attr_accessible :custom_body_label, :allow_topics, :phase, :moderate_proposals
 
   AVAILABLE_PHASES = {:proposals => _('Proposals'), :vote => 'Vote', :finish => 'Announcement'}
 
@@ -37,6 +38,10 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
 
   def allow_new_proposals?
     phase.to_sym == :proposals
+  end
+
+  def allow_create?(person)
+    !moderate_proposals || super
   end
 
   def to_html(options = {})

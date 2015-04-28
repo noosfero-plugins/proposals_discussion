@@ -3,7 +3,7 @@ module ProposalsDiscussionPlugin::DiscussionHelper
   def link_to_new_proposal(discussion)
     return '' unless discussion.allow_new_proposals?
 
-    url = {:parent_id => discussion.id, :profile => discussion.profile.identifier}
+    url = {:discussion_id => discussion.id, :profile => discussion.profile.identifier}
     if discussion.allow_topics
       url.merge!(:controller => 'proposals_discussion_plugin_myprofile', :action => 'select_topic')
     else

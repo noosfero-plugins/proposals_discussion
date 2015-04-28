@@ -11,14 +11,14 @@
 
 <div class="proposals-discussion-plugin select-topic">
   <h1><%= @discussion.title %></h1>
-  <%= form_for :discussion, :url => {:controller => 'proposals_discussion_plugin_myprofile', :action => 'new_proposal'} do %>
+  <%= form_for :discussion, :url => {:controller => 'proposals_discussion_plugin_myprofile', :action => 'new_proposal_with_topic', :discussion_id => @discussion.id } do %>
 
     <h3><%= _('Select topic') %></h3>
     <div id="topics">
 
       <% @discussion.topics.each do |topic| %>
         <h4>
-          <%= radio_button_tag('discussion[topic]', topic.id) %>
+          <%= radio_button_tag('parent_id', topic.id) %>
           <%= topic.title %>
         </h4>
         <div class="content">
@@ -28,8 +28,6 @@
 
       <div class="clear"></div>
     </div>
-
-    <%= hidden_field_tag :parent_id, @discussion.id %>
 
     <div class="actions">
       <%= submit_button(:next, _('Next')) %>

@@ -11,3 +11,4 @@
 <%= f.text_field(:custom_body_label) %>
 <%= labelled_form_field _('Current Phase'), f.select(:phase, ProposalsDiscussionPlugin::Discussion::AVAILABLE_PHASES.map{|k,v| [v,k]} ) %>
 <%= labelled_form_field check_box(:article, :allow_topics) + _('Allow topics'), '' %>
+<%= labelled_form_field check_box(:article, :moderate_proposals) + _('Moderate proposals'), '' %>

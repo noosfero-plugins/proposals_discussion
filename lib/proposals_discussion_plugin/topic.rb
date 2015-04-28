@@ -26,7 +26,7 @@ class ProposalsDiscussionPlugin::Topic  < ProposalsDiscussionPlugin::ProposalsHo
   end
 
   def allow_create?(user)
-    true
+    !discussion.moderate_proposals
   end
 
 end

@@ -35,4 +35,9 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'select', :attributes => {:id => 'article_phase'}
   end
 
+  should 'display moderate proposals config option' do
+    get :edit, :id => discussion.id, :profile => profile.identifier
+    assert_select '#article_moderate_proposals'
+  end
+
 end

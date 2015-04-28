@@ -1,17 +1,25 @@
 class ProposalsDiscussionPluginMyprofileController < MyProfileController
 
   before_filter :check_edit_permission_to_proposal, :only => :publish_proposal
-  before_filter :set_discussion, :only => [:select_topic, :new_proposal]
+  before_filter :set_discussion, :only => [:select_topic, :new_proposal_with_topic, :new_proposal]
 
   def select_topic
   end
 
-  def new_proposal
-    if params[:discussion].blank? || params[:discussion][:topic].blank?
+  def new_proposal_with_topic
+    if params[:parent_id].blank?
       session[:notice] = _('Please select a topic')
       render :file => 'proposals_discussion_plugin_myprofile/select_topic'
     else
-      redirect_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => params[:discussion][:topic]
+      new_proposal
+    end
+  end
+
+  def new_proposal
+    if @discussion.allow_create?(current_person)
+      redirect_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => params[:parent_id]
+    else
+      render 'proposals_discussion_plugin_myprofile/suggest_proposal'
     end
   end
 
@@ -32,7 +40,7 @@ class ProposalsDiscussionPluginMyprofileController < MyProfileController
   end
 
   def set_discussion
-    @discussion = profile.articles.find(params[:parent_id])
+    @discussion = profile.articles.find(params[:discussion_id]) if params[:discussion_id].present?
   end
 
 end

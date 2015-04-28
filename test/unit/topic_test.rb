@@ -8,7 +8,7 @@ class TopicTest < ActiveSupport::TestCase
     @topic = ProposalsDiscussionPlugin::Topic.new(:name => 'test', :profile => @profile, :parent => @discussion)
   end
 
-  attr_reader :profile, :topic
+  attr_reader :profile, :topic, :discussion
 
   should 'return list of proposals' do
     topic.save!
@@ -17,8 +17,13 @@ class TopicTest < ActiveSupport::TestCase
     assert_equivalent [proposal1, proposal2], topic.proposals
   end
 
-  should 'allow any user to create proposals in a topic' do
+  should 'allow any user to create proposals in a topic when discussion is not moderated' do
     assert topic.allow_create?(Person.new)
+  end
+
+  should 'do not allow normal users to create proposals in a topic when discussion is moderated' do
+    discussion.moderate_proposals = true
+    assert !topic.allow_create?(Person.new)
   end
 
   should 'return list of comments' do

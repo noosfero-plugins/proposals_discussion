@@ -14,17 +14,17 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
 
   should 'list topics for selection' do
     3.times {fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id, :profile_id => profile.id)}
-    get :select_topic, :profile => profile.identifier, :parent_id => discussion.id
+    get :select_topic, :profile => profile.identifier, :discussion_id => discussion.id
     assert_equal discussion, assigns(:discussion)
     assert_select 'div#topics' do
       assert_select 'div.content', discussion.topics.count
-      assert_select "input[name='discussion[topic]']", discussion.topics.count
+      assert_select "input[name='parent_id']", discussion.topics.count
     end
-    assert_tag :form, :attributes => {:action => "/myprofile/#{profile.identifier}/plugin/proposals_discussion/myprofile/new_proposal"}
+    assert_tag :form, :attributes => {:action => "/myprofile/#{profile.identifier}/plugin/proposals_discussion/myprofile/new_proposal_with_topic?discussion_id=#{discussion.id}"}
   end
 
   should 'new_proposal redirect to cms controller' do
-    get :new_proposal, :profile => profile.identifier, :discussion => {:topic => topic.id}, :parent_id => discussion.id
+    get :new_proposal, :profile => profile.identifier,:parent_id => topic.id, :discussion_id => discussion.id
     assert_redirected_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id
   end
 
@@ -41,8 +41,8 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
     assert !proposal.reload.published
   end
 
-  should 'new_proposal without a topic redirect to back' do
-    get :new_proposal, :profile => profile.identifier, :parent_id => discussion.id
+  should 'new_proposal without a topic redirect to select_topic' do
+    get :new_proposal_with_topic, :profile => profile.identifier, :discussion_id => discussion.id
     assert_template 'select_topic'
   end
 

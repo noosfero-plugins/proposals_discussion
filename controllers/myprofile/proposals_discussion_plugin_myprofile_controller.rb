@@ -19,7 +19,7 @@ class ProposalsDiscussionPluginMyprofileController < MyProfileController
     if @discussion.allow_create?(current_person)
       redirect_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => params[:parent_id]
     else
-      render 'proposals_discussion_plugin_myprofile/suggest_proposal'
+      redirect_to :controller => 'cms', :action => 'suggest_an_article', :task => {:article => {:type => "ProposalsDiscussionPlugin::Proposal", :parent_id => params[:parent_id]}}, :back_to => url_for(@discussion.view_url)
     end
   end
 

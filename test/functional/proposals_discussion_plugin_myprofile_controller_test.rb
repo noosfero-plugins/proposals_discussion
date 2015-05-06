@@ -4,8 +4,8 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
 
   def setup
     @profile = fast_create(Community)
-    @discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
-    @topic = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => @discussion.id, :profile_id => @profile.id)
+    @discussion = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => "Discussion")
+    @topic = ProposalsDiscussionPlugin::Topic.create!(:parent => @discussion, :profile => @profile, :name => 'Topic')
     @person = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
   end
@@ -26,6 +26,13 @@ class ProposalsDiscussionPluginMyprofileControllerTest < ActionController::TestC
   should 'new_proposal redirect to cms controller' do
     get :new_proposal, :profile => profile.identifier,:parent_id => topic.id, :discussion_id => discussion.id
     assert_redirected_to :controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id
+  end
+
+  should 'new_proposal with moderated discussion redirect to suggest action in cms controller' do
+    discussion.moderate_proposals = true
+    discussion.save!
+    get :new_proposal, :profile => profile.identifier,:parent_id => topic.id, :discussion_id => discussion.id
+    assert_match /suggest_an_article/, @response.location.inspect
   end
 
   should 'publish a proposal' do

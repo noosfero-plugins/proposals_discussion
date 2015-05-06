@@ -48,4 +48,8 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
     ['jquery.jscroll.min.js', 'jquery.masonry.min.js', 'flotr2.min.js']
   end
 
+  def self.api_mount_points
+    [ProposalsDiscussionPlugin::API]
+  end
+
 end

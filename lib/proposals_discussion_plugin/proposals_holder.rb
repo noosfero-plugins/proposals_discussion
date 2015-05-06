@@ -1,5 +1,8 @@
 class ProposalsDiscussionPlugin::ProposalsHolder < Folder
 
+  has_many :proposals, :class_name => 'ProposalsDiscussionPlugin::Proposal', :foreign_key => 'parent_id'
+  has_many :proposals_authors, :class_name => 'Person', :through => :children, :source => :created_by
+
   def accept_comments?
     accept_comments
   end

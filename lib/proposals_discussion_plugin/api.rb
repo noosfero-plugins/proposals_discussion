@@ -9,8 +9,8 @@ class ProposalsDiscussionPlugin::API < Grape::API
         min_hits = article.proposals.minimum(:hits)
 
         proposals = article.proposals.map do |proposal|
-          w = [(proposal.hits - max_hits).abs, (proposal.hits - min_hits).abs].max.to_f
-          effective_support = (proposal.votes_for - proposal.votes_against)/(1+w)
+          w = [(proposal.hits - max_hits).abs, (proposal.hits - min_hits).abs, 1].max.to_f
+          effective_support = (proposal.votes_for - proposal.votes_against)/w
 
           {:id => proposal.id, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :hits => proposal.hits, :effective_support => effective_support}
         end

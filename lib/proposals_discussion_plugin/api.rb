@@ -8,7 +8,7 @@ class ProposalsDiscussionPlugin::API < Grape::API
         effective_support = (proposal.votes_for - proposal.votes_against)/proposal.hits.to_f
         effective_participation = (proposal.votes_for + proposal.votes_against)/proposal.hits.to_f
 
-        {:id => proposal.id, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :effective_support => effective_support, :effective_participation => effective_participation}
+        {:id => proposal.id, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :hits => proposal.hits, :effective_support => effective_support, :effective_participation => effective_participation}
       end
 
       proposals = proposals.sort_by { |p| p[:effective_support] }.reverse

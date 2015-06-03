@@ -27,7 +27,7 @@ class ProposalsDiscussionPlugin::API < Grape::API
 
       proposal_task = ProposalsDiscussionPlugin::ProposalTask.new
       proposal_task.article = params[:article]
-      proposal_task.article[:parent_id] = parent_article.id
+      proposal_task.article_parent_id = parent_article.id
       proposal_task.target = parent_article.profile
       proposal_task.requestor = current_person
 

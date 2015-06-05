@@ -22,6 +22,22 @@ class ProposalsDiscussionPlugin::API < Grape::API
       ranking
     end
 
+    post ':id/propose' do
+      parent_article = environment.articles.find(params[:id])
+
+      proposal_task = ProposalsDiscussionPlugin::ProposalTask.new
+      proposal_task.article = params[:article]
+      proposal_task.article_parent_id = parent_article.id
+      proposal_task.target = parent_article.profile
+      proposal_task.requestor = current_person
+
+      unless proposal_task.save
+        render_api_errors!(proposal_task.article_object.errors.full_messages)
+      end
+      {:success => true}
+      #present proposal_task, :with => Entities::Task, :fields => params[:fields]
+    end
+
   end
 
 end

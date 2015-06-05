@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1-2267-gd7d222b\n"
-"POT-Creation-Date: 2015-06-05 08:42-0300\n"
+"POT-Creation-Date: 2015-06-05 09:01-0300\n"
 "PO-Revision-Date: 2015-02-12 09:49-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,8 +86,7 @@ msgid ""
 "\n"
 "%{reject_explanation}"
 msgstr ""
-"Aqui está a explicação deixada pelo moderador que rejeitou sua "
-"proposta: \n"
+"Aqui está a explicação deixada pelo moderador que rejeitou sua proposta: \n"
 "\n"
 "%{reject_explanation}"
 
@@ -159,7 +158,7 @@ msgstr "Envie sua proposta!"
 
 #: plugins/proposals_discussion/lib/ext/vote.rb:10
 msgid "Can't vote in this discussion anymore."
-msgstr ""
+msgstr "Não pode votar mais nesta discussão"
 
 #: plugins/proposals_discussion/views/content_viewer/discussion_topics.html.erb:11
 msgid "New Topic"

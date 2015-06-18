@@ -8,7 +8,7 @@ class ProposalsDiscussionPluginTasksController < TasksController
     @filter_responsible = params[:filter_responsible]
     @filter_tags = params[:filter_tags]
 
-    @view_only = !current_person.has_permission?(:perform_task, profile)
+    @view_only = !current_person.has_permission?(:perform_task, profile) || params[:view_only]
 
     @task_tags = [OpenStruct.new(:name => _('All'), :id => nil) ] + Task.all_tags
     @task_types = Task.pending_types_for(profile)

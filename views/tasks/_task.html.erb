@@ -41,7 +41,7 @@
     <% end %>
   </div><!-- class="task_decisions" -->
 
-  <% if task.default_decision=='reject' %>
+  <% if task.flagged_for_reproval? %>
     <script>$("#decision-cancel-<%= task.id %>").click();</script>
   <% end %>
 

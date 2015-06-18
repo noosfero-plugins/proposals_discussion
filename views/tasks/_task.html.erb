@@ -1,5 +1,5 @@
 <div class="task_box" id="task-<%= task.id %>">
-
+  <%= tag :a, name: "task-#{task.id}" %>
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 
   <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
@@ -64,17 +64,17 @@
     <% end %>
 
     <% if @view_only %>
-      <div class="evaluation_bar" style="float:right">
+      <div class="evaluation_toolbar">
         <div class="evaluation_button approval"
           data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_approve_proposal"%>'
           data-task-id="<%= task.id %>"
-          data-status-id="<%= ProposalsDiscussionPlugin::ProposalTask::Status::FLAGGED_FOR_APPROVAL  %>">
+          data-flag-action="flag_approve_proposal">
           <img class="" src="/plugins/proposals_discussion/images/approval.png">
           <span>Aprovar</span>
         </div>
-        <div class="evaluation_button reproval"
+        <div id="evaluation_button_#{task.id}" class="evaluation_button reproval"
           data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_reject_proposal"%>'
-          data-task-id="<%= task.id %>" data-status-id="<%= ProposalsDiscussionPlugin::ProposalTask::Status::FLAGGED_FOR_REPROVAL %>">
+          data-task-id="<%= task.id %>" data-flag-action="flag_reprove_proposal">
           <img class="" src="/plugins/proposals_discussion/images/reproval.png">
           <span>Reprovar</span>
         </div>
@@ -98,7 +98,12 @@
         </div>
       </div>
 
-
+      <div class="confirm_evaluation_toolbar">
+        <div class="confirm_evaluation_button">
+          <a data-task-id="<%= task.id %>" class="disabled" href="#task-<%= task.id %>"
+            data-href='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/"%>'>Confirmar</span>
+        </div>
+      </div>
 
   <% end %>
 

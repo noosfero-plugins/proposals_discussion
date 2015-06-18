@@ -320,26 +320,31 @@ form .proposals-discussion-plugin .body textarea {
   color: gray;
 }
 
-.evaluation_bar {
-  width: 400px;
-}
 
 .evaluation_button {
   cursor: pointer;
+  width: auto;
+  float: left;
+  padding: 5px;
 }
 
 .evaluation_button img {
   float:left;
   width: 32px;
   height:32px;
-  margin-left: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .evaluation_button span {
-  margin-left: 8px;
+  margin-right: 10px;
   font-size: 24px;
-  width: auto;
   float:left;
+
+}
+
+div.evaluation_button.checked {
+  border: 1px dotted black;
 }
 
 .evaluation_button.approval span {
@@ -348,4 +353,31 @@ form .proposals-discussion-plugin .body textarea {
 
 .evaluation_button.reproval span {
   color: red;
+}
+
+.evaluation_toolbar {
+  float: right;
+}
+
+.confirm_evaluation_toolbar {
+  clear: both;
+  width: 100%;
+  text-align:center;
+  font-size: 24px;
+}
+
+div.confirm_evaluation_button a {
+  text-decoration: none;
+  color: #003366;
+}
+
+div.confirm_evaluation_button a:hover {
+  text-decoration: underline;
+}
+
+
+div.confirm_evaluation_button a.disabled {
+  text-decoration: none;
+  color: gray;
+  display: hidden;
 }

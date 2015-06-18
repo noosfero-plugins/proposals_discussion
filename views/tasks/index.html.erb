@@ -107,18 +107,48 @@
   })
 
   $('div.evaluation_button').on('click', null, function(){
+    toggleEvaluation(this);
+  });
+
+
+  $('div.confirm_evaluation_button a').on('click', null, function(){
     evaluate_task(this);
   });
 
-  function evaluate_task(el) {
-    var url = $(el).data('url');
+  function toggleEvaluation(el){
     var task_id = $(el).data('task-id');
-    var params = {
-      task_id: task_id,
-      flagged_status: $(el).data('status-id')
-    };
     var taskElement = $('#task-' + task_id);
-    jQuery.post(url , params  ,
+    //var status_id = $(el).data('status-id')
+    //taskElement.data('status_evaluated', status_id);
+
+    taskElement.find('div.evaluation_button').removeClass('checked');
+
+    taskElement.find('div.confirm_evaluation_button a').removeClass('disabled');
+
+    $(el).addClass("checked");
+  }
+
+  function evaluate_task(el) {
+
+    if($(el).hasClass('disabled')) {
+      return false;
+    }
+
+    var url = $(el).data('href');
+
+    var task_id = $(el).data('task-id');
+
+    var taskElement = $('#task-' + task_id);
+
+    var checkedButton = taskElement.find("div.evaluation_button.checked");
+
+    var flag_action = checkedButton.data('flag-action');
+
+    var params = {
+      task_id: task_id
+    };
+
+    jQuery.post(url + "/" + flag_action, params  ,
       function(data) {
         if (data.success) {
           $(el).effect("highlight");

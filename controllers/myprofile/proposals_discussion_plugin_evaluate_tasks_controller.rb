@@ -20,7 +20,7 @@ class ProposalsDiscussionPluginEvaluateTasksController < MyProfileController
     render json: result
   end
 
-  def flag_reject_proposal
+  def flag_reprove_proposal
     if request.post? && params[:task_id]
       result = {
         success: false,

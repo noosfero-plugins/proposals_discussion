@@ -1,0 +1,134 @@
+<%= stylesheet_link_tag 'tasks' %>
+
+<h1><%= _("%s's pending tasks") % profile.name %></h1>
+<p>
+
+<%
+  type_collection = [[nil, _('All')]] + @task_types
+%>
+
+<% if !@failed.blank? %>
+  <div id="errorExplanation">
+    <% @failed.each do |error, tasks_descriptions|%>
+      <h2> <%= error %></h2>
+      <p><%=_("This error happened with the following tasks: ")%></p>
+      <ul>
+        <% tasks_descriptions.each do |description| %>
+            <li> <%= description %> </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
+<% unless @view_only %>
+  <%= form_tag '#', :method => 'get' do %>
+    <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+      <p>
+        <%= labelled_select(_('Type of task')+': ', :filter_type, :first, :last, @filter_type,  type_collection, {:id => 'filter-type'}) %>
+      </p>
+      <p>
+        <%= labelled_text_field(_("Text filter")+': ', :filter_text, nil, {:id => 'filter-text',:value => @filter_text}) %>
+      </p>
+      <% if profile.organization? %>
+        <p>
+          <%= labelled_select(_('Assigned to')+': ', :filter_responsible, :id, :name, @filter_responsible, [OpenStruct.new(:name => _('All'), :id => nil), OpenStruct.new(:name => _('Unassigned'), :id => -1)] + @responsible_candidates, :class => 'filter_responsible') %>
+        </p>
+      <% end %>
+      <p>
+        <%= labelled_select(_('Tags')+': ', :filter_tags, :id, :name, @filter_tags, @task_tags, {:id => 'filter-add-tag'}) %>
+        <%= text_field_tag( :filter_tags, @filter_tags, :size => 36, :class => 'filter-tags' ) %>
+      </p>
+
+      <p>
+        <%= submit_button(:search, _('Search')) %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+<% if @tasks.empty? %>
+  <p>
+    <em><%= _('No pending tasks for %s') % profile.name %></em>
+  </p>
+<% else %>
+  <%= form_tag :action => 'close' do%>
+    <% button_bar(:class => 'task-actions') do %>
+      <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+      <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
+      <%= submit_button :save, _("Apply!") %>
+      <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
+      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <% end unless @view_only %>
+
+    <ul class='task-list'>
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
+        </p>
+      <% end %>
+
+      <div class="task_boxes">
+        <%= render :partial => 'task', :collection => @tasks %>
+      </div>
+
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
+        </p>
+      <% end %>
+    </ul>
+
+    <script>
+      jQuery('.tag-list').inputosaurus({
+        autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags'," %>
+        activateFinalResult : true
+      })
+    </script>
+
+    <%= pagination_links(@tasks)%>
+
+    <% button_bar(:class => 'task-actions') do %>
+      <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+      <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
+      <%= submit_button :save, _("Apply!") %>
+      <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
+      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <% end unless @view_only %>
+  <% end %>
+<% end %>
+</p>
+
+
+<%= javascript_include_tag 'tasks' %>
+
+<script type="text/javascript">
+  Task.showTags({
+    profileIdentifier: <%= "'#{profile.identifier}'" %>
+  })
+
+  $('div.evaluation_button').on('click', null, function(){
+    evaluate_task(this);
+  });
+
+  function evaluate_task(el) {
+    var url = $(el).data('url');
+    var task_id = $(el).data('task-id');
+    var params = {
+      task_id: task_id,
+      flagged_status: $(el).data('status-id')
+    };
+    var taskElement = $('#task-' + task_id);
+    jQuery.post(url , params  ,
+      function(data) {
+        if (data.success) {
+          $(el).effect("highlight");
+          taskElement.fadeOut();
+        } else {
+          $(el).effect("highlight", {color: 'red'});
+        }
+        if (data.notice) {
+          display_notice(data.notice);
+        }
+    });
+  }
+</script>

@@ -1,0 +1,105 @@
+<div class="task_box" id="task-<%= task.id %>">
+
+  <%= render :partial => 'task_icon', :locals => {:task => task} %>
+
+  <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assign to:') %></span>
+      <span>
+        <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
+        <%= select_tag "tasks[#{task.id}][responsible]", options_from_collection_for_select(@responsible_candidates, :id, :name, task.responsible.present? ? task.responsible.id : nil), :include_blank => true, :onchange => "change_task_responsible(this);", 'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil, 'data-task' => task.id, 'data-url' => change_responsible_url %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if @view_only && task.responsible.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assigned to:') %></span>
+      <span class="value"><%= task.responsible.name %></span>
+    </div>
+  <% end %>
+
+  <div class="task_decisions">
+    <% unless @view_only %>
+      <%=
+        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.flagged_for_approval? || task.default_decision == 'accept',
+                              :id => "decision-finish-#{task.id}",
+                              :class => 'task_accept_radio',
+                              :disabled => task.accept_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.flagged_for_reproval? || task.default_decision == 'reject',
+                              :id => "decision-cancel-#{task.id}",
+                              :class => 'task_reject_radio',
+                              :disabled => task.reject_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip' && task.unflagged?,
+                              :id => "decision-skip-#{task.id}",
+                              :class => 'task_skip_radio',
+                              :disabled => task.skip_disabled?,
+                              :task_id => "#{task.id}")
+      %>
+    <% end %>
+  </div><!-- class="task_decisions" -->
+
+  <div class="task_date"><%= show_time(task.created_at) %></div>
+
+  <%= render :partial => 'task_title', :locals => {:task => task} %>
+
+  <div class="task_information">
+    <%= task_information(task) %>
+  </div>
+
+
+  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
+    <% if task.accept_details and !@view_only %>
+      <div id="on-accept-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+
+    <% if task.reject_details and !@view_only %>
+      <div id="on-reject-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+
+    <% if @view_only %>
+      <div class="evaluation_bar" style="float:right">
+        <div class="evaluation_button approval"
+          data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_approve_proposal"%>'
+          data-task-id="<%= task.id %>"
+          data-status-id="<%= ProposalsDiscussionPlugin::ProposalTask::Status::FLAGGED_FOR_APPROVAL  %>">
+          <img class="" src="/plugins/proposals_discussion/images/approval.png">
+          <span>Aprovar</span>
+        </div>
+        <div class="evaluation_button reproval"
+          data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_reject_proposal"%>'
+          data-task-id="<%= task.id %>" data-status-id="<%= ProposalsDiscussionPlugin::ProposalTask::Status::FLAGGED_FOR_REPROVAL %>">
+          <img class="" src="/plugins/proposals_discussion/images/reproval.png">
+          <span>Reprovar</span>
+        </div>
+      </div>
+    <% end %>
+      <%#= select_tag "tasks[#{task.id}][setting][evaluation_flag]",
+            options_for_select(
+                [_('FLAGGED_FOR_APPROVAL'),_('FLAGGED_FOR_REPROVAL')],(task.flagged_status.present? ? task.flagged_status : nil)
+              ),
+              {
+                :include_blank => true,
+                :onchange => "change_flagged_status(this);",
+                'data-old-responsible' => task.flagged_status.present? ? task.flagged_status.id : nil,
+               'data-task' => task.id, 'data-url' => 'change_flagged_status_url'
+              } %>
+
+
+      <div class="formfieldline">
+        <div class="formfield tag-list-fields">
+          <%= labelled_text_field(_('Tags'),"tasks[#{task.id}][task][tag_list]", task.tags_from(nil).to_s, :size => 36, :class => 'tag-list','data-submit-values'=>"{'task_id':'#{task.id}'}") %>
+        </div>
+      </div>
+
+
+
+  <% end %>
+
+</div><!-- class="task_box" -->

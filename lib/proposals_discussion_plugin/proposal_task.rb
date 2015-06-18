@@ -10,6 +10,16 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   settings_items :article, :type => Hash, :default => {}
   settings_items :closing_statment, :article_parent_id
 
+
+  scope :pending_evaluated, lambda { |profile, filter_type, filter_text|
+    self
+      .to(profile)
+      .without_spam.pending
+      .of(filter_type)
+      .like('data', filter_text)
+      .where(:status => ProposalsDiscussionPlugin::ProposalTask::Status.evaluated_statuses)
+  }
+
   before_create do |task|
     if !task.target.nil?
       organization = task.target
@@ -18,7 +28,79 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     end
   end
 
+  def unflagged?
+    ! flagged?
+  end
+
+  def flagged?
+    flagged_for_approval? || flagged_for_reproval?
+  end
+
+  def flagged_for_approval?
+    Status::FLAGGED_FOR_APPROVAL.eql?(self.status)
+  end
+
+  def flagged_for_reproval?
+    Status::FLAGGED_FOR_REPROVAL.eql?(self.status)
+  end
+
   after_create :schedule_spam_checking
+
+  module Status
+    FLAGGED_FOR_APPROVAL = 5
+    FLAGGED_FOR_REPROVAL = 6
+
+    class << self
+      def names
+        [
+          nil,
+          N_('Active'), N_('Cancelled'), N_('Finished'),
+          N_('Hidden'), N_('Flagged for Approval'), N_('Flagged for Reproval')
+        ]
+      end
+
+      def evaluated_statuses
+        [
+          FLAGGED_FOR_APPROVAL,
+          FLAGGED_FOR_REPROVAL
+        ]
+      end
+    end
+  end
+
+
+  def flag_accept_proposal(evaluated_by)
+    transaction do
+      if evaluated_by
+        ProposalsDiscussionPlugin::ProposalEvaluation.new do |evaluation|
+          evaluation.evaluated_by = evaluated_by
+          evaluation.flagged_status = Status::FLAGGED_FOR_APPROVAL
+          evaluation.proposal_task = self
+          evaluation.save!
+        end
+      end
+      self.status = Status::FLAGGED_FOR_APPROVAL
+      self.save!
+      return true
+    end
+  end
+
+  def flag_reject_proposal(evaluated_by)
+    transaction do
+      if evaluated_by
+        ProposalsDiscussionPlugin::ProposalEvaluation.new do |evaluation|
+          evaluation.evaluated_by = evaluated_by
+          evaluation.flagged_status = Status::FLAGGED_FOR_REPROVAL
+          evaluation.proposal_task = self
+          evaluation.save!
+        end
+      end
+      self.status = Status::FLAGGED_FOR_REPROVAL
+      self.save!
+      return true
+    end
+  end
+
 
   def schedule_spam_checking
     self.delay.check_for_spam
@@ -65,7 +147,6 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     article_abstract
   end
 
-
   def information
     {:message => _("%{requestor} wants to send the following proposal. <br/>%{abstract}"), :variables => {:abstract => abstract}}
   end
@@ -90,7 +171,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 #  def article_title
 #    article ? article.title : _('(The original text was removed)')
 #  end
-  
+
 #  def article
 #    Article.find_by_id data[:article_id]
 #  end

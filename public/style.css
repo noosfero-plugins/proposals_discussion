@@ -319,3 +319,33 @@ form .proposals-discussion-plugin .body textarea {
 #content .article-body.article-body-proposals-discussion-plugin_proposal .discussion {
   color: gray;
 }
+
+.evaluation_bar {
+  width: 400px;
+}
+
+.evaluation_button {
+  cursor: pointer;
+}
+
+.evaluation_button img {
+  float:left;
+  width: 32px;
+  height:32px;
+  margin-left: 30px;
+}
+
+.evaluation_button span {
+  margin-left: 8px;
+  font-size: 24px;
+  width: auto;
+  float:left;
+}
+
+.evaluation_button.approval span {
+  color: green;
+}
+
+.evaluation_button.reproval span {
+  color: red;
+}

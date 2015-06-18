@@ -41,6 +41,10 @@
     <% end %>
   </div><!-- class="task_decisions" -->
 
+  <% if task.default_decision=='reject' %>
+    <script>$("#decision-cancel-<%= task.id %>").click();</script>
+  <% end %>
+
   <div class="task_date"><%= show_time(task.created_at) %></div>
 
   <%= render :partial => 'task_title', :locals => {:task => task} %>

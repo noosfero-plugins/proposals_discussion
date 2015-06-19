@@ -29,7 +29,7 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
 
-
+    render :action => 'proposals_discussion_plugin_tasks/index'
   end
 
 end

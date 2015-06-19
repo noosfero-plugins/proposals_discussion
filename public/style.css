@@ -379,5 +379,5 @@ div.confirm_evaluation_button a:hover {
 div.confirm_evaluation_button a.disabled {
   text-decoration: none;
   color: gray;
-  display: hidden;
+  visibility: hidden;
 }

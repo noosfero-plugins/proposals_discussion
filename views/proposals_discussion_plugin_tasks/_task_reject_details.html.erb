@@ -2,4 +2,7 @@
   <div class="template-selection">
     <%= labelled_form_field(_('Select a rejection email template:'), select_tag("tasks[#{task.id}][task][email_template_id]", options_from_collection_for_select(@email_templates, :id, :name), :include_blank => true, 'data-url' => url_for(:controller => 'email_templates', :action => 'show_parsed'))) %>
   </div>
+  <% if task.flagged_for_reproval? %>
+    <script>jQuery("#decision-cancel-<%= task.id %>").click();</script>
+  <% end %>
 <% end %>

@@ -36,6 +36,9 @@
         </p>
       <% end %>
       <p>
+        <%= labelled_select(_('Status')+': ', :filter_status, :id, :name, @filter_status, @task_statuses, {:id => 'filter-statuses'}) %>
+      </p>
+      <p>
         <%= labelled_select(_('Tags')+': ', :filter_tags, :id, :name, @filter_tags, @task_tags, {:id => 'filter-add-tag'}) %>
         <%= text_field_tag( :filter_tags, @filter_tags, :size => 36, :class => 'filter-tags' ) %>
       </p>

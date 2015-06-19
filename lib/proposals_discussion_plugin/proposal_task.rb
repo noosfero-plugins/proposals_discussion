@@ -20,6 +20,15 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
       .where(:status => ProposalsDiscussionPlugin::ProposalTask::Status.evaluated_statuses)
   }
 
+  scope :filter_by_status, lambda { |profile, filter_type, filter_text, status_id|
+    self
+        .to(profile)
+        .without_spam.pending
+        .of(filter_type)
+        .like('data', filter_text)
+        .where(:status => status_id)
+  }
+
   before_create do |task|
     if !task.target.nil?
       organization = task.target

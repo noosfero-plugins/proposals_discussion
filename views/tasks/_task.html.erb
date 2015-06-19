@@ -108,7 +108,3 @@
   <% end %>
 
 </div><!-- class="task_box" -->
-
-<% if task.flagged_for_reproval? %>
-  <script>jQuery("#decision-cancel-<%= task.id %>").click();</script>
-<% end %>

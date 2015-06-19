@@ -42,7 +42,7 @@
   </div><!-- class="task_decisions" -->
 
   <% if task.flagged_for_reproval? %>
-    <script>$("#decision-cancel-<%= task.id %>").click();</script>
+    <script>jQuery("#decision-cancel-<%= task.id %>").click();</script>
   <% end %>
 
   <div class="task_date"><%= show_time(task.created_at) %></div>

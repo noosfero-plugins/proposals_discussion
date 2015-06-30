@@ -19,28 +19,6 @@
     </div>
   <% end %>
 
-  <div class="task_decisions">
-    <% unless @view_only %>
-      <%=
-        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.flagged_for_approval? || task.default_decision == 'accept',
-                              :id => "decision-finish-#{task.id}",
-                              :class => 'task_accept_radio',
-                              :disabled => task.accept_disabled?,
-                              :task_id => "#{task.id}") +
-        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.flagged_for_reproval? || task.default_decision == 'reject',
-                              :id => "decision-cancel-#{task.id}",
-                              :class => 'task_reject_radio',
-                              :disabled => task.reject_disabled?,
-                              :task_id => "#{task.id}") +
-        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip' && task.unflagged?,
-                              :id => "decision-skip-#{task.id}",
-                              :class => 'task_skip_radio',
-                              :disabled => task.skip_disabled?,
-                              :task_id => "#{task.id}")
-      %>
-    <% end %>
-  </div><!-- class="task_decisions" -->
-
   <div class="task_date"><%= show_time(task.created_at) %></div>
 
   <%= render :partial => 'task_title', :locals => {:task => task} %>
@@ -49,59 +27,60 @@
     <%= task_information(task) %>
   </div>
 
-
-  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
-    <% if task.accept_details and !@view_only %>
-      <div id="on-accept-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
-      </div>
-    <% end %>
-
-    <% if task.reject_details and !@view_only %>
-      <div id="on-reject-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
-      </div>
-    <% end %>
-
-    <% if @view_only %>
-      <div class="evaluation_toolbar">
+    <div class="evaluation_toolbar">
         <div class="evaluation_button approval"
           data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_approve_proposal"%>'
           data-task-id="<%= task.id %>"
-          data-flag-action="flag_approve_proposal">
+          data-flag-action="approve_proposal">
           <img class="" src="/plugins/proposals_discussion/images/approval.png">
           <span>Aprovar</span>
         </div>
         <div id="evaluation_button_#{task.id}" class="evaluation_button reproval"
           data-url='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/flag_reject_proposal"%>'
-          data-task-id="<%= task.id %>" data-flag-action="flag_reprove_proposal">
+          data-task-id="<%= task.id %>" data-flag-action="reprove_proposal">
           <img class="" src="/plugins/proposals_discussion/images/reproval.png">
           <span>Reprovar</span>
         </div>
       </div>
-    <% end %>
-      <%#= select_tag "tasks[#{task.id}][setting][evaluation_flag]",
-            options_for_select(
-                [_('FLAGGED_FOR_APPROVAL'),_('FLAGGED_FOR_REPROVAL')],(task.flagged_status.present? ? task.flagged_status : nil)
-              ),
-              {
-                :include_blank => true,
-                :onchange => "change_flagged_status(this);",
-                'data-old-responsible' => task.flagged_status.present? ? task.flagged_status.id : nil,
-               'data-task' => task.id, 'data-url' => 'change_flagged_status_url'
-              } %>
 
 
-      <div class="formfieldline">
-        <div class="formfield tag-list-fields">
-          <%= labelled_text_field(_('Tags'),"tasks[#{task.id}][task][tag_list]", task.tags_from(nil).to_s, :size => 36, :class => 'tag-list','data-submit-values'=>"{'task_id':'#{task.id}'}") %>
+
+
+      <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
+        <% if task.accept_details %>
+          <div id="on-accept-information-<%=task.id%>" style="display: none">
+            <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
+          </div>
+        <% end %>
+
+        <% if task.reject_details %>
+          <div id="on-reject-information-<%=task.id%>" style="display: none">
+            <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+          </div>
+        <% end %>
+
+        <div class="formfieldline">
+          <div class="formfield tag-list-fields">
+            <%= labelled_text_field(_('Tags'),"tasks[#{task.id}][task][tag_list]", task.tags_from(nil).to_s, :size => 36, :class => 'tag-list','data-submit-values'=>"{'task_id':'#{task.id}'}") %>
+          </div>
         </div>
-      </div>
 
+      <% end %>
+
+  <% unless @view_only #MODERATOR VIEW %>
+    <div class="confirm_evaluation_toolbar">
+      <div class="confirm_evaluation_button">
+        <a data-task-id="<%= task.id %>" class="disabled" href="#task-<%= task.id %>"
+          data-href='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/confirm_tasks"%>'>Confirmar</span>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @view_only # EVALUATOR VIEW %>
       <div class="confirm_evaluation_toolbar">
         <div class="confirm_evaluation_button">
           <a data-task-id="<%= task.id %>" class="disabled" href="#task-<%= task.id %>"
-            data-href='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks/"%>'>Confirmar</span>
+            data-href='<%="/myprofile/#{profile.identifier}/plugin/proposals_discussion/evaluate_tasks"%>'>Confirmar</span>
         </div>
       </div>
 

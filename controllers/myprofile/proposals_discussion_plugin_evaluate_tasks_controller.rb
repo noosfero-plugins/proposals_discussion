@@ -1,13 +1,14 @@
 class ProposalsDiscussionPluginEvaluateTasksController < MyProfileController
+  protect :view_tasks, :profile, :only => [:approve_proposal, :reprove_proposal]
 
-  protect :view_tasks, :profile, :only => [:flag_approve_proposal, :flag_reject_proposal]
-
-  def flag_approve_proposal
+  def approve_proposal
+    result = {}
     if request.post? && params[:task_id]
       result = {
         success: false,
         message: _('Error flagging proposal. Please, contact the system admin')
       }
+
 
       task = Task.to(profile).find_by_id params[:task_id]
       save = task.flag_accept_proposal(current_person)
@@ -20,7 +21,8 @@ class ProposalsDiscussionPluginEvaluateTasksController < MyProfileController
     render json: result
   end
 
-  def flag_reprove_proposal
+  def reprove_proposal
+    result = {}
     if request.post? && params[:task_id]
       result = {
         success: false,

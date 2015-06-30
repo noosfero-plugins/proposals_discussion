@@ -128,8 +128,30 @@
 
     taskElement.find('div.confirm_evaluation_button a').removeClass('disabled');
 
-    $(el).addClass("checked");
+    var checkedButton =   $(el);
+    checkedButton.addClass("checked");
+
+    var flag_action = checkedButton.data('flag-action');
+    var animation_options = {duration:'fast', queue: true};
+    if(flag_action == 'approve_proposal'){
+      $('#on-reject-information-' + task_id).hide(animation_options);
+      $('#on-skip-information-'   + task_id).hide(animation_options);
+      $('#on-accept-information-' + task_id).show(animation_options);
+
+    } else if(flag_action == 'reprove_proposal') {
+      $('#on-skip-information-' + task_id).hide(animation_options);
+      $('#on-accept-information-'   + task_id)
+        .hide(
+          {
+            duration:'fast',
+            complete: function() {
+                $('#on-reject-information-' + task_id).show('fast');
+            }
+          });
+
+    }
   }
+
 
   function evaluate_task(el) {
 
@@ -147,9 +169,20 @@
 
     var flag_action = checkedButton.data('flag-action');
 
+    var form = $(el).closest("form");
+
+    var tag_list = form.find("input.tag-list[type='text']").val();
+
     var params = {
-      task_id: task_id
+      task_id: task_id,
+      tag_list: tag_list
     };
+
+    if(flag_action == 'approve_proposal'){
+      params['article_parent_id'] = form.find('#tasks_' + task_id + '_task_article_parent_id').val();
+    } else if(flag_action == 'reprove_proposal') {
+      params['email_template_id'] = form.find('#tasks_' + task_id + '_task_email_template_id').val();
+    }
 
     jQuery.post(url + "/" + flag_action, params  ,
       function(data) {
@@ -159,8 +192,8 @@
         } else {
           $(el).effect("highlight", {color: 'red'});
         }
-        if (data.notice) {
-          display_notice(data.notice);
+        if (data.message) {
+          display_notice(data.message);
         }
     });
   }

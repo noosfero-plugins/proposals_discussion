@@ -326,6 +326,7 @@ form .proposals-discussion-plugin .body textarea {
   width: auto;
   float: left;
   padding: 5px;
+  border: 1px solid #EEEEEE;
 }
 
 .evaluation_button img {
@@ -344,7 +345,8 @@ form .proposals-discussion-plugin .body textarea {
 }
 
 div.evaluation_button.checked {
-  border: 1px dotted black;
+  border: 1px dashed black;
+  background-color: white;
 }
 
 .evaluation_button.approval span {
@@ -367,8 +369,9 @@ div.evaluation_button.checked {
 }
 
 div.confirm_evaluation_button a {
-  text-decoration: none;
+  text-decoration: underline;
   color: #003366;
+  font-size: 28px;
 }
 
 div.confirm_evaluation_button a:hover {

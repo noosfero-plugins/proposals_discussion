@@ -384,3 +384,11 @@ div.confirm_evaluation_button a.disabled {
   color: gray;
   visibility: hidden;
 }
+
+.task-processed .task .title .abstract {
+  margin: 5px 10px;
+  font-style: italic;
+  display: inline-block;
+  color: rgb(77, 77, 77);
+  font-weight: normal;
+}

@@ -157,7 +157,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def information
-    {:message => _("%{requestor} wants to send the following proposal. <br/>%{abstract}"), :variables => {:abstract => abstract}}
+    {:message => _("<span class=\"requestor\">%{requestor}</span> <span class=\"action-label\">wants to send the following proposal.</span><br/><span class=\"abstract\">%{abstract}</span>"), :variables => {:abstract => CGI.escapeHTML(abstract)}}
   end
 
   def icon

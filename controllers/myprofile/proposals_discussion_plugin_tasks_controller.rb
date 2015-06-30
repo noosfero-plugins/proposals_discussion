@@ -21,7 +21,7 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
     # filter for evaluator profile
     if @view_only
-      @tasks = Task.pending_all(profile, false, false).order_by('created_at', 'asc')
+      @tasks = ProposalsDiscussionPlugin::ProposalTask.pending_all(profile, false, false).order_by('created_at', 'asc')
       @tasks = @tasks.where(:responsible_id => current_person.id)
     else
       # filter for moderator

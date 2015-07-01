@@ -1,5 +1,5 @@
 <% unless @view_only %>
   <%= f.fields_for 'article', OpenStruct.new(task.article) do |a| %>
-    <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article_parent_id]", task.target, task.article[:parent_id]) %>
+    <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article_parent_id]", task.target, task.article_parent_id) %>
   <% end %>
 <% end %>

@@ -1,5 +1,6 @@
-module CmsHelper
+require Rails.root + 'app/helpers/cms_helper'
 
+module CmsHelper
   def link_to_article(article)
     article_name = article.title
     if article.folder?

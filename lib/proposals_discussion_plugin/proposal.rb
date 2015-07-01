@@ -15,6 +15,10 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
     _('Proposal')
   end
 
+  before_save do |article|
+    article.published = true
+  end
+
   validates_presence_of :abstract
 
   validate :discussion_phase_proposals

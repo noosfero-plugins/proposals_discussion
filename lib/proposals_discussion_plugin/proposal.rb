@@ -15,7 +15,7 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
     _('Proposal')
   end
 
-  before_save do |article|
+  before_create do |article|
     article.published = true
   end
 

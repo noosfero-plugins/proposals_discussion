@@ -1,5 +1,7 @@
 class ProposalsDiscussionPlugin::ProposalTask < Task
 
+  has_and_belongs_to_many :proposals_discussion_plugin_task_categories
+
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
 

@@ -28,7 +28,7 @@ private
       begin
         task = profile.find_in_all_tasks(params[:task_id])
         task.tag_list = params[:tag_list]
-        task.article_parent_id = params[:article_parent_id]
+        task.article_parent_id = params[:article_parent_id] if decision.to_s == 'finish'
         task.email_template_id = params[:email_template_id]
         task.send(decision, current_person)
         result = {:success =>  true }

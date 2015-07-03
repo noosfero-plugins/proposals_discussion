@@ -1,9 +1,15 @@
 class ProposalsDiscussionPlugin::ProposalTask < Task
 
-  has_and_belongs_to_many :proposals_discussion_plugin_task_categories
+  has_and_belongs_to_many :categories,
+  class_name: "ProposalsDiscussionPlugin::TaskCategory",
+  join_table: :proposals_discussion_plugin_task_categories,
+  foreign_key: :task_id,
+  association_foreign_key: :category_id
 
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
+
+  validate :require_category
 
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -278,4 +284,12 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   def after_ham!
     self.delay.marked_as_ham
   end
+
+  protected
+
+    def require_category
+      if categories.count == 0 && flagged?
+        errors.add :categories, _( 'Please, select at least one')
+      end
+    end
 end

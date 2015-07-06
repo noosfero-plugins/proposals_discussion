@@ -285,11 +285,15 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     self.delay.marked_as_ham
   end
 
+  def categories_list(field = :name)
+    categories.pluck(field).join(',') if categories.count > 0
+  end
+
   protected
 
     def require_category
       if categories.count == 0 && flagged?
-        errors.add :categories, _( 'Please, select at least one')
+        errors.add :categories, _('Please, select at least one')
       end
     end
 end

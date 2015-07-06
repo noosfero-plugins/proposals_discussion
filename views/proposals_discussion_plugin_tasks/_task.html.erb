@@ -61,7 +61,10 @@
 
         <div class="formfieldline">
           <div class="formfield tag-list-fields">
-            <%= labelled_text_field(_('Tags'),"tasks[#{task.id}][task][tag_list]", task.tags_from(nil).to_s, :size => 36, :class => 'tag-list','data-submit-values'=>"{'task_id':'#{task.id}'}") %>
+            <p>
+              <%= labelled_select(_('Categories')+': ', :select_category, :id, :name, @filter_categories, @task_categories, {:class => 'add-category'}) %>
+              <%= text_field_tag( :categories_list, task.categories_list, :size => 36,:id => '', :class => 'task-categories', 'data-submit-values'=>"{'task_id':'#{task.id}'}") %>
+            </p>
           </div>
         </div>
 

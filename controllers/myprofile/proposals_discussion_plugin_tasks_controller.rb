@@ -6,13 +6,13 @@ class ProposalsDiscussionPluginTasksController < TasksController
     @filter_type = params[:filter_type].presence
     @filter_text = params[:filter_text].presence
     @filter_responsible = params[:filter_responsible]
-    @filter_tags = params[:filter_tags]
+    @filter_categories = params[:filter_categories]
 
     @filter_status = params[:filter_status]
 
     @view_only = !current_person.has_permission?(:perform_task, profile) || params[:view_only]
 
-    @task_tags = [OpenStruct.new(:name => _('All'), :id => nil) ] + Task.all_tags
+    @task_categories = [OpenStruct.new(:name => _('All'), :id => nil) ] + ProposalsDiscussionPlugin::TaskCategory.all
     @task_types = Task.pending_types_for(profile)
 
     # maps statuses which would be used in status filter
@@ -33,8 +33,6 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
       @tasks = @tasks.where(:responsible_id => @filter_responsible.to_i != -1 ? @filter_responsible : nil) if @filter_responsible.present?
 
-      @tasks = @tasks.tagged_with(@filter_tags, any: true) if @filter_tags.present?
-
     end
 
     @tasks = @tasks.paginate(:per_page => Task.per_page, :page => params[:page])
@@ -42,6 +40,37 @@ class ProposalsDiscussionPluginTasksController < TasksController
     @failed = params ? params[:failed] : {}
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
+  end
+
+  def save_categories
+
+    if request.post? && params[:tag_list].presence
+      result = {
+        success: false,
+        message: _('Error to save categories. Please, contact the system admin')
+      }
+
+      categories_list = params[:tag_list].split(',')
+      task = Task.to(profile).find_by_id params[:task_id]
+
+      categories_data = []
+      categories_list.each do |category_name|
+        category = ProposalsDiscussionPlugin::TaskCategory.find_by_name(category_name)
+        categories_data << category
+      end
+      task.categories = categories_data
+      save = task.save!
+
+      if save
+        result = {
+          success: true,
+          message: _('Saved with success!')
+        }
+      end
+    end
+
+    render json: result
+
   end
 
 end

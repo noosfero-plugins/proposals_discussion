@@ -276,4 +276,12 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   def after_ham!
     self.delay.marked_as_ham
   end
+
+  def to_liquid_with_proposal_task
+    hash = to_liquid_without_proposal_task
+    hash.merge(:article => article_object, :parent => article_parent)
+  end
+
+  alias_method_chain :to_liquid, :proposal_task
+
 end

@@ -1,5 +1,6 @@
 class ProposalsDiscussionPlugin::API < Grape::API
 
+  
   resource :proposals_discussion_plugin do
 
     paginate per_page: 10, max_per_page: 20
@@ -23,6 +24,8 @@ class ProposalsDiscussionPlugin::API < Grape::API
     end
 
     post ':id/propose' do
+      sanitize_params_hash(params)
+
       parent_article = environment.articles.find(params[:id])
 
       proposal_task = ProposalsDiscussionPlugin::ProposalTask.new
@@ -37,7 +40,5 @@ class ProposalsDiscussionPlugin::API < Grape::API
       {:success => true}
       #present proposal_task, :with => Entities::Task, :fields => params[:fields]
     end
-
   end
-
 end

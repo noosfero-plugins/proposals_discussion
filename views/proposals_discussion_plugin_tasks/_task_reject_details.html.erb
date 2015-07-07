@@ -1,4 +1,4 @@
-<%= task_email_template(_('Select a rejection email template:'), @rejection_email_templates, task) %>
+<%= task_email_template(_('Select a rejection email template:'), @rejection_email_templates, task) unless @view_only %>
 <% if task.flagged_for_reproval? %>
   <script>jQuery( document ).ready(function( $ ) { $("#decision-cancel-<%= task.id %>").click(); });</script>
 <% end %>

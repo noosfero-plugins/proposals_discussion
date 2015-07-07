@@ -180,8 +180,9 @@
 
     if(flag_action == 'approve_proposal'){
       params['article_parent_id'] = form.find('#tasks_' + task_id + '_task_article_parent_id').val();
+      params['email_template_id'] = form.find('#on-accept-information-'+task_id+' #tasks_' + task_id + '_task_email_template_id').val();
     } else if(flag_action == 'reprove_proposal') {
-      params['email_template_id'] = form.find('#tasks_' + task_id + '_task_email_template_id').val();
+      params['email_template_id'] = form.find('#on-reject-information-'+task_id+' #tasks_' + task_id + '_task_email_template_id').val();
     }
 
     jQuery.post(url + "/" + flag_action, params  ,

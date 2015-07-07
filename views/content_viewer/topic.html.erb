@@ -23,7 +23,7 @@
   </div>
 
   <div class="topic actions">
-    <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id}), :class => 'button with-text icon-add' do %>
+    <%= link_to url_for({:controller => 'cms', :action => 'new', :type => "ProposalsDiscussionPlugin::Proposal", :parent_id => topic.id, :profile => profile.identifier}), :class => 'button with-text icon-add' do %>
       <strong><%= _("Send your proposal") %></strong>
     <% end %>
   </div>

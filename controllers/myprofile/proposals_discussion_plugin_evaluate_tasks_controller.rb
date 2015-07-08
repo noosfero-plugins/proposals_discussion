@@ -11,10 +11,19 @@ class ProposalsDiscussionPluginEvaluateTasksController < MyProfileController
 
 
       task = Task.to(profile).find_by_id params[:task_id]
-      save = task.flag_accept_proposal(current_person)
 
-      if save
-        result = {:success =>  true }
+      begin
+
+        save = task.flag_accept_proposal(current_person)
+
+        if save
+          result = {:success =>  true }
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        result = {
+          :success =>  false,
+          :message => e.message
+        }
       end
     end
 
@@ -30,10 +39,18 @@ class ProposalsDiscussionPluginEvaluateTasksController < MyProfileController
       }
 
       task = Task.to(profile).find_by_id params[:task_id]
-      save = task.flag_reject_proposal(current_person)
 
-      if save
-        result = {:success =>  true }
+      begin
+        save = task.flag_reject_proposal(current_person)
+
+        if save
+          result = {:success =>  true }
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        result = {
+          :success =>  false,
+          :message => e.message
+        }
       end
     end
 

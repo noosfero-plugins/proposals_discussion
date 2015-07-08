@@ -38,10 +38,6 @@
       <p>
         <%= labelled_select(_('Status')+': ', :filter_status, :id, :name, @filter_status, @task_statuses, {:id => 'filter-statuses'}) %>
       </p>
-      <p>
-        <%= labelled_select(_('Tags')+': ', :filter_tags, :id, :name, @filter_tags, @task_tags, {:id => 'filter-add-tag'}) %>
-        <%= text_field_tag( :filter_tags, @filter_tags, :size => 36, :class => 'filter-tags' ) %>
-      </p>
 
       <p>
         <%= submit_button(:search, _('Search')) %>
@@ -198,4 +194,31 @@
         }
     });
   }
+
+  jQuery('.task-categories').inputosaurus({
+    hideInput: true,
+    submitTags: {
+      url:  '/myprofile/'+<%= "'#{profile.identifier}'" %>+'/plugin/proposals_discussion/tasks/save_categories',
+      beforeSend: function(){
+
+        $('.ok').parent().remove();
+
+        this.element.parents('.task_box')
+                    .prev('.fg-state-error')
+                    .remove();
+
+        Task.addIcon(this,'loading');
+
+        //Add loading here!
+      },
+      success: Task.onAddTag
+    }
+  });
+
+  $('.add-category').change(function(){
+
+    if($(this).val() != ''){
+      $(this).next('ul').find('.task-categories').inputosaurus('addTags',$(this).children(':selected').text());
+    }
+  });
 </script>

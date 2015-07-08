@@ -1,7 +1,15 @@
 class ProposalsDiscussionPlugin::ProposalTask < Task
 
+  has_and_belongs_to_many :categories,
+  class_name: "ProposalsDiscussionPlugin::TaskCategory",
+  join_table: :proposals_discussion_plugin_task_categories,
+  foreign_key: :task_id,
+  association_foreign_key: :category_id
+
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
+
+  validate :require_category
 
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -283,5 +291,17 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   alias_method_chain :to_liquid, :proposal_task
+
+  def categories_list(field = :name)
+    categories.pluck(field).join(',') if categories.count > 0
+  end
+
+  protected
+
+    def require_category
+      if categories.count == 0 && flagged?
+        errors.add :categories, _('Select at least one category')
+      end
+    end
 
 end

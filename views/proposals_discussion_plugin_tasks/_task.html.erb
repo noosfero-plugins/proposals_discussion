@@ -1,4 +1,6 @@
 <div class="task_box" id="task-<%= task.id %>">
+  
+  <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= task.proposal_source %></div>
   <%= tag :a, name: "task-#{task.id}" %>
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 

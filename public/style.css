@@ -392,3 +392,8 @@ div.confirm_evaluation_button a.disabled {
   color: rgb(77, 77, 77);
   font-weight: normal;
 }
+
+.task-proposal-source {
+  text-align: center;
+  color: #000 !important;
+}

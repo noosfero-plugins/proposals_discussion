@@ -433,3 +433,8 @@ msgstr "Atribuído para:"
 
 #~ msgid "Max size: %s (.jpg, .gif, .png)"
 #~ msgstr "Tamanho máximo: %s (.jpg, .gif, .png)"
+
+#: plugins/proposals_discussion/views/tasks/_task.html.erb:3
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:3
+msgid "Source"
+msgstr "Origem"

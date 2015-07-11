@@ -1,0 +1,68 @@
+<div class="task_box" id="task-<%= task.id %>">
+
+  <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= task.proposal_source %></div>
+  <%= render :partial => 'task_icon', :locals => {:task => task} %>
+
+  <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assign to:') %></span>
+      <span>
+        <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
+        <%= select_tag "tasks[#{task.id}][responsible]", options_from_collection_for_select(@responsible_candidates, :id, :name, task.responsible.present? ? task.responsible.id : nil), :include_blank => true, :onchange => "change_task_responsible(this);", 'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil, 'data-task' => task.id, 'data-url' => change_responsible_url %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if @view_only && task.responsible.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assigned to:') %></span>
+      <span class="value"><%= task.responsible.name %></span>
+    </div>
+  <% end %>
+
+  <div class="task_decisions">
+    <% unless @view_only %>
+      <%=
+        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
+                              :id => "decision-finish-#{task.id}",
+                              :class => 'task_accept_radio',
+                              :disabled => task.accept_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.default_decision == 'reject',
+                              :id => "decision-cancel-#{task.id}",
+                              :class => 'task_reject_radio',
+                              :disabled => task.reject_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip',
+                              :id => "decision-skip-#{task.id}",
+                              :class => 'task_skip_radio',
+                              :disabled => task.skip_disabled?,
+                              :task_id => "#{task.id}")
+      %>
+    <% end %>
+  </div><!-- class="task_decisions" -->
+
+  <div class="task_date"><%= show_time(task.created_at) %></div>
+
+  <%= render :partial => 'task_title', :locals => {:task => task} %>
+
+  <div class="task_information">
+    <%= task_information(task) %>
+  </div>
+
+  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
+    <% if task.accept_details %>
+      <div id="on-accept-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+
+    <% if task.reject_details %>
+      <div id="on-reject-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+    
+  <% end %>
+
+</div><!-- class="task_box" -->

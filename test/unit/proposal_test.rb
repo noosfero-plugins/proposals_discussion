@@ -124,4 +124,19 @@ class ProposalTest < ActiveSupport::TestCase
     assert_equal [location], proposal.locations
   end
 
+  should 'check the source of a proposal in a task' do
+
+    task_data = {
+      article: {name: "test proposal", abstract: "teste adadd"},
+      requestor: person,
+      target:  profile,
+      spam: false
+    }
+
+    task = ProposalsDiscussionPlugin::ProposalTask.new task_data
+
+    assert_equal task_data[:article][:name], task.proposal_source
+
+  end
+
 end

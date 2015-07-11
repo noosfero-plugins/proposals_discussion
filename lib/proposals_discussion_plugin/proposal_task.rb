@@ -296,6 +296,10 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     categories.pluck(field).join(',') if categories.count > 0
   end
 
+  def proposal_source
+    article[:name]
+  end
+
   protected
 
     def require_category

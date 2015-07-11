@@ -408,3 +408,8 @@ msgstr ""
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:17
 msgid "Assigned to:"
 msgstr ""
+
+#: plugins/proposals_discussion/views/tasks/_task.html.erb:3
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:3
+msgid "Source"
+msgstr ""

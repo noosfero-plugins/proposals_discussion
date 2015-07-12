@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag 'tasks' %>
+
+<div class="task-processed">
+<h1><%= _("%s's processed tasks") % profile.name %></h1>
+
+<div class="task-processed-filter">
+<%
+  type_collection = [[nil, _('All')]] + @task_types
+%>
+  <%= form_tag '#', :method => 'get' do %>
+    <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+      <div>
+        <%= labelled_select(_('Type of task')+': ', 'filter[type]', :first, :last, @filter[:type],  type_collection, {:id => 'filter-type'}) %>
+        <%= labelled_select(_('Status:'), 'filter[status]', :last, :first, @filter[:status], [[_('Any'), nil], [_(Task::Status.names[Task::Status::CANCELLED]), 2], [_(Task::Status.names[Task::Status::FINISHED]), 3] ]) %>
+      </div>
+
+      <div>
+        <%= labelled_text_field(_('Text Filter:'), 'filter[text]', @filter[:text]) %>
+      </div>
+
+      <div>
+        <%= labelled_text_field(_('Requestor:'), 'filter[requestor]', @filter[:requestor]) %>
+        <%= labelled_text_field(_('Closed by:'), 'filter[closed_by]', @filter[:closed_by]) %>
+      </div>
+
+      <%= labelled_form_field(_('Creation date'), date_range_field('filter[created_from]', 'filter[created_until]', @filter[:created_from], @filter[:created_until], '%Y-%m-%d', { :change_month => true, :change_year => true, :date_format => 'yy-mm-dd' }, { :size => 14, :from_id => 'filter_created_from', :to_id => 'filter_created_until' })) %>
+      <%= labelled_form_field(_('Processed date'), date_range_field('filter[closed_from]', 'filter[closed_until]', @filter[:closed_from], @filter[:closed_until], '%Y-%m-%d', { :change_month => true, :change_year => true, :date_format => 'yy-mm-dd' }, { :size => 14, :from_id => 'filter_closed_from', :to_id => 'filter_closed_until' })) %>
+
+      <div class="actions">
+        <%= submit_button(:search, _('Search')) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<p>
+<% if @tasks.empty? %>
+  <em><%= _('No processed tasks.') %></em>
+<% else %>
+  <ul class="task-list">
+    <% @tasks.each do |item| %>
+      <li class="task status-<%= item.status%>">
+        <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= item.proposal_source %></div>
+        <div class="title">
+          <%= task_information(item) %>
+        </div>
+        <div class="status">
+          <%= _(Task::Status.names[item.status]) %>
+        </div>
+        <div class="dates">
+          <span class="created">
+            <span class="label"><%= _('Created:') %></span>
+            <span class="value"><%= show_date(item.created_at) %></span>
+          </span>
+          &nbsp; &#151; &nbsp;
+          <span class="processed">
+            <span class="label"><%= _('Processed:') %></span>
+            <span class="value"><%= show_date(item.end_date) %></span>
+          </span>
+        </div>
+        <% if item.closed_by.present? %>
+          <div class="closed-by">
+            <span class="label"><%= _('Closed by:') %></span>
+            <span class="value"><%= link_to(item.closed_by.name, item.closed_by.url) %></span>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <%= pagination_links(@tasks)%>
+<% end %>
+</p>
+
+<% button_bar do %>
+  <%= button(:back, _('Back'), :action => 'index') %>
+<% end %>
+
+</div>

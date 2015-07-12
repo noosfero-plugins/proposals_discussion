@@ -6,6 +6,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   foreign_key: :task_id,
   association_foreign_key: :category_id
 
+  has_one :proposal_evaluation
+
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
 
@@ -150,6 +152,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   def perform
     article_object.save!
+    self.data[:article][:id] = article_object[:id]
+    self.save!
   end
 
   def title

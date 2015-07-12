@@ -438,3 +438,15 @@ msgstr "Atribuído para:"
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:3
 msgid "Source"
 msgstr "Origem"
+
+#: plugins/proposals_discussion/views/tasks/processed.html.erb:71
+msgid "Evaluator"
+msgstr "Validador"
+
+#: plugins/proposals_discussion/views/tasks/processed.html.erb:71
+msgid "Moderator"
+msgstr "Validador"
+
+#: plugins/proposals_discussion/views/tasks/processed.html.erb:61
+msgid "Moderator at"
+msgstr "Moderado em"

@@ -53,6 +53,7 @@
             <span class="value"><%= show_date(item.created_at) %></span>
           </span>
         </div>
+        <% if item.proposal_evaluation.present? %>
         <div class="closed-by">
           <span class="label"><%= _('Moderator') %>:</span>
           <span class="value"><%= link_to(item.proposal_evaluation.evaluated_by.name, item.proposal_evaluation.evaluated_by.url) %></span>
@@ -62,6 +63,7 @@
             <span class="value"><%= show_time(item.proposal_evaluation.created_at) %></span>
           </span>
         </div>
+        <% end %>
         <% if item.closed_by.present? %>
           <div class="closed-by">
             <span class="label"><%= _('Evaluator') %>:</span>

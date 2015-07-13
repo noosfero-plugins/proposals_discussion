@@ -1,5 +1,8 @@
 class ProposalsDiscussionPluginTasksController < TasksController
 
+  protect [:perform_task, :view_tasks], :profile, :only => [:index, :save_tags, :search_tags, :save_categories]
+  protect :perform_task, :profile, :except => [:index, :save_tags, :search_tags, :save_categories]
+
   def index
     @rejection_email_templates = profile.email_templates.find_all_by_template_type(:task_rejection)
     @acceptance_email_templates = profile.email_templates.find_all_by_template_type(:task_acceptance)

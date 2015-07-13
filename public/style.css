@@ -397,3 +397,8 @@ div.confirm_evaluation_button a.disabled {
   text-align: center;
   color: #000 !important;
 }
+
+.moderator {
+  margin-top: 15px;
+  margin-left: 10px;
+}

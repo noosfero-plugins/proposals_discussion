@@ -1,5 +1,5 @@
 <div class="task_box" id="task-<%= task.id %>">
-  
+
   <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= task.proposal_source %></div>
   <%= tag :a, name: "task-#{task.id}" %>
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
@@ -45,7 +45,17 @@
         </div>
       </div>
 
-
+      <% unless @view_only #MODERATOR VIEW %>
+      <div class="moderator">
+        <b><%= _('Moderator') %>:</b>
+        <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
+        &nbsp; &#151; &nbsp;
+        <span class="processed">
+          <b><%= _('Moderated at') %>:</b>
+          <span class="value"><%= show_time(task.proposal_evaluation.created_at) %></span>
+        </span>
+      </div>
+      <% end %>
 
 
       <%= fields_for "tasks[#{task.id}][task]", task do |f| %>

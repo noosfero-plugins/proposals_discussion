@@ -104,3 +104,10 @@
   <% end %>
 
 </div><!-- class="task_box" -->
+
+<script>
+  jQuery(document).ready(function($) {
+    var flag = '<%= task.flagged_for_approval? ? 'approval' : task.flagged_for_reproval? ? 'reproval' : '' %>';
+    toggleEvaluation($('#task-<%= task.id %> div.evaluation_button.' + flag));
+  });
+</script>

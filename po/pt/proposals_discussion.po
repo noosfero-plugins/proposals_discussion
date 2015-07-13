@@ -445,7 +445,7 @@ msgstr "Validador"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:71
 msgid "Moderator"
-msgstr "Validador"
+msgstr "Moderador"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:61
 msgid "Moderator at"

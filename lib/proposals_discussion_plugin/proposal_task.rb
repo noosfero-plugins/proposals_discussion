@@ -301,7 +301,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def proposal_source
-    article_parent.name
+    parent = article_parent
+    parent.name if parent
   end
 
   protected

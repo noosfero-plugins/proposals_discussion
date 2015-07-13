@@ -301,7 +301,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def proposal_source
-    article[:name]
+    article_parent.name
   end
 
   protected

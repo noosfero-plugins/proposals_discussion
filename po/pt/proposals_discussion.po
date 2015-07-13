@@ -521,7 +521,7 @@ msgstr "Marcar todas para: "
 
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:77
 msgid "Categories"
-msgstr ""
+msgstr "Categorias"
 
 #~ msgid "Comment for author"
 #~ msgstr "Comentário para o autor"

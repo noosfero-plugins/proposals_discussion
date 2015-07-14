@@ -321,7 +321,6 @@ msgstr "Moderador"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:62
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:54
-#, fuzzy
 msgid "Moderated at"
 msgstr "Moderado em"
 
@@ -330,7 +329,6 @@ msgid "Evaluator"
 msgstr "Validador"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:73
-#, fuzzy
 msgid "Evaluated at"
 msgstr "Validador"
 

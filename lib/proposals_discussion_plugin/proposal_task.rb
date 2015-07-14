@@ -176,10 +176,6 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
-#  def permission
-#    :#manage_memberships
-#  end
-
   def target_notification_description
     _('%{requestor} wants to send a proposal.') % {:requestor => requestor.name}
   end
@@ -188,61 +184,6 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     target_notification_description + "\n\n" +
     _('You will need login to %{system} in order to accept or reject the proposal sent by %{requestor}') % { :system => target.environment.name, :requestor => requestor.name}
   end
-
-#  def article_title
-#    article ? article.title : _('(The original text was removed)')
-#  end
-
-#  def article
-#    Article.find_by_id data[:article_id]
-#  end
-
-#  def article= value
-#    data[:article_id] = value.id
-#  end
-
-#  def name
-#    data[:name].blank? ? (article ? article.name : _("Article removed.")) : data[:name]
-#  end
-#
-#  def name= value
-#    data[:name] = value
-#  end
-
-#  def article_parent
-#    Article.find_by_id article_parent_id.to_i
-#  end
-#
-#  def article_parent= value
-#    self.article_parent_id = value.id
-#  end
-#
-#  def abstract= value
-#    data[:abstract] = value
-#  end
-#
-#  def abstract
-#    data[:abstract].blank? ? (article ? article.abstract : '') : data[:abstract]
-#  end
-#
-#  def body= value
-#    data[:body] = value
-#  end
-#
-#  def body
-#    data[:body].blank? ? (article ? article.body : "") : data[:body]
-#  end
-#
-#  def icon
-#    result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png', :name => name}
-#    result.merge({:url => article.url}) if article
-#    return result
-#  end
-
-#  def linked_subject
-#raise article.inspect
-#    {:text => name, :url => article.url} if article
-#  end
 
   def accept_details
     true

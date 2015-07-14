@@ -42,7 +42,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   before_create do |task|
     if !task.target.nil?
       organization = task.target
-      responsible_candidates = organization.members.by_role(organization.roles.reject {|r| !r.has_permission?('perform_task')})
+      responsible_candidates = organization.members.by_role(organization.roles.reject {|r| !r.has_permission?('view_tasks')})
       task.responsible = responsible_candidates.sample
     end
   end

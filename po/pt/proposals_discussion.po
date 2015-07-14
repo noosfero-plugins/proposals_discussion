@@ -330,7 +330,7 @@ msgstr "Validador"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:73
 msgid "Evaluated at"
-msgstr "Validador"
+msgstr "Validado em"
 
 #: plugins/proposals_discussion/views/tasks/processed.html.erb:86
 msgid "Back"

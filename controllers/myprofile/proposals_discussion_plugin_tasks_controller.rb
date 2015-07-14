@@ -48,11 +48,12 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
   def save_categories
 
-    if request.post? && params[:tag_list].presence
-      result = {
-        success: false,
-        message: _('Error to save categories. Please, contact the system admin')
-      }
+    result = {
+      success: false,
+      message: _('Error to save categories. Please, contact the system admin')
+    }
+
+    if request.post? && params[:tag_list]
 
       categories_list = params[:tag_list].split(',')
       task = Task.to(profile).find_by_id params[:task_id]

@@ -5,6 +5,8 @@ class APITest <  ActiveSupport::TestCase
 
   def setup
     login_api
+    environment = Environment.default
+    environment.enable_plugin(ProposalsDiscussionPlugin)
   end
 
   should 'return proposal ranking' do

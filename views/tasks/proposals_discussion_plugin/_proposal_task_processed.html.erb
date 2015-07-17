@@ -1,0 +1,37 @@
+<div class="task-proposal-source">
+  <b><%= _('Source') %>:</b> <%= task.proposal_source %>
+</div>
+<div class="title">
+  <%= task_information(task) %>
+</div>
+<div class="status">
+  <%= _(Task::Status.names[task.status]) %>
+</div>
+<div class="dates">
+  <span class="created">
+    <span class="label"><%= _('Created:') %></span>
+    <span class="value"><%= show_date(task.created_at) %></span>
+  </span>
+</div>
+<% if task.proposal_evaluation.present? %>
+<div class="closed-by">
+  <span class="label"><%= _('Moderator') %>:</span>
+  <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
+  &nbsp; &#151; &nbsp;
+  <span class="processed">
+    <span class="label"><%= _('Moderated at') %>:</span>
+    <span class="value"><%= show_time(task.proposal_evaluation.created_at) %></span>
+  </span>
+</div>
+<% end %>
+<% if task.closed_by.present? %>
+  <div class="closed-by">
+    <span class="label"><%= _('Evaluator') %>:</span>
+    <span class="value"><%= link_to(task.closed_by.name, task.closed_by.url) %></span>
+    &nbsp; &#151; &nbsp;
+    <span class="processed">
+      <span class="label"><%= _('Evaluated at') %>:</span>
+      <span class="value"><%= show_time(task.end_date) %></span>
+    </span>
+  </div>
+<% end %>

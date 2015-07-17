@@ -1,8 +1,6 @@
 <div class="task_box" id="task-<%= task.id %>">
 
-  <% if task.respond_to?(:proposal_source) %>
-    <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= task.proposal_source %></div>
-  <% end %>
+  <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= task.proposal_source %></div>
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 
   <% if !@view_only && profile.organization? && @responsible_candidates.present? %>

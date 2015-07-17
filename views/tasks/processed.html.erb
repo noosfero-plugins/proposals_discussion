@@ -40,7 +40,9 @@
   <ul class="task-list">
     <% @tasks.each do |item| %>
       <li class="task status-<%= item.status%>">
-        <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= item.proposal_source %></div>
+        <% if task.respond_to?(:proposal_source) %>
+          <div class="task-proposal-source"><b><%= _('Source') %>:</b> <%= item.proposal_source %></div>
+        <% end %>
         <div class="title">
           <%= task_information(item) %>
         </div>

@@ -43,7 +43,7 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
     @failed = params ? params[:failed] : {}
 
-    @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
+    @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}).order('name asc') if profile.organization?
   end
 
   def save_categories

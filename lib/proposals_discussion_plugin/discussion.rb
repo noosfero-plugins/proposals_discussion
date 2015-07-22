@@ -60,4 +60,8 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
     ProposalsDiscussionPlugin::Proposal.from_discussion(self)
   end
 
+  def display_media_panel?
+    true
+  end
+
 end

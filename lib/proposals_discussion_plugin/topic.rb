@@ -27,4 +27,8 @@ class ProposalsDiscussionPlugin::Topic  < ProposalsDiscussionPlugin::ProposalsHo
     !discussion.moderate_proposals
   end
 
+  def display_media_panel?
+    true
+  end
+
 end

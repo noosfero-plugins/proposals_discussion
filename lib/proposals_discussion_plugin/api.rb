@@ -1,5 +1,4 @@
 class ProposalsDiscussionPlugin::API < Grape::API
-  use ProposalsDiscussionPlugin::ApiNewRelicInstrumenter
 
   resource :proposals_discussion_plugin do
 

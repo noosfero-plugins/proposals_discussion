@@ -129,8 +129,12 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     requestor.name if requestor
   end
 
+  def article_parent=(parent)
+    @article_parent = parent
+  end
+
   def article_parent
-    Article.find_by_id article_parent_id.to_i
+    @article_parent ||= Article.find_by_id article_parent_id.to_i
   end
 
   def article_object

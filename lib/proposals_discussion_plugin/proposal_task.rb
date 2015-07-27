@@ -131,6 +131,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   def article_parent=(parent)
     @article_parent = parent
+    article_parent_id = parent.id unless parent.nil?
   end
 
   def article_parent

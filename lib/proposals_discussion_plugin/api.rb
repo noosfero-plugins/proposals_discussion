@@ -5,7 +5,7 @@ class ProposalsDiscussionPlugin::API < Grape::API
     paginate per_page: 10, max_per_page: 20
     get ':id/ranking' do
       article = find_article(environment.articles, params[:id])
-      ranking = Rails.cache.fetch("#{article.cache_key}/proposals_ranking", expires_in: 10.minutes) do
+      ranking = Rails.cache.fetch("#{article.cache_key}/proposals_ranking", expires_in: 30.minutes) do
         max_hits = article.proposals.maximum(:hits)
         min_hits = article.proposals.minimum(:hits)
 

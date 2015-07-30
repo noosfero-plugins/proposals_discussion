@@ -47,6 +47,14 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     end
   end
 
+  before_update do |task|
+    if task.target.present? && flagged? && task.changes[:status].present?
+      organization = task.target
+      responsible_candidates = organization.members.by_role(organization.roles.reject {|r| !r.has_permission?('perform_task')})
+      task.responsible = responsible_candidates.sample
+    end
+  end
+
   def unflagged?
     ! flagged?
   end

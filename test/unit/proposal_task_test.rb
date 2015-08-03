@@ -77,4 +77,10 @@ class ProposalTaskTest < ActiveSupport::TestCase
     assert_equal person2, task.responsible
   end
 
+  should 'do not fail on task information with integer as abstract' do
+    task = ProposalsDiscussionPlugin::ProposalTask.new
+    task.expects(:abstract).returns(49)
+    assert task.information.present?
+  end
+
 end

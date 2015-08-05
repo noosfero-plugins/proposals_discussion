@@ -16,7 +16,7 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
     @view_only = !current_person.has_permission?(:perform_task, profile) || params[:view_only]
 
-    @task_categories = [OpenStruct.new(:name => _('All'), :id => nil) ] + ProposalsDiscussionPlugin::TaskCategory.all
+    @task_categories = [OpenStruct.new(:name => _('Select a category'), :id => nil) ] + ProposalsDiscussionPlugin::TaskCategory.all
     @task_types = Task.pending_types_for(profile)
 
     # maps statuses which would be used in status filter

@@ -40,6 +40,19 @@ class ProposalsDiscussionPlugin::ProposalsHolder < Folder
     end
   end
 
+  def ranking
+    max_hits = proposals.maximum(:hits)
+    min_hits = proposals.minimum(:hits)
+
+    ranking = proposals.map do |proposal|
+      w = [(proposal.hits - max_hits).abs, (proposal.hits - min_hits).abs, 1].max.to_f
+      effective_support = (proposal.votes_for - proposal.votes_against)/w
+
+      {:id => proposal.id, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :hits => proposal.hits, :effective_support => effective_support}
+    end
+    ranking.sort_by { |p| p[:effective_support] }.reverse
+  end
+
   def cache_key_with_person(params = {}, user = nil, language = 'en')
     cache_key_without_person + (user ? "-#{user.identifier}" : '')
   end

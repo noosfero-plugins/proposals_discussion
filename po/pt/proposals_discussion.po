@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.45.0-6097-g490300c\n"
-"POT-Creation-Date: 2015-07-23 16:25-0300\n"
+"Project-Id-Version: 1.2~rc1-2843-g999a037\n"
+"POT-Creation-Date: 2015-08-06 08:53-0300\n"
 "PO-Revision-Date: 2015-02-12 09:49-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,34 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/proposals_discussion/controllers/proposals_discussion_plugin_admin_controller.rb:8
-msgid "Settings succefully saved."
-msgstr "Configurações salvas com sucesso."
-
-#: plugins/proposals_discussion/controllers/profile/proposals_discussion_plugin_profile_controller.rb:13
-msgid "You are not allowed to export data from this article"
-msgstr "Você não tem permissão para exportar dados deste artigo"
-
 #: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_confirm_tasks_controller.rb:25
 #: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_evaluate_tasks_controller.rb:9
 #: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_evaluate_tasks_controller.rb:38
 msgid "Error flagging proposal. Please, contact the system admin"
 msgstr "Erro ao marcar a proposta. Favor contactar o administrador do sistema"
-
-#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:19
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:7
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:35
-msgid "All"
-msgstr "Todas"
-
-#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:53
-#, fuzzy
-msgid "Error to save categories. Please, contact the system admin"
-msgstr "Erro ao marcar a proposta. Favor contactar o administrador do sistema"
-
-#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:72
-msgid "Saved with success!"
-msgstr "Salvo com sucesso!"
 
 #: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_myprofile_controller.rb:11
 msgid "Please select a topic"
@@ -52,6 +29,26 @@ msgstr "Proposta publicada!"
 msgid "Failed to publish your proposal."
 msgstr "Falha na publicação da proposta."
 
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:19
+msgid "Select a category"
+msgstr "Selecione uma categoria"
+
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:53
+msgid "Error to save categories. Please, contact the system admin"
+msgstr "Erro ao salvar categorias. Por favor, contactar o administrador do sistema"
+
+#: plugins/proposals_discussion/controllers/myprofile/proposals_discussion_plugin_tasks_controller.rb:72
+msgid "Saved with success!"
+msgstr "Salvo com sucesso!"
+
+#: plugins/proposals_discussion/controllers/proposals_discussion_plugin_admin_controller.rb:8
+msgid "Settings succefully saved."
+msgstr "Configurações salvas com sucesso."
+
+#: plugins/proposals_discussion/controllers/profile/proposals_discussion_plugin_profile_controller.rb:13
+msgid "You are not allowed to export data from this article"
+msgstr "Você não tem permissão para exportar dados deste artigo"
+
 #: plugins/proposals_discussion/lib/proposals_discussion_plugin.rb:8
 msgid ""
 "Provide a structured way to promove a discussion over ideas proposed by "
@@ -60,65 +57,35 @@ msgstr ""
 "Proporcinar uma forma estruturada de promover discussões sobre ideias "
 "propostas por usuários."
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/story.rb:6
-msgid "Story"
-msgstr "Experiência"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/story.rb:10
-msgid "Discussion Story"
-msgstr "Discussão da Experiência"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:12
-msgid "Discussion topic"
-msgstr "Tópico de discussão"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:16
-msgid "Container for proposals."
-msgstr "Container para propostas"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion_helper.rb:12
-msgid "Send your proposal!"
-msgstr "Envie sua proposta!"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:11
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:15
-msgid "Proposal"
-msgstr "Proposta"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:27
-msgid "Can't create a proposal at this phase."
-msgstr "Não pode criar a proposta nesta fase"
-
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:76
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:84
 msgid "Active"
 msgstr "Ativa"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:76
-#, fuzzy
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:84
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:76
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:84
 msgid "Finished"
 msgstr "Finalizada"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:77
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:85
 msgid "Hidden"
 msgstr "Escondida"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:77
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:85
 msgid "Flagged for Approval"
 msgstr "Marcada para Aprovação"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:77
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:85
 msgid "Flagged for Reproval"
 msgstr "Marcada para Rejeição"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:160
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:172
 msgid "New proposal"
 msgstr "Nova Proposta"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:172
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:184
 msgid ""
 "<span class=\"requestor\">%{requestor}</span> <span class=\"action-label"
 "\">wants to send the following proposal.</span><br/><span class=\"abstract\">"
@@ -128,11 +95,11 @@ msgstr ""
 "\">enviou a seguinte proposta.</span><br/><span class=\"abstract\">"
 "%{abstract}</span>"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:180
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:192
 msgid "%{requestor} wants to send a proposal."
 msgstr "%{requestor} quer enviar a proposta."
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:185
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:197
 msgid ""
 "You will need login to %{system} in order to accept or reject the proposal "
 "sent by %{requestor}"
@@ -140,7 +107,7 @@ msgstr ""
 "Você precisará logar em %{system} a fim de aceitar ou rejeitar a proposta "
 "enviada por %{requestor}"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:210
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:222
 msgid ""
 "Your request for publishing the proposal \"%{article}\" was approved. Here "
 "is the comment left by the admin who approved your proposal:\n"
@@ -152,15 +119,15 @@ msgstr ""
 "\n"
 "%{comment} "
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:212
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:224
 msgid "Your request for publishing the proposal \"%{article}\" was approved."
 msgstr "Sua requisição para publicar a proposta \"%{article}\" foi aprovada."
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:217
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:229
 msgid "Your request for publishing the proposal \"%{article}\" was rejected."
 msgstr "Sua requisição para publicar a proposta \"%{article}\" foi rejeitada."
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:219
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:231
 msgid ""
 "Here is the reject explanation left by the moderator who rejected your "
 "proposal: \n"
@@ -171,26 +138,26 @@ msgstr ""
 "\n"
 "%{reject_explanation}"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:253
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal_task.rb:265
 msgid "Select at least one category"
 msgstr "Selecione pelo menos uma categoria"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:18
-msgid "Body"
-msgstr "Corpo"
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/story.rb:6
+msgid "Story"
+msgstr "Experiência"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:25
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:8
-msgid "Proposals"
-msgstr "Propostas"
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/story.rb:10
+msgid "Discussion Story"
+msgstr "Discussão da Experiência"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:28
-msgid "Discussion"
-msgstr "Discussão"
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:11
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:15
+msgid "Proposal"
+msgstr "Proposta"
 
-#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:32
-msgid "Container for topics."
-msgstr "Container para tópicos."
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposal.rb:27
+msgid "Can't create a proposal at this phase."
+msgstr "Não pode criar a proposta nesta fase"
 
 #: plugins/proposals_discussion/lib/proposals_discussion_plugin/proposals_list_helper.rb:4
 msgid "Random"
@@ -212,9 +179,173 @@ msgstr "Mais comentadas"
 msgid "Most Recently Commented"
 msgstr "Mais comentadas recentemente"
 
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:12
+msgid "Discussion topic"
+msgstr "Tópico de discussão"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/topic.rb:16
+msgid "Container for proposals."
+msgstr "Container para propostas"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:18
+msgid "Body"
+msgstr "Corpo"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:25
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:8
+msgid "Proposals"
+msgstr "Propostas"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:28
+msgid "Discussion"
+msgstr "Discussão"
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion.rb:32
+msgid "Container for topics."
+msgstr "Container para tópicos."
+
+#: plugins/proposals_discussion/lib/proposals_discussion_plugin/discussion_helper.rb:12
+msgid "Send your proposal!"
+msgstr "Envie sua proposta!"
+
 #: plugins/proposals_discussion/lib/ext/vote.rb:10
 msgid "Can't vote in this discussion anymore."
 msgstr "Não pode votar mais nesta discussão"
+
+#: plugins/proposals_discussion/views/content_viewer/discussion_topics.html.erb:11
+msgid "New Topic"
+msgstr "Novo Tópico"
+
+#: plugins/proposals_discussion/views/content_viewer/discussion_topics.html.erb:14
+#: plugins/proposals_discussion/views/content_viewer/discussion.html.erb:15
+msgid "Export"
+msgstr "Exportar"
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:2
+msgid "Statistics"
+msgstr "Estatísticas"
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:8
+msgid "Comments"
+msgstr "Comentários"
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:12
+msgid "Number of Proposals: "
+msgstr "Quantidade de Propostas: "
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:16
+msgid "Number of Participants: "
+msgstr "Quantidade de Participantes: "
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:20
+msgid "Number of Comments: "
+msgstr "Quantidade de Comentários: "
+
+#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:24
+msgid "Most active: "
+msgstr "Mais ativos: "
+
+#: plugins/proposals_discussion/views/content_viewer/_proposal_card.html.erb:17
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:26
+msgid "Publish"
+msgstr "Publicar"
+
+#: plugins/proposals_discussion/views/content_viewer/_proposal_card.html.erb:34
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s comentário"
+msgstr[1] "%s comentários"
+
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:3
+msgid ", by %s"
+msgstr ", por %s"
+
+#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:4
+msgid " - %s"
+msgstr "- %s"
+
+#: plugins/proposals_discussion/views/content_viewer/_proposals_list_content.html.erb:6
+msgid "More"
+msgstr "Mais"
+
+#: plugins/proposals_discussion/views/content_viewer/_proposals_list.html.erb:23
+msgid "Loading..."
+msgstr "Carregando..."
+
+#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:27
+msgid "Send your proposal"
+msgstr "Envie sua proposta"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:3
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:2
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:3
+msgid "Source"
+msgstr "Origem"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:8
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:9
+msgid "Assign to:"
+msgstr "Atribuir para:"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:18
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:19
+msgid "Assigned to:"
+msgstr "Atribuído para:"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:26
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
+msgid "Accept"
+msgstr "Aceitar"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:31
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
+msgid "Reject"
+msgstr "Rejeitar"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:36
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
+msgid "Skip"
+msgstr "Pular"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_accept_details.html.erb:2
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_accept_details.html.erb:2
+msgid "Select an acceptance email template:"
+msgstr "Selecione um template de email:"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_accept_details.html.erb:5
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_accept_details.html.erb:5
+msgid "Select the folder where the article must be published"
+msgstr "Selecione a pasta onde o artigo será publicado"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:12
+msgid "Created:"
+msgstr "Criado:"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:18
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:50
+msgid "Moderator"
+msgstr "Moderador"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:22
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:54
+msgid "Moderated at"
+msgstr "Moderado em"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:29
+msgid "Evaluator"
+msgstr "Validador"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:33
+msgid "Evaluated at"
+msgstr "Validado em"
+
+#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_reject_details.html.erb:1
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_reject_details.html.erb:1
+msgid "Select a rejection email template:"
+msgstr "Selecione um template de email de rejeição:"
 
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_myprofile/select_topic.html.erb:16
 msgid "Select topic"
@@ -248,77 +379,9 @@ msgstr "Chave Privada"
 msgid "New Host"
 msgstr "Novo Endereço"
 
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:2
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:3
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:3
-msgid "Source"
-msgstr "Origem"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:12
-msgid "Created:"
-msgstr "Criado:"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:18
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:50
-msgid "Moderator"
-msgstr "Moderador"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:22
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:54
-msgid "Moderated at"
-msgstr "Moderado em"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:29
-msgid "Evaluator"
-msgstr "Validador"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_processed.html.erb:33
-msgid "Evaluated at"
-msgstr "Validado em"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:8
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:9
-msgid "Assign to:"
-msgstr "Atribuir para:"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:18
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task.html.erb:19
-msgid "Assigned to:"
-msgstr "Atribuído para:"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:26
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
-msgid "Accept"
-msgstr "Aceitar"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:31
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
-msgid "Reject"
-msgstr "Rejeitar"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task.html.erb:36
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:65
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:75
-msgid "Skip"
-msgstr "Pular"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_accept_details.html.erb:2
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_accept_details.html.erb:2
-#, fuzzy
-msgid "Select an acceptance email template:"
-msgstr "Selecione um template de email de rejeição:"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_accept_details.html.erb:4
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_accept_details.html.erb:4
-msgid "Select the folder where the article must be published"
-msgstr "Selecione a pasta onde o artigo será publicado"
-
-#: plugins/proposals_discussion/views/tasks/proposals_discussion_plugin/_proposal_task_reject_details.html.erb:1
-#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/_task_reject_details.html.erb:1
-msgid "Select a rejection email template:"
-msgstr "Selecione um template de email de rejeição:"
+#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:14
+msgid "Color:"
+msgstr "Cor:"
 
 #: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_proposal.html.erb:15
 msgid "Title"
@@ -327,10 +390,6 @@ msgstr "Título"
 #: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_proposal.html.erb:19
 msgid "Abstract"
 msgstr "Resumo"
-
-#: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_topic.html.erb:14
-msgid "Color:"
-msgstr "Cor:"
 
 #: plugins/proposals_discussion/views/cms/proposals_discussion_plugin/_discussion.html.erb:12
 msgid "Current Phase"
@@ -344,73 +403,14 @@ msgstr "Permitir tópicos"
 msgid "Moderate proposals"
 msgstr "Moderar propostas"
 
-#: plugins/proposals_discussion/views/content_viewer/_proposals_list_content.html.erb:6
-msgid "More"
-msgstr "Mais"
-
-#: plugins/proposals_discussion/views/content_viewer/topic.html.erb:27
-msgid "Send your proposal"
-msgstr "Envie sua proposta"
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:2
-msgid "Statistics"
-msgstr "Estatísticas"
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:8
-msgid "Comments"
-msgstr "Comentários"
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:12
-msgid "Number of Proposals: "
-msgstr "Quantidade de Propostas: "
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:16
-msgid "Number of Participants: "
-msgstr "Quantidade de Participantes: "
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:20
-msgid "Number of Comments: "
-msgstr "Quantidade de Comentários: "
-
-#: plugins/proposals_discussion/views/content_viewer/_statistics.html.erb:24
-msgid "Most active: "
-msgstr "Mais ativos: "
-
-#: plugins/proposals_discussion/views/content_viewer/discussion.html.erb:15
-#: plugins/proposals_discussion/views/content_viewer/discussion_topics.html.erb:14
-msgid "Export"
-msgstr "Exportar"
-
-#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:3
-msgid ", by %s"
-msgstr ", por %s"
-
-#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:4
-msgid " - %s"
-msgstr "- %s"
-
-#: plugins/proposals_discussion/views/content_viewer/proposal.html.erb:26
-#: plugins/proposals_discussion/views/content_viewer/_proposal_card.html.erb:17
-msgid "Publish"
-msgstr "Publicar"
-
-#: plugins/proposals_discussion/views/content_viewer/_proposal_card.html.erb:34
-msgid "%s comment"
-msgid_plural "%s comments"
-msgstr[0] "%s comentário"
-msgstr[1] "%s comentários"
-
-#: plugins/proposals_discussion/views/content_viewer/_proposals_list.html.erb:23
-msgid "Loading..."
-msgstr "Carregando..."
-
-#: plugins/proposals_discussion/views/content_viewer/discussion_topics.html.erb:11
-msgid "New Topic"
-msgstr "Novo Tópico"
-
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:3
 msgid "%s's pending tasks"
 msgstr "%s's tarefas pendentes"
+
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:7
+#: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:35
+msgid "All"
+msgstr "Todas"
 
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:14
 msgid "This error happened with the following tasks: "
@@ -437,9 +437,8 @@ msgid "Unassigned"
 msgstr "Sem atribuição"
 
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:39
-#, fuzzy
 msgid "Status"
-msgstr "Estatísticas"
+msgstr "Estado"
 
 #: plugins/proposals_discussion/views/proposals_discussion_plugin_tasks/index.html.erb:43
 msgid "Search"

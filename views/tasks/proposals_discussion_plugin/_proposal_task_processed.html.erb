@@ -16,7 +16,10 @@
 <% if task.proposal_evaluation.present? %>
 <div class="closed-by">
   <span class="label"><%= _('Moderator') %>:</span>
-  <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
+
+  <% if task.proposal_evaluation.evaluated_by.present? %>
+    <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
+  <% end %>
   &nbsp; &#151; &nbsp;
   <span class="processed">
     <span class="label"><%= _('Moderated at') %>:</span>

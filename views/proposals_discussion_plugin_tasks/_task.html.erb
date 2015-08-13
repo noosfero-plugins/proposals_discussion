@@ -46,16 +46,21 @@
       </div>
 
       <% unless @view_only #MODERATOR VIEW %>
-      <div class="moderator">
-        <b><%= _('Moderator') %>:</b>
-        <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
-        &nbsp; &#151; &nbsp;
-        <span class="processed">
-          <b><%= _('Moderated at') %>:</b>
-          <span class="value"><%= show_time(task.proposal_evaluation.created_at) %></span>
-        </span>
-      </div>
-      <% end %>
+        <% if task.proposal_evaluation.present? %>
+          <div class="moderator">
+            <b><%= _('Moderator') %>:</b>
+            <% if task.proposal_evaluation.evaluated_by.present? %>
+              <span class="value"><%= link_to(task.proposal_evaluation.evaluated_by.name, task.proposal_evaluation.evaluated_by.url) %></span>
+            <% end %>
+            &nbsp; &#151; &nbsp;
+            <span class="processed">
+              <b><%= _('Moderated at') %>:</b>
+              <span class="value"><%= show_time(task.proposal_evaluation.created_at) %></span>
+            </span>
+          </div>
+        <% end %>
+
+        <% end %>
 
 
       <%= fields_for "tasks[#{task.id}][task]", task do |f| %>

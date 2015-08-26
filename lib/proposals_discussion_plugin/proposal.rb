@@ -7,6 +7,8 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   has_many :locations, :class_name => 'Region', :through => :article_categorizations, :source => :category
 
+  has_one :ranking_item
+
   def self.short_description
     _("Proposal")
   end

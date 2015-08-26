@@ -33,7 +33,7 @@ class APITest <  ActiveSupport::TestCase
 
     get "/api/v1/proposals_discussion_plugin/#{topic.id}/ranking?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [proposal2.id, proposal3.id, proposal1.id], json['proposals'].map {|p| p['id']}
+    assert_equal [proposal2.abstract, proposal3.abstract, proposal1.abstract], json['proposals'].map {|p| p['abstract']}
   end
 
   should 'suggest article children' do

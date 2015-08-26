@@ -6,6 +6,8 @@ class ProposalsDiscussionPlugin::API < Grape::API
     get ':id/ranking' do
       article = find_article(environment.articles, params[:id])
       ranking = Rails.cache.fetch("#{article.cache_key}/proposals_ranking", expires_in: 30.minutes) do
+        #FIXME call update_ranking in an async job
+        article.update_ranking
         {:proposals => article.ranking, :updated_at => DateTime.now}
       end
       ranking[:proposals] = paginate ranking[:proposals]

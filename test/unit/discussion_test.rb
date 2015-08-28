@@ -15,6 +15,54 @@ class DiscussionTest < ActiveSupport::TestCase
     topic2 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
     assert_equivalent [topic1, topic2], discussion.topics
   end
+  
+  
+  
+  should 'return list of random topics returning one topic per category' do
+    discussion.save!
+    c1 = create(Category, :name => "Category 1", :environment_id => profile.environment.id)
+    c2 = create(Category, :name => "Category 2", :environment_id => profile.environment.id)
+    
+    topic1 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic1.add_category c1
+    
+    topic2 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic2.add_category c1
+    
+    topic3 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic3.add_category c2
+    
+    topic4 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic4.add_category c2
+    
+    random_topics = discussion.random_topics_one_by_category
+    
+    random_topics_categories = random_topics.map {|t| t.category.name }
+    
+    assert_equal ["Category 1", "Category 2"],random_topics_categories
+  end
+  
+  should 'return list of random topics returning 2 topics when having 2 categories' do
+    discussion.save!
+    c1 = create(Category, :name => "Category 1", :environment_id => profile.environment.id)
+    c2 = create(Category, :name => "Category 2", :environment_id => profile.environment.id)
+    
+    topic1 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic1.add_category c1
+    
+    topic2 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic2.add_category c1
+    
+    topic3 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic3.add_category c2
+    
+    topic4 = fast_create(ProposalsDiscussionPlugin::Topic, :parent_id => discussion.id)
+    topic4.add_category c2
+    
+    random_topics = discussion.random_topics_one_by_category
+    
+    assert_equal 2,random_topics.count
+  end
 
   should 'return list of proposals' do
     discussion.save!

@@ -63,5 +63,23 @@ class ProposalsDiscussionPlugin::Discussion < ProposalsDiscussionPlugin::Proposa
   def display_media_panel?
     true
   end
+  
+  def random_topics_one_by_category
+    #find topics for an discussion
+    topics = self.topics
+    
+    # join categories
+    topics = topics.joins(:article_categorizations, :categories)
+    
+    # select distinct on categories.name
+    topics = topics.select("distinct on(articles_categories.category_id) articles.id")
+          
+    # order by category.name, random() is used to sort one topic for each category
+    topics = topics.order('articles_categories.category_id, random()')  
+    
+    topics_ids = topics.to_a
+    
+    self.topics.joins(:categories).where(id: topics_ids).order("categories.name ASC")
+  end
 
 end

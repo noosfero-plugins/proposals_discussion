@@ -55,6 +55,7 @@ class ProposalsDiscussionPlugin::ProposalsHolder < Folder
       ProposalsDiscussionPlugin::RankingItem.new(:proposal => proposal, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :hits => proposal.hits, :effective_support => effective_support)
     end
     ranking.sort_by { |p| p.effective_support }.reverse
+    ranking.each_with_index { |p, i| p.position = i+1 }
   end
 
   def update_ranking

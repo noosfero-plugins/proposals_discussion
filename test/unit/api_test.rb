@@ -65,4 +65,16 @@ class APITest <  ActiveSupport::TestCase
     assert_equal "This is a malicious body SearchParam", task.article.body
   end
 
+  should 'return article position when list proposals' do
+    discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => user.person.id)
+    topic = fast_create(ProposalsDiscussionPlugin::Topic, :profile_id => user.person.id, :parent_id => discussion.id)
+    proposal = fast_create(ProposalsDiscussionPlugin::Proposal, :profile_id => user.person.id, :parent_id => topic.id)
+    params[:content_type] = 'ProposalsDiscussionPlugin::Proposal'
+    topic.update_ranking
+
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["articles"].map { |a| a["ranking_position"] }, 1
+  end
+
 end

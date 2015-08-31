@@ -52,4 +52,7 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
     [ProposalsDiscussionPlugin::API]
   end
 
+  # schedule ranking job in initialization process
+  ProposalsDiscussionPlugin::RankingJob.new.schedule
+
 end

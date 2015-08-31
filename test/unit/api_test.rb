@@ -30,10 +30,12 @@ class APITest <  ActiveSupport::TestCase
     2.times { Vote.create!(:voteable => proposal3, :voter => nil, :vote => 1) }
 
     proposal1.update_attribute(:hits, 5)
+    process_delayed_job_queue
 
     get "/api/v1/proposals_discussion_plugin/#{topic.id}/ranking?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal [proposal2.abstract, proposal3.abstract, proposal1.abstract], json['proposals'].map {|p| p['abstract']}
+    assert json['updated_at'].to_datetime <= Time.now
   end
 
   should 'suggest article children' do

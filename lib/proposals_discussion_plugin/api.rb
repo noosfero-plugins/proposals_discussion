@@ -5,13 +5,9 @@ class ProposalsDiscussionPlugin::API < Grape::API
     paginate per_page: 10, max_per_page: 20
     get ':id/ranking' do
       article = find_article(environment.articles, params[:id])
-      ranking = Rails.cache.fetch("#{article.cache_key}/proposals_ranking", expires_in: 30.minutes) do
-        #FIXME call update_ranking in an async job
-        article.update_ranking
-        {:proposals => article.ranking, :updated_at => DateTime.now}
-      end
-      ranking[:proposals] = paginate ranking[:proposals]
-      ranking
+      current_page = paginate(article.ranking)
+      #FIXME find a better way to get updated_at date
+      {:proposals => current_page, :updated_at => current_page.blank? ? DateTime.now : current_page.first.updated_at}
     end
 
     post ':id/propose' do

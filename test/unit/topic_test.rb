@@ -62,4 +62,24 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 10, topic.max_score
   end
 
+  should 'generate ranking for topics' do
+    topic2 = ProposalsDiscussionPlugin::Topic.new(:name => 'test2', :profile => @profile, :parent => @discussion)
+    proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal2", :abstract => 'abstract')
+    proposal3 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic2, :profile => profile, :name => "proposal3", :abstract => 'abstract')
+
+    topic.update_ranking
+    topic2.update_ranking
+    assert_equal [proposal1.abstract, proposal2.abstract], topic.ranking.map(&:abstract)
+    assert_equal [proposal3.abstract], topic2.ranking.map(&:abstract)
+  end
+
+  should 'update ranking for a topic' do
+    proposal1 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal1", :abstract => 'abstract')
+    proposal2 = ProposalsDiscussionPlugin::Proposal.create!(:parent => topic, :profile => profile, :name => "proposal2", :abstract => 'abstract')
+    topic.update_ranking
+    topic.update_ranking
+    assert_equal [proposal1.abstract, proposal2.abstract], topic.ranking.map(&:abstract)
+  end
+
 end

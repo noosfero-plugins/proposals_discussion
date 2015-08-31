@@ -30,10 +30,12 @@ class APITest <  ActiveSupport::TestCase
     2.times { Vote.create!(:voteable => proposal3, :voter => nil, :vote => 1) }
 
     proposal1.update_attribute(:hits, 5)
+    process_delayed_job_queue
 
     get "/api/v1/proposals_discussion_plugin/#{topic.id}/ranking?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [proposal2.id, proposal3.id, proposal1.id], json['proposals'].map {|p| p['id']}
+    assert_equal [proposal2.abstract, proposal3.abstract, proposal1.abstract], json['proposals'].map {|p| p['abstract']}
+    assert json['updated_at'].to_datetime <= Time.now
   end
 
   should 'suggest article children' do
@@ -63,6 +65,18 @@ class APITest <  ActiveSupport::TestCase
     task = Task.last
     assert_equal "Proposal Test abstract", task.abstract
     assert_equal "This is a malicious body SearchParam", task.article.body
+  end
+
+  should 'return article position when list proposals' do
+    discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => user.person.id)
+    topic = fast_create(ProposalsDiscussionPlugin::Topic, :profile_id => user.person.id, :parent_id => discussion.id)
+    proposal = fast_create(ProposalsDiscussionPlugin::Proposal, :profile_id => user.person.id, :parent_id => topic.id)
+    params[:content_type] = 'ProposalsDiscussionPlugin::Proposal'
+    topic.update_ranking
+
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["articles"].map { |a| a["ranking_position"] }, 1
   end
 
 end

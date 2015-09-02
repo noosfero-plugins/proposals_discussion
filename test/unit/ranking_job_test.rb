@@ -15,6 +15,7 @@ class RankingJobTest < ActiveSupport::TestCase
   end
 
   should 'do not create duplicated ranking job' do
+    Delayed::Job.destroy_all
     job.schedule
     job.schedule
     assert_equal 1, job.class.find_job.count
@@ -27,7 +28,6 @@ class RankingJobTest < ActiveSupport::TestCase
 
   should 'reschedule job when performed' do
     process_delayed_job_queue
-    job.perform
     new_job = job.class.find_job.first
     assert new_job.present?
     assert new_job.run_at > 20.minutes.from_now

@@ -4,6 +4,9 @@ class ProposalsDiscussionPlugin::RankingJob
     ProposalsDiscussionPlugin::Topic.find_each do |topic|
       ProposalsDiscussionPlugin::RankingJob::TopicRankingJob.new(topic.id).schedule
     end
+  end
+
+  def after(job)
     schedule(30.minutes.from_now)
   end
 
@@ -12,7 +15,7 @@ class ProposalsDiscussionPlugin::RankingJob
   end
 
   def self.find_job
-    Delayed::Job.by_handler("--- !ruby/object:ProposalsDiscussionPlugin::RankingJob {}\n")
+    Delayed::Job.by_handler("--- !ruby/object:ProposalsDiscussionPlugin::RankingJob {}\n").where('locked_at IS NULL')
   end
 
 

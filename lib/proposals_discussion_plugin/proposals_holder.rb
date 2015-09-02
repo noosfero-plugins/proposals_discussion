@@ -41,7 +41,7 @@ class ProposalsDiscussionPlugin::ProposalsHolder < Folder
   end
 
   def ranking
-    ProposalsDiscussionPlugin::RankingItem.joins(:proposal => :parent).where('parents_articles.id' => self.id)#.order(:position)
+    ProposalsDiscussionPlugin::RankingItem.joins(:proposal => :parent).where('parents_articles.id' => self.id).order(:position)
   end
 
   def compute_ranking
@@ -54,7 +54,7 @@ class ProposalsDiscussionPlugin::ProposalsHolder < Folder
 
       ProposalsDiscussionPlugin::RankingItem.new(:proposal => proposal, :abstract => proposal.abstract, :votes_for => proposal.votes_for, :votes_against => proposal.votes_against, :hits => proposal.hits, :effective_support => effective_support)
     end
-    ranking.sort_by { |p| p.effective_support }.reverse
+    ranking = ranking.sort_by { |p| p.effective_support.to_f }.reverse
     ranking.each_with_index { |p, i| p.position = i+1 }
   end
 

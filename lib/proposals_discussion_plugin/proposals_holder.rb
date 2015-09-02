@@ -41,7 +41,7 @@ class ProposalsDiscussionPlugin::ProposalsHolder < Folder
   end
 
   def ranking
-    ProposalsDiscussionPlugin::RankingItem.joins(:proposal => :parent).where('parents_articles.id' => self.id).order(:position)
+    ProposalsDiscussionPlugin::RankingItem.joins(:proposal => :parent).where('parents_articles.id' => self.id)#.order(:position)
   end
 
   def compute_ranking

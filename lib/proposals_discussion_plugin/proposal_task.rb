@@ -10,8 +10,9 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
-
+  before_validation :simplify_abstract
   validate :require_category
+  validates_uniqueness_of :proposal_discussion_plugin_simplified_abstract, :scope => ['target_id'], :message => _("Cannot create duplicate proposal")
 
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -258,7 +259,19 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     parent.name if parent
   end
 
+  def self.simplify(s)
+    return nil if s.nil?
+    s=I18n.transliterate(s)
+    s.gsub!(/(^\s)|([',.?!])|(\s$)/, "")
+    s.gsub!(/\s{2,}/, " ")
+    s.downcase
+  end
+
   protected
+
+    def simplify_abstract
+      proposal_discussion_plugin_simplified_abstract = ProposalsDiscussionPlugin::ProposalTask.simplify(self[:data][:article]["abstract"])
+    end
 
     def require_category
       if categories.count == 0 && flagged?

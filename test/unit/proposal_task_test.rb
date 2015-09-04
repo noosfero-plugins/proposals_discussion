@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative '../test_helper'
 
 class ProposalTaskTest < ActiveSupport::TestCase
@@ -81,6 +82,15 @@ class ProposalTaskTest < ActiveSupport::TestCase
     task = ProposalsDiscussionPlugin::ProposalTask.new
     task.expects(:abstract).returns(49)
     assert task.information.present?
+  end
+
+  should 'not register duplicate task' do
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => ' Alô  !  ruby é legal a bêçá. seu moÇo, não Acha? '})
+    task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
+    task.save!
+    task = ProposalsDiscussionPlugin::ProposalTask.new(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => 'alo ruby e legal a beca seu moco nao acha'})
+    task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
+    assert !task.valid?
   end
 
 end

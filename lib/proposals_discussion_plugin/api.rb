@@ -23,7 +23,7 @@ class ProposalsDiscussionPlugin::API < Grape::API
       proposal_task.requestor = current_person
 
       unless proposal_task.save
-        render_api_errors!(proposal_task.errors)
+        render_api_errors!(proposal_task.article_object.errors.full_messages)
       end
       {:success => true}
       #present proposal_task, :with => Entities::Task, :fields => params[:fields]

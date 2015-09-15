@@ -1,4 +1,5 @@
 class ProposalsDiscussionPlugin::ProposalTask < Task
+
   has_and_belongs_to_many :categories,
   class_name: "ProposalsDiscussionPlugin::TaskCategory",
   join_table: :proposals_discussion_plugin_task_categories,
@@ -9,13 +10,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
-  before_save :simplify_abstract
-#  before_validation :simplify_abstract
+
   validate :require_category
-
-  validate :unique_simplified_abstract?
-
-#  validates_uniqueness_of :proposal_discussion_plugin_simplified_abstract, :scope => ['target_id'], :message => _("Cannot create duplicate proposal")
 
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -24,10 +20,6 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   settings_items :article, :type => Hash, :default => {}
   settings_items :closing_statment, :article_parent_id
 
-
-  def simplify_abstract
-    self.proposal_discussion_plugin_simplified_abstract = ProposalsDiscussionPlugin::ProposalTask.simplify(self[:data][:article]["abstract"])
-  end
 
   scope :pending_evaluated, lambda { |profile, filter_type, filter_text|
     self
@@ -266,26 +258,12 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     parent.name if parent
   end
 
-  def self.simplify(s)
-    return nil if s.nil?
-    s=I18n.transliterate(s)
-    s.gsub!(/(^\s)|([',.?!])|(\s$)/, "")
-    s.gsub!(/\s{2,}/, " ")
-    s.downcase
-  end
-
   protected
 
     def require_category
       if categories.count == 0 && flagged?
         errors.add :categories, _('Select at least one category')
       end
-    end
-
-    def unique_simplified_abstract?
-      sa = ProposalsDiscussionPlugin::ProposalTask.simplify(self[:data][:article]["abstract"])
-      r = ProposalsDiscussionPlugin::ProposalTask.find_by_sql ["SELECT 1 AS one FROM tasks WHERE tasks.type IN ('ProposalsDiscussionPlugin::ProposalTask') AND (tasks.proposal_discussion_plugin_simplified_abstract = ? AND tasks.target_id = ?) LIMIT 1", sa, target_id]
-      errors.add :base, _('This proposal has been previously registered') unless r.empty?
     end
 
 end

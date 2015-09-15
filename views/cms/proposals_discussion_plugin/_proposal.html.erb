@@ -23,6 +23,8 @@
     <% editor_type = 'mceEditor' %>
     <%= labelled_form_field(strip_tags(@article.discussion.custom_body_label), text_area(:article, :body, :class => editor_type)) %>
   </div>
+
+  <%= hidden_field(:article, :parent_id) %>
 </div>
 
 <script>

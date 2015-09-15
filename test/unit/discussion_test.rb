@@ -36,8 +36,8 @@ class DiscussionTest < ActiveSupport::TestCase
     topic4.add_category c2
     
     random_topics = discussion.random_topics_one_by_category
-    
-    random_topics_categories = random_topics.map {|t| t.category.name }
+
+    random_topics_categories = random_topics.map {|t| t.categories.map{|c|c.name}}.flatten
     
     assert_equal ["Category 1", "Category 2"],random_topics_categories
   end

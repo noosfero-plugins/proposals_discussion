@@ -20,26 +20,49 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Discussion
   end
 
-  should 'return Topic as a content type if parent is a Discussion' do
+  should 'return Topic as a content type if parent_id parameter is a Discussion' do
     parent = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
     @params[:parent_id] = parent.id
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Topic
   end
 
-  should 'return Proposal as a content type if parent is a Topic' do
+  should 'return Topic as a content type if article parent_id is a Discussion' do
+    parent = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
+    @params[:article] = {}
+    @params[:article][:parent_id] = parent.id
+    assert_includes plugin.content_types, ProposalsDiscussionPlugin::Topic
+  end
+
+  should 'return Proposal as a content type if parent_id parameter is a Topic' do
     parent = fast_create(ProposalsDiscussionPlugin::Topic, :profile_id => @profile.id)
     @params[:parent_id] = parent.id
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
   end
 
-  should 'return Proposal as a content type if parent is a Discussion and allow_topic is false' do
+  should 'return Proposal as a content type if article parent is a Topic' do
+    parent = fast_create(ProposalsDiscussionPlugin::Topic, :profile_id => @profile.id)
+    @params[:article] = {}
+    @params[:article][:parent_id] = parent.id
+    assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
+  end
+
+  should 'return Proposal as a content type if parent_id parameter is a Discussion and allow_topic is false' do
     parent = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => 'discussion', :allow_topics => false)
     @params[:parent_id] = parent.id
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
   end
 
-  should 'do not return Proposal as a content type if parent is nil' do
+  should 'return Proposal as a content type if article parent is a Discussion and allow_topic is false' do
+    parent = ProposalsDiscussionPlugin::Discussion.create!(:profile => @profile, :name => 'discussion', :allow_topics => false)
+    @params[:article] = {}
+    @params[:article][:parent_id] = parent.id
+    assert_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
+  end
+
+  should 'do not return Proposal as a content type if parent and article parent is nil' do
     @params[:parent_id] = nil
+    @params[:article] = {}
+    @params[:article][:parent_id] = nil
     assert_not_includes plugin.content_types, ProposalsDiscussionPlugin::Proposal
   end
 

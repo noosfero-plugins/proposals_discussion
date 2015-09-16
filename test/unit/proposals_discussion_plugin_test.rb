@@ -20,6 +20,11 @@ class ProposalsDiscussionPluginTest < ActiveSupport::TestCase
     assert_includes plugin.content_types, ProposalsDiscussionPlugin::Discussion
   end
 
+  should 'return Discussion as a content type if parent is empty' do
+    @params[:parent_id] = ''
+    assert_includes plugin.content_types, ProposalsDiscussionPlugin::Discussion
+  end
+
   should 'return Topic as a content type if parent_id parameter is a Discussion' do
     parent = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => @profile.id)
     @params[:parent_id] = parent.id

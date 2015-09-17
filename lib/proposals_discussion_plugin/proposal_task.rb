@@ -9,11 +9,11 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
-  before_save(on: :create) do
+  before_validation do
     self.proposal_discussion_plugin_simplified_abstract =  ProposalsDiscussionPlugin::ProposalTask.simplify(abstract)
   end
+  validates_uniqueness_of :proposal_discussion_plugin_simplified_abstract
   validate :require_category
-  validate :unique_simplified_abstract?
 
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -262,8 +262,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   def self.simplify(s)
     return nil if s.nil?
     s=I18n.transliterate(s)
-    s.gsub!(/(^\s)|([',.?!])|(\s$)/, "")
     s.gsub!(/\s{2,}/, " ")
+    s.gsub!(/(^\s)|([',.?!])|(\s$)/, "")
     s.downcase
   end
 
@@ -275,14 +275,4 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
       end
     end
 
-    def unique_simplified_abstract?
-      ActiveRecord::Base.logger = Logger.new(STDOUT)
-      sa = ProposalsDiscussionPlugin::ProposalTask.simplify(abstract)
-      if id.present?
-        r = ProposalsDiscussionPlugin::ProposalTask.find_by_sql ["SELECT 1 AS one FROM tasks WHERE tasks.id <> ? and tasks.type IN ('ProposalsDiscussionPlugin::ProposalTask') AND (tasks.proposal_discussion_plugin_simplified_abstract = ? AND tasks.target_id = ?) LIMIT 1", id, sa, target_id]
-      else
-        r = ProposalsDiscussionPlugin::ProposalTask.find_by_sql ["SELECT 1 AS one FROM tasks WHERE tasks.type IN ('ProposalsDiscussionPlugin::ProposalTask') AND (tasks.proposal_discussion_plugin_simplified_abstract = ? AND tasks.target_id = ?) LIMIT 1", sa, target_id]
-      end
-      errors.add :base, _('This proposal has been previously registered') unless r.empty?
-    end
 end

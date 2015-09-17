@@ -86,15 +86,20 @@ class ProposalTaskTest < ActiveSupport::TestCase
 
   should 'not register duplicate task' do
     task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => ' é Á  e  ef KDsk we32UiIÍ?!.  '})
+    assert task.valid?
+    task = ProposalsDiscussionPlugin::ProposalTask.new(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => 'e a e ef kdsk we32uiii '})
+    assert !task.valid?, 'duplicated proposal is not valid'
+  end
+
+  should 'allow edition' do
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => ' é Á  e  ef KDsk we32UiIÍ?!.  '})
     task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
     task.save!
-    task = ProposalsDiscussionPlugin::ProposalTask.new(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => 'e a e ef kdsk we32uiii '})
-    task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
-    assert !task.valid?
+    assert task.valid?, "Allow proposal to be edited"
   end
 
   should 'simplify abstract' do
-    assert_equal  ProposalsDiscussionPlugin::ProposalTask.simplify(' é Á  e  ef KDsk we32UiIÍ?!.  '), "e a e ef kdsk we32uiii "
+    assert_equal  ProposalsDiscussionPlugin::ProposalTask.simplify(' é Á  e  ef KDsk we32UiIÍ?!.   '), "e a e ef kdsk we32uiii"
   end
 
 end

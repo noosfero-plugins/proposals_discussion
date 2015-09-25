@@ -261,7 +261,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   protected
 
     def require_category
-      if categories.count == 0 && flagged?
+      if categories.count == 0
         errors.add :categories, _('Select at least one category')
       end
     end

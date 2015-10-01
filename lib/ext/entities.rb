@@ -4,7 +4,7 @@ module Noosfero
     module Entities
 
       #FIXME make test
-      class Person < Profile
+      class ArticleBase < Entity
         expose :ranking_position
       end
 

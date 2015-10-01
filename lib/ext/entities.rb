@@ -1,6 +1,12 @@
+require File.join(Rails.root,'lib','noosfero','api','entities')
 module Noosfero
   module API
     module Entities
+
+      #FIXME make test
+      class Person < Profile
+        expose :ranking_position
+      end
 
       def self.included(base)
         base.extend(ClassMethods)

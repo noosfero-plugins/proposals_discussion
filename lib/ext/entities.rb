@@ -6,6 +6,11 @@ module Noosfero
       #FIXME make test
       class ArticleBase < Entity
         expose :ranking_position
+        #FIXME see why children counter cache is not working
+        expose :amount_of_children do |article, options|
+          article.children.count
+        end
+
       end
 
       def self.included(base)

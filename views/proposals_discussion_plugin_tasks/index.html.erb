@@ -51,6 +51,16 @@
   </p>
 <% else %>
   <%= form_tag :action => 'close' do%>
+
+    <% if !@params_tags.empty? %>
+      <p>
+        <% @params_tags.each do |hidden_tag| %>
+
+            <%= hidden_tag %>
+        <% end %>
+      </p>
+    <% end %>
+
     <% button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>

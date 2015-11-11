@@ -44,6 +44,14 @@ class ProposalsDiscussionPluginTasksController < TasksController
     @failed = params ? params[:failed] : {}
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}).order('name asc') if profile.organization?
+
+    @params_tags = []
+    params.each do |key,value|
+      if key =~ /filter_/ && value
+        @params_tags << view_context.hidden_field_tag(key, value)
+      end
+    end
+
   end
 
   def save_categories

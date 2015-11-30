@@ -2,7 +2,7 @@
 
 <div id="fb-root"></div>
 
-<% private_proposals = user ? holder.proposals.private(user) : [] %>
+<% private_proposals = user ? holder.proposals.private_proposal(user) : [] %>
 <% unless private_proposals.empty? %>
 <div class="private-proposals">
   <%= render :partial => 'content_viewer/proposal_card', :collection => private_proposals %>

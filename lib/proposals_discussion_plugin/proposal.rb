@@ -1,6 +1,6 @@
 class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
-  scope :private, lambda {|user| {:conditions => {:last_changed_by_id => user.id, :published => false}}}
+  scope :private_proposal, lambda {|user| {:conditions => {:last_changed_by_id => user.id, :published => false}}}
   scope :from_discussion, lambda {|discussion| joins(:parent).where(['parents_articles.parent_id = ?', discussion.id])}
 
   belongs_to :topic, :foreign_key => :parent_id, :class_name => 'ProposalsDiscussionPlugin::Topic'

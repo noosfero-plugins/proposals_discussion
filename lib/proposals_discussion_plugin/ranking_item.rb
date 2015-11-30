@@ -1,4 +1,4 @@
-class ProposalsDiscussionPlugin::RankingItem < Noosfero::Plugin::ActiveRecord
+class ProposalsDiscussionPlugin::RankingItem < ActiveRecord::Base
 
   belongs_to :proposal
 

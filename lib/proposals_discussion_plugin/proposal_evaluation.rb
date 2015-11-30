@@ -1,4 +1,4 @@
-class ProposalsDiscussionPlugin::ProposalEvaluation <  Noosfero::Plugin::ActiveRecord
+class ProposalsDiscussionPlugin::ProposalEvaluation <  ActiveRecord::Base
   belongs_to :proposal_task
   belongs_to :evaluated_by, :class_name => 'Person', :foreign_key => :evaluator_id
 

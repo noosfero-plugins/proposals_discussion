@@ -1,0 +1,28 @@
+<%= required_fields_message %>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<% title_limit = 70 %>
+<% abstract_limit = 140 %>
+
+<div class="proposals-discussion-plugin">
+
+  <div class="title">
+    <%= required labelled_form_field _('Title'), limited_text_area(:article, :name, title_limit, 'title_textarea', :rows => 1) %>
+  </div>
+
+  <%= select_profile_folder(_('Parent folder:'), 'article[parent_id]', profile, @article.parent_id, {},{},{},:include_articles => true) %>
+
+  <div class="body">
+    <%= labelled_form_field(_('Response'), text_area(:article, :body, :class => 'mceEditor')) %>
+  </div>
+
+  <%= hidden_field(:article, :parent_id) %>
+</div>
+
+<script>
+jQuery( document ).ready(function( $ ) {
+  limited_text_area('title_textarea', <%= title_limit %>);
+  limited_text_area('abstract_textarea', <%= abstract_limit %>);
+});
+</script>

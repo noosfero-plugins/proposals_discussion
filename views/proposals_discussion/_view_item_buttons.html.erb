@@ -1,0 +1,6 @@
+<%= link_to(
+      content_tag('span', _('Reply') ),
+      {:action => 'new', :cms => true, :parent_id => article.id, :type => 'ProposalsDiscussionPlugin::Response', :back_to => request.original_url},
+      {:class => 'button icon-child-article', :title => _('Reply') }
+    )
+%>

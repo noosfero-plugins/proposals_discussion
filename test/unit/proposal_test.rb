@@ -124,4 +124,36 @@ class ProposalTest < ActiveSupport::TestCase
     assert_equal [location], proposal.locations
   end
 
+  should 'add a response to a proposal' do
+    proposal.save!
+    data = {
+      :name => 'Response',
+      :body => 'A response test',
+      :abstract => 'Test',
+      :parent => proposal,
+      :profile => profile
+    }
+
+    response = create(ProposalsDiscussionPlugin::Response, data)
+    response.save!
+
+    assert_equal proposal.id, response.parent.id
+  end
+
+  should 'not add a response to a proposal without a body' do
+    proposal.save!
+    data = {
+      :name => 'Response',
+      :abstract => 'Test',
+      :parent => proposal,
+      :profile => profile
+    }
+
+    err = assert_raises ActiveRecord::RecordInvalid do
+      response = create(ProposalsDiscussionPlugin::Response, data)
+    end
+
+    assert_match "Body can't be blank", err.message
+  end
+
 end

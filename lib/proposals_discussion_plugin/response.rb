@@ -12,16 +12,16 @@ class ProposalsDiscussionPlugin::Response < TinyMceArticle
     _("The response of a Proposal")
   end
 
+  def icon_name
+    'response'
+  end
+
   protected
 
   def check_parent_type
     unless parent.is_a? ProposalsDiscussionPlugin::Proposal
       errors.add(:parent, N_('of Response needs be a Proposal'))
     end
-
-    # if self.body_changed? && (self.changed & attrs_validators).any?
-    #   errors.add(:response, N_('only have "body" field'))
-    # end
   end
 
 end

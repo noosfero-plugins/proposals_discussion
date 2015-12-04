@@ -406,3 +406,11 @@ div.confirm_evaluation_button a.disabled {
 .icon-child-article {
   background-image: url('/plugins/proposals_discussion/images/reply.png');
 }
+
+.icon-response {
+  background: url('/plugins/proposals_discussion/images/response-article.png') no-repeat;
+}
+
+.icon-replyied-article {
+  background: url('/plugins/proposals_discussion/images/replyied-article.png') no-repeat;
+}

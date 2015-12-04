@@ -156,4 +156,20 @@ class ProposalTest < ActiveSupport::TestCase
     assert_match "Body can't be blank", err.message
   end
 
+  should 'not add a response to a article that isnt a proposal' do
+    article = create(Article, :name => 'test article', :profile => @profile)
+    data = {
+      :name => 'Response',
+      :abstract => 'Test',
+      :parent => article,
+      :profile => profile
+    }
+
+    err = assert_raises ActiveRecord::RecordInvalid do
+      response = create(ProposalsDiscussionPlugin::Response, data)
+    end
+
+    assert_match "Parent of Response needs be a Proposal", err.message
+  end
+
 end

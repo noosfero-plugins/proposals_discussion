@@ -23,6 +23,9 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
         types << ProposalsDiscussionPlugin::Proposal
         types << ProposalsDiscussionPlugin::Story
       end
+      if parent.kind_of?(ProposalsDiscussionPlugin::Proposal)
+        types << ProposalsDiscussionPlugin::Response
+      end
       types
     else
       [ProposalsDiscussionPlugin::Discussion,
@@ -50,6 +53,14 @@ class ProposalsDiscussionPlugin < Noosfero::Plugin
 
   def self.api_mount_points
     [ProposalsDiscussionPlugin::API]
+  end
+
+  def extra_content_actions(article)
+    proc do
+      if article.kind_of? ProposalsDiscussionPlugin::Proposal
+        render :partial => 'proposals_discussion/view_item_buttons', :locals => {:article => article}
+      end
+    end
   end
 
   # schedule ranking job in initialization process

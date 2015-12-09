@@ -24,4 +24,9 @@ class ProposalsDiscussionPlugin::Response < TinyMceArticle
     end
   end
 
+  def parent_archived?
+    # skip parent archived validation for responses
+    false
+  end
+
 end

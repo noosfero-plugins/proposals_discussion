@@ -5,6 +5,7 @@ class ProposalsDiscussionPlugin::Topic  < ProposalsDiscussionPlugin::ProposalsHo
   has_many :proposals_comments, :class_name => 'Comment', :through => :children, :source => :comments
 
   settings_items :color, :type => :string
+  settings_items :replied, :type => :boolean, :default => false
 
   attr_accessible :color
 

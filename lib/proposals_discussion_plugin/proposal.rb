@@ -9,6 +9,8 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   has_one :ranking_item
 
+  settings_items :replied, :type => :boolean, :default => false
+
   def self.short_description
     _("Proposal")
   end

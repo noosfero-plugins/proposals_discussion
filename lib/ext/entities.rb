@@ -13,6 +13,9 @@ module Noosfero
         expose :amount_of_children do |article, options|
           article.children.count
         end
+        expose :replied do |article, options|
+          article.setting[:replied]
+        end
       end
 
     end

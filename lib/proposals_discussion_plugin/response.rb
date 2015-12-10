@@ -4,6 +4,15 @@ class ProposalsDiscussionPlugin::Response < TinyMceArticle
 
   validate :check_parent_type
 
+  before_save do |article|
+
+    article.parent.setting[:replied] = true
+    article.parent.save!
+
+    article.parent.parent.setting[:replied] = true
+    article.parent.parent.save!
+  end
+
   def self.short_description
     _("Proposal Response")
   end

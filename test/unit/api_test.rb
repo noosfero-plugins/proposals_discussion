@@ -51,11 +51,11 @@ class APITest <  ActiveSupport::TestCase
 
   should 'sanitize proposal' do
     discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => user.person.id)
-    topic = fast_create(ProposalsDiscussionPlugin::Topic, 
-      :profile_id => user.person.id, 
+    topic = fast_create(ProposalsDiscussionPlugin::Topic,
+      :profile_id => user.person.id,
       :parent_id => discussion.id)
-    params[:article] = {:name => "Proposal name", :abstract => "Proposal <iframe>Test</iframe> abstract", 
-      :type => 'ProposalsDiscussionPlugin::Proposal', 
+    params[:article] = {:name => "Proposal name", :abstract => "Proposal <iframe>Test</iframe> abstract",
+      :type => 'ProposalsDiscussionPlugin::Proposal',
       :body => "This is a malicious body <iMg SrC=x OnErRoR=document.documentElement.innerHTML=1>SearchParam"}
     assert_difference "ProposalsDiscussionPlugin::ProposalTask.count" do
       post "/api/v1/proposals_discussion_plugin/#{topic.id}/propose?#{params.to_query}"
@@ -77,6 +77,22 @@ class APITest <  ActiveSupport::TestCase
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json["articles"].map { |a| a["ranking_position"] }, 1
+  end
+
+  should 'check if a proposal and their topic was replied' do
+    discussion = create(ProposalsDiscussionPlugin::Discussion, :name => 'Discussion', :profile_id => user.person.id)
+    topic = create(ProposalsDiscussionPlugin::Topic, :name => 'Topic', :profile_id => user.person.id, :parent_id => discussion.id)
+    proposal = create(ProposalsDiscussionPlugin::Proposal, :name => 'Proposal', :abstract => 'This is a proposal', :body => 'test', :profile_id => user.person.id, :parent_id => topic.id)
+    response = create(ProposalsDiscussionPlugin::Response, :name => 'Response', :body => 'test response', :profile_id => user.person.id, :parent_id => proposal.id)
+    get "/api/v1/articles/#{topic.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json["article"]["replied"]
+
+    get "/api/v1/articles/#{topic.id}/children/#{proposal.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json["article"]["replied"]
   end
 
 end

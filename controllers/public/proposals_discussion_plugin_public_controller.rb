@@ -40,8 +40,8 @@ class ProposalsDiscussionPluginPublicController < ApplicationController
 
   def set_seed
     #XXX postgresql specific
-    seed_val = profile.connection.quote(cookies[:_noosfero_proposals_discussion_rand_seed])
-    profile.connection.execute("select setseed(#{seed_val})")
+    seed_val = ActiveRecord::Base.connection.quote(cookies[:_noosfero_proposals_discussion_rand_seed])
+    ActiveRecord::Base.connection.execute("select setseed(#{seed_val})")
   end
 
   def set_rand_cookie

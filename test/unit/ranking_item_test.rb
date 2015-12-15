@@ -22,4 +22,10 @@ class RankingItemTest < ActiveSupport::TestCase
     assert_equal 'body', proposal.ranking_item.body
   end
 
+  should 'return slug of a proposal' do
+    proposal = ProposalsDiscussionPlugin::Proposal.create!(:name => 'test', :abstract => 'abstract', :body => 'body', :profile => profile, :parent => discussion)
+    discussion.update_ranking
+    assert_equal proposal.slug, proposal.ranking_item.slug
+  end
+
 end

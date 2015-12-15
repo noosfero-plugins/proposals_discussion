@@ -4,6 +4,6 @@ class ProposalsDiscussionPlugin::RankingItem < ActiveRecord::Base
 
   attr_accessible :proposal, :abstract, :votes_for, :votes_against, :hits, :effective_support
 
-  delegate :body, :to => :proposal
+  delegate :body, :slug, :to => :proposal
 
 end

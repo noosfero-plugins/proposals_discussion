@@ -15,6 +15,12 @@ module Noosfero
         end
       end
 
+      class RankingItem < Entity
+        root :proposals, :proposal
+        expose :id, :position, :abstract, :body, :votes_for, :votes_against
+        expose :hits, :effective_support, :proposal_id, :created_at, :updated_at
+      end
+
     end
   end
 

@@ -6,8 +6,9 @@ class ProposalsDiscussionPlugin::API < Grape::API
     get ':id/ranking' do
       article = find_article(environment.articles, params[:id])
       current_page = paginate(article.ranking)
+      present(current_page, :with => Noosfero::API::Entities::RankingItem)
       #FIXME find a better way to get updated_at date
-      {:proposals => current_page, :updated_at => current_page.blank? ? DateTime.now : current_page.first.updated_at}
+      present :updated_at, current_page.blank? ? DateTime.now : current_page.first.updated_at
     end
 
     post ':id/propose' do

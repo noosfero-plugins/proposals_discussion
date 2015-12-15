@@ -16,4 +16,10 @@ class RankingItemTest < ActiveSupport::TestCase
     assert proposal.ranking_item
   end
 
+  should 'return body of a proposal' do
+    proposal = ProposalsDiscussionPlugin::Proposal.create!(:name => 'test', :abstract => 'abstract', :body => 'body', :profile => profile, :parent => discussion)
+    discussion.update_ranking
+    assert_equal 'body', proposal.ranking_item.body
+  end
+
 end

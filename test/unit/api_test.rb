@@ -51,11 +51,11 @@ class APITest <  ActiveSupport::TestCase
 
   should 'sanitize proposal' do
     discussion = fast_create(ProposalsDiscussionPlugin::Discussion, :profile_id => user.person.id)
-    topic = fast_create(ProposalsDiscussionPlugin::Topic, 
-      :profile_id => user.person.id, 
+    topic = fast_create(ProposalsDiscussionPlugin::Topic,
+      :profile_id => user.person.id,
       :parent_id => discussion.id)
-    params[:article] = {:name => "Proposal name", :abstract => "Proposal <iframe>Test</iframe> abstract", 
-      :type => 'ProposalsDiscussionPlugin::Proposal', 
+    params[:article] = {:name => "Proposal name", :abstract => "Proposal <iframe>Test</iframe> abstract",
+      :type => 'ProposalsDiscussionPlugin::Proposal',
       :body => "This is a malicious body <iMg SrC=x OnErRoR=document.documentElement.innerHTML=1>SearchParam"}
     assert_difference "ProposalsDiscussionPlugin::ProposalTask.count" do
       post "/api/v1/proposals_discussion_plugin/#{topic.id}/propose?#{params.to_query}"

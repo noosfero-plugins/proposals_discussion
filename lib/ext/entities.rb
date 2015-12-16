@@ -19,7 +19,7 @@ module Noosfero
         root :proposals, :proposal
         expose :id, :position, :abstract, :body, :votes_for, :votes_against
         expose :hits, :effective_support, :proposal_id, :created_at
-        expose :updated_at, :slug
+        expose :updated_at, :slug, :categories
       end
 
     end

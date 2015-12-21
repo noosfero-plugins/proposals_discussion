@@ -9,6 +9,8 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   has_one :ranking_item
 
+  after_save :inherit_parent_categories
+
   def self.short_description
     _("Proposal")
   end
@@ -67,6 +69,11 @@ class ProposalsDiscussionPlugin::Proposal < TinyMceArticle
 
   def can_display_versions?
     false
+  end
+
+  def inherit_parent_categories
+    return if parent.nil?
+    categories << parent.categories
   end
 
 end

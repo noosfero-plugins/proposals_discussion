@@ -83,4 +83,12 @@ class ProposalTaskTest < ActiveSupport::TestCase
     assert task.information.present?
   end
 
+  should 'create a proposal with category when accept a task' do
+    c1 = fast_create(Category)
+    discussion.categories << c1
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article_parent_id => @discussion.id, :article => {:name => 'proposal 1', :abstract => 'proposal 1', :type => "ProposalsDiscussionPlugin::Proposal"})
+    task.perform
+    assert_equal [c1], ProposalsDiscussionPlugin::Proposal.last.categories
+  end
+
 end

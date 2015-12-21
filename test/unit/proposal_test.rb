@@ -172,4 +172,13 @@ class ProposalTest < ActiveSupport::TestCase
     assert_match "Parent of Response needs be a Proposal", err.message
   end
 
+  should 'inherit categories from parent when save' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category)
+    proposal.categories << c1
+    discussion.categories << c2
+    proposal.save!
+    assert_equivalent [c1, c2], proposal.categories
+  end
+
 end

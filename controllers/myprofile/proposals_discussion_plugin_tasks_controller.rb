@@ -78,4 +78,11 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
   end
 
+  def undo_flags
+    if params[:tasks].present?
+      ProposalsDiscussionPlugin::ProposalTask.undo_flags params[:tasks], current_user
+    end
+    redirect_to :controller => 'tasks', :action => 'processed', :filter => {type: 'ProposalsDiscussionPlugin::ProposalTask'}
+  end
+
 end

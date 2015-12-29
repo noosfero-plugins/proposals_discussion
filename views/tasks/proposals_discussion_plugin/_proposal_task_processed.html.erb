@@ -2,6 +2,7 @@
   <b><%= _('Source') %>:</b> <%= task.proposal_source %>
 </div>
 <div class="title">
+  <input type="checkbox" name="tasks[]" value="<%=task.id%>"
   <%= task_information(task) %>
 </div>
 <div class="status">

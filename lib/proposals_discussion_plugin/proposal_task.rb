@@ -20,6 +20,8 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   settings_items :article, :type => Hash, :default => {}
   settings_items :closing_statment, :article_parent_id
 
+  attr_accessible :requestor, :target, :article, :status, :end_date, :closed_by
+
 
   scope :pending_evaluated, lambda { |profile, filter_type, filter_text|
     self
@@ -128,6 +130,20 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     end
   end
 
+  def self.undo_flags(tasks, user)
+    fields = "status = #{Task::Status::ACTIVE}, end_date = NULL, closed_by_id = #{user.id}"
+    result = self.update_all(fields, ["id IN (?)",tasks])
+    result
+  end
+
+  def undo_flag(user)
+    if flagged?
+      self.status = Task::Status::ACTIVE
+      self.end_date = nil
+      self.closed_by = user
+      self.save!
+    end
+  end
 
   def schedule_spam_checking
     self.delay.check_for_spam

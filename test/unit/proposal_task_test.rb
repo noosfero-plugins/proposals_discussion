@@ -77,7 +77,7 @@ class ProposalTaskTest < ActiveSupport::TestCase
     assert_equal person2, task.responsible
   end
 
-  should 'undo proposal task reject flag' do
+  should 'undo flags from one or more proposal tasks' do
     role1 = Role.create!(:name => 'profile_role2', :permissions => ['perform_task'], :environment => Environment.default)
     role2 = Role.create!(:name => 'profile_role', :permissions => ['view_tasks'], :environment => Environment.default)
 
@@ -100,6 +100,27 @@ class ProposalTaskTest < ActiveSupport::TestCase
 
     assert_equal [false,false], [task.flagged?,task_two.flagged?]
     assert_equal [Task::Status::ACTIVE,Task::Status::ACTIVE], [task.status, task_two.status]
+  end
+
+  should 'undo flags from a specific proposal task' do
+    role1 = Role.create!(:name => 'profile_role2', :permissions => ['perform_task'], :environment => Environment.default)
+    role2 = Role.create!(:name => 'profile_role', :permissions => ['view_tasks'], :environment => Environment.default)
+
+    person1 = fast_create(Person)
+    person1.define_roles([role1], profile)
+    person2 = fast_create(Person)
+    person2.define_roles([role2], profile)
+
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal', :abstract => 'proposal'})
+    task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
+    task.flag_reject_proposal(person1)
+    assert task.flagged?
+
+    task.undo_flags(person)
+    task.reload
+
+    assert_equal false, task.flagged?
+    assert_equal Task::Status::ACTIVE, task.status
   end
 
   should 'do not fail on task information with integer as abstract' do

@@ -132,11 +132,13 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
 
   def self.undo_flags(tasks, user)
     fields = "status = #{Task::Status::ACTIVE}, end_date = NULL, closed_by_id = #{user.id}"
-    result = self.update_all(fields, ["id IN (?)",tasks])
+    conditions = "status = #{Status::FLAGGED_FOR_REPROVAL} OR status = #{Status::FLAGGED_FOR_APPROVAL}"
+
+    result = self.where(conditions).update_all(fields, ["id IN (?)",tasks])
     result
   end
 
-  def undo_flag(user)
+  def undo_flags(user)
     if flagged?
       self.status = Task::Status::ACTIVE
       self.end_date = nil

@@ -80,7 +80,10 @@ class ProposalsDiscussionPluginTasksController < TasksController
 
   def undo_flags
     if params[:tasks].present?
-      ProposalsDiscussionPlugin::ProposalTask.undo_flags params[:tasks], current_user
+      result = ProposalsDiscussionPlugin::ProposalTask.undo_flags params[:tasks], current_user
+      unless result
+        session[:notice] = _("Error to undo flags. Please, verify with the admin")
+      end
     end
     redirect_to :controller => 'tasks', :action => 'processed', :filter => {type: 'ProposalsDiscussionPlugin::ProposalTask'}
   end

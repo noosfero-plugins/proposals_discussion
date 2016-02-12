@@ -7,6 +7,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   association_foreign_key: :category_id
 
   has_one :proposal_evaluation
+  belongs_to :article_obj, class_name: 'Article', foreign_key:'article_id'
 
   validates_presence_of :requestor_id, :target_id
   validates_associated :article_object
@@ -20,7 +21,7 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   settings_items :article, :type => Hash, :default => {}
   settings_items :closing_statment, :article_parent_id
 
-  attr_accessible :requestor, :target, :article, :status, :end_date, :closed_by
+  attr_accessible :requestor, :target, :article, :article_obj, :article_parent_id, :status, :end_date, :closed_by
 
 
   scope :pending_evaluated, lambda { |profile, filter_type, filter_text|
@@ -131,18 +132,26 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def self.undo_flags(tasks, user)
+    self.disable_article(tasks)
+
     fields = "status = #{Task::Status::ACTIVE}, end_date = NULL, closed_by_id = #{user.id}"
-    conditions = "status = #{Status::FLAGGED_FOR_REPROVAL} OR status = #{Status::FLAGGED_FOR_APPROVAL}"
+    conditions = "status != #{Task::Status::ACTIVE}"
 
     result = self.where(conditions).update_all(fields, ["id IN (?)",tasks])
-    result
+
   end
 
   def undo_flags(user)
     if flagged?
+      if flagged_for_approval?
+        self.article_obj.published = false
+        self.article_obj.save!
+      end
+
       self.status = Task::Status::ACTIVE
       self.end_date = nil
       self.closed_by = user
+
       self.save!
     end
   end
@@ -155,6 +164,13 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
     requestor.name if requestor
   end
 
+  def self.disable_article(tasks,id = nil)
+
+    conditions = "tasks.status = #{Status::FLAGGED_FOR_APPROVAL} OR tasks.status = #{Task::Status::FINISHED}"
+    Article.joins(:task).where(conditions).update_all('published = false, published_at = NULL', ["tasks.id IN (?)",tasks])
+
+  end
+
   def article_parent=(parent)
     @article_parent = parent
   end
@@ -164,12 +180,15 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def article_object
-    if @article_object.nil?
-      @article_object = article_type.new(article.merge(target.present? ? {:profile => target} : {}).except(:type))
-      @article_object.parent = article_parent
-      @article_object.author = requestor if requestor.present?
+    if self.article_obj.nil?
+      self.article_obj = article_type.new(article.merge(target.present? ? {:profile => target} : {}).except(:type))
+      self.article_obj.parent = article_parent
+      self.article_obj.author = requestor if requestor.present?
+    else
+      self.article_obj.published = true
+      self.article_obj.published_at = Time.now
     end
-    @article_object
+    self.article_obj
   end
 
   def article_type
@@ -181,8 +200,9 @@ class ProposalsDiscussionPlugin::ProposalTask < Task
   end
 
   def perform
-    article_object.save!
-    self.data[:article][:id] = article_object[:id]
+    self.article_obj = article_object
+    self.article_obj.save!
+    self.data[:article][:id] = self.article_obj.id
     self.save!
   end
 

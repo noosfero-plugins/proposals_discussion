@@ -89,10 +89,13 @@ class ProposalTaskTest < ActiveSupport::TestCase
     task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal 1', :abstract => 'proposal 1'})
     task_two = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal 2', :abstract => 'proposal 2'})
     task.categories = task_two.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
-    task.flag_reject_proposal(person2)
-    task_two.flag_reject_proposal(person2)
+    task.flag_accept_proposal(person2)
+    task_two.flag_accept_proposal(person2)
     assert task.flagged?
     assert task_two.flagged?
+
+    task.perform
+    task_two.perform
 
     ProposalsDiscussionPlugin::ProposalTask.undo_flags([task.id,task_two.id], person)
     task.reload
@@ -100,6 +103,7 @@ class ProposalTaskTest < ActiveSupport::TestCase
 
     assert_equal [false,false], [task.flagged?,task_two.flagged?]
     assert_equal [Task::Status::ACTIVE,Task::Status::ACTIVE], [task.status, task_two.status]
+    assert_equal [false,false], [task.article_obj.published,task_two.article_obj.published]
   end
 
   should 'undo flags from a specific proposal task' do
@@ -113,14 +117,47 @@ class ProposalTaskTest < ActiveSupport::TestCase
 
     task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal', :abstract => 'proposal'})
     task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
-    task.flag_reject_proposal(person1)
+    task.flag_accept_proposal(person1)
     assert task.flagged?
+
+    task.perform
 
     task.undo_flags(person)
     task.reload
 
     assert_equal false, task.flagged?
     assert_equal Task::Status::ACTIVE, task.status
+    assert_equal false, task.article_obj.published
+
+  end
+
+  should 'redo flags from a specific proposal task' do
+    role1 = Role.create!(:name => 'profile_role2', :permissions => ['perform_task'], :environment => Environment.default)
+    role2 = Role.create!(:name => 'profile_role', :permissions => ['view_tasks'], :environment => Environment.default)
+
+    person1 = fast_create(Person)
+    person1.define_roles([role1], profile)
+    person2 = fast_create(Person)
+    person2.define_roles([role2], profile)
+
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article => {:name => 'proposal', :abstract => 'proposal'})
+    task.categories = [fast_create(ProposalsDiscussionPlugin::TaskCategory)]
+    task.flag_accept_proposal(person1)
+    assert task.flagged?
+
+    task.perform
+
+    task.undo_flags(person)
+    task.reload
+
+    assert_equal false, task.flagged?
+    assert_equal Task::Status::ACTIVE, task.status
+    assert_equal false, task.article_obj.published
+
+    task.flag_accept_proposal(person1)
+    task.perform
+
+    assert_equal true, task.article_obj.published
   end
 
   should 'do not fail on task information with integer as abstract' do
@@ -132,9 +169,10 @@ class ProposalTaskTest < ActiveSupport::TestCase
   should 'create a proposal with category when accept a task' do
     c1 = fast_create(Category)
     discussion.categories << c1
-    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article_parent_id => @discussion.id, :article => {:name => 'proposal 1', :abstract => 'proposal 1', :type => "ProposalsDiscussionPlugin::Proposal"})
+
+    task = ProposalsDiscussionPlugin::ProposalTask.create!(:requestor => person, :target => profile, :article_parent_id => @discussion.id, :article => {:name => 'proposal 1', :abstract => 'proposal 1', :type => 'ProposalsDiscussionPlugin::Proposal'})
     task.perform
-    assert_equal [c1], ProposalsDiscussionPlugin::Proposal.last.categories
+    assert_equal c1, ProposalsDiscussionPlugin::Proposal.last.categories.first
   end
 
 end

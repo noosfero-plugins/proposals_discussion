@@ -16,8 +16,7 @@ class TaskCategoryTest < ActiveSupport::TestCase
     task_data = {
       article: {name: "test proposal", abstract: "teste adadd"},
       requestor: person,
-      target:  profile,
-      spam: false
+      target:  profile
     }
 
     task = ProposalsDiscussionPlugin::ProposalTask.new task_data
@@ -35,8 +34,7 @@ class TaskCategoryTest < ActiveSupport::TestCase
     task_data = {
       article: {name: "test proposal", abstract: "teste adadd"},
       requestor: person,
-      target:  profile,
-      spam: false
+      target:  profile
     }
 
     task = ProposalsDiscussionPlugin::ProposalTask.create! task_data
@@ -51,8 +49,7 @@ class TaskCategoryTest < ActiveSupport::TestCase
     task_data = {
       article: {name: "test proposal", abstract: "teste adadd"},
       requestor: person,
-      target:  profile,
-      spam: false
+      target:  profile
     }
     task = ProposalsDiscussionPlugin::ProposalTask.create! task_data
     evaluated_by = false
